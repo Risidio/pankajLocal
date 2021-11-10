@@ -125,7 +125,7 @@ footer .container {
 }
 
 footer a {
-  color: #fff;
+  color: #fff !important;
 }
 
 /* FOOTER LOGO COLUMN */
@@ -142,6 +142,7 @@ footer .navbar-brand {
 .footer__pitch {
   margin: 30px 0;
   font-size: 1.2rem;
+  color: #fff;
 }
 
 /* FOOTER CONTENT COLUMN */
