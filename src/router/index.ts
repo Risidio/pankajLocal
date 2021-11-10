@@ -80,12 +80,12 @@ const routes: Array<RouteConfig> = [
     components: { default: NftMarketplace, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
   },
-  {
-    path: '/punk-minter/:maker/:collection',
-    name: 'punk-minter',
-    components: { default: PunkMinter, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
-  },
+  // {
+  //   path: '/punk-minter/:maker/:collection',
+  //   name: 'punk-minter',
+  //   components: { default: PunkMinter, header: MainNavbar, footer: MainFooter },
+  //   meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
+  // },
   {
     path: '/nft-marketplace/:maker/:collection',
     name: 'nft-collection',
