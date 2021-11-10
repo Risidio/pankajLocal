@@ -146,9 +146,9 @@ export default {
       this.$store.dispatch('rpayAuthStore/startLogout').then(() => {
         // localStorage.clear()
         // sessionStorage.clear()
-        if (this.$route.name !== 'splash') {
-          this.$router.push('/')
-        }
+        // if (this.$route.name !== 'splash') {
+        //   this.$router.push('/')
+        // }
       })
     },
     startLogin () {
