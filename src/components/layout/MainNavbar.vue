@@ -1,33 +1,28 @@
 <template>
 <div>
-  <div class="navbar_container">
-    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
-  </div>
-  <div>
-    <b-navbar toggleable="lg" type="dark" variant="">
-    <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo"/></router-link>
-
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav class="text-center" >
-          <b-navbar-nav v-if=" profile.loggedIn" class="pb-3 pt-3">
-            <b-nav-item href="#"> Gallery </b-nav-item>
-            <b-nav-item href="#"> Collections </b-nav-item>
-          </b-navbar-nav>
-          <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto" v-if=" profile.loggedIn">
-              <b-nav-item href="#">About Risidio</b-nav-item>
-              <b-nav-item href="#">How It Works</b-nav-item>
-              <b-button to="/my_account" pill variant="outline-secondary" class="btn btn-outline-light"> My NFT's </b-button>
-          </b-navbar-nav>
-          <b-navbar-nav v-else>
-            <b-nav-item href="#"> Gallery </b-nav-item>
-            <b-nav-item href="#"> Collections </b-nav-item>
-            <b-nav-item @click.prevent="startLogin(); events();" id="login" class =" nav-items text-white">Login</b-nav-item>
+<div class="navbar_container">
+   <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
+</div>
+  <div class = "mainNavbar">
+        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo"/></router-link>
+        <a href= "#" class = "toggle-button" v-on:click="mobileNavebar()">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+        <div v-if=" profile.loggedIn" class="navbar_links">
+            <router-link class="nav-items" to="/">Gallery</router-link>
+            <router-link class="nav-items" to="/">Collections</router-link>
+            <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
+            <router-link class="nav-items text-white" to="/about">About Risidio </router-link>
+            <router-link class="nav-items navBtn" to="/my_account"> My NFT's </router-link>
+        </div>
+         <div v-else class="navbar_links_not_logged">
+            <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
+            <router-link class="nav-items text-white" to="/about">About Risidio </router-link>
+            <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-white">Login</div>
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-white" id="register" v-on:click="startRegister()"> Register <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div>
-          </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+        </div>
   </div>
 </div>
 </template>
@@ -43,7 +38,6 @@ export default {
     return {
       query: null,
       banner: 'https://images.prismic.io/digirad/6e5bb3a5-21b7-4bcb-b5a7-85128b6e6e8a_Rumba_bg_small.png?auto=compress,format',
-      // logo: 'https://images.prismic.io/digirad/136adb87-c542-4439-8bcc-7199007290cc_Groupe+16068%402x.png?auto=compress,format',
       logo: require('@/assets/img/risidio_white_logo.svg'),
       isHidden: false
     }
@@ -81,12 +75,10 @@ export default {
     mobileNavebar () {
       const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
       if (myProfile.loggedIn) {
-        const navStart = document.getElementsByClassName('nav-start')[0]
-        const navEnd = document.getElementsByClassName('nav-end')[0]
+        const navLogged = document.getElementsByClassName('navbar_links')[0]
         const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
-        navStart.classList.toggle('active')
-        navEnd.classList.toggle('active')
         mainNavbar.classList.toggle('active')
+        navLogged.classList.toggle('active')
         console.log('active profile')
       } else {
         const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
@@ -172,7 +164,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .mainNavbar{
   display: flex;
   width: 90vw;
@@ -185,43 +176,14 @@ export default {
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 128px;
+  height: 100px;
   object-fit: cover;
   z-index: -11;
-}
-
-.nav-start{
-  justify-items: flex-start;
-  align-items: flex-start;
-  color: white;
-  padding: 20px;
-  font-size: 1.2rem;
-}
-// .nav-start:hover{
-//   color: white;
-// }
-.nav-end{
-  justify-self: flex-end;
-  align-self: flex-end;
-  color: white;
-  padding: 20px;
-  font-size: 1.2rem;
-  width:fit-content;
 }
 .nav-start:hover{
   color: white;
 }
-
-.navbar_links_not_logged{
-  justify-content: flex-end;
-  align-content: flex-end ;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-.navbar_links{
-  justify-content: space-between;
-  align-content: space-between ;
+.navbar_links_not_logged, .navbar_links{
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -244,7 +206,6 @@ export default {
 }
 .nav-items{
   padding: 20px;
-  width: 12rem;
   font-size: 1.2rem;
   text-align: center;
   margin-top: 0px;
@@ -259,10 +220,9 @@ export default {
   background: rgba(255, 255, 255, 0.247);
   padding: 15px;
   border-radius: 50px;
-  margin-top: 8px;
-  margin-left: 5px;
-  width: 12rem;
-  height: 4rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-height: 50px;
   text-align: center;
   justify-items: center;
   align-items: center;
@@ -293,10 +253,7 @@ export default {
     flex-direction:column;
     z-index: 1000;
   }
-  .nav-start, .nav-end {
-    display: none;
-  }
-  .navbar_links_not_logged{
+  .navbar_links_not_logged, .navbar_links{
     display: none;
   }
   .login{
@@ -305,18 +262,18 @@ export default {
     margin-right:auto;
     margin-top: 20px;
   }
-  .navbar_links_not_logged.active{ display: flex;}
-  .nav-start.active, .nav-end.active{
+  .nav-items{
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  .navbar_links.active, .navbar_links_not_logged.active{
     display:flex;
     padding: 15px;
     width:100%;
     flex-direction: column;
-    .nav-items{
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
 
+  }
   .mainNavbar.active{
     position:absolute;
     left: 0;
@@ -355,7 +312,6 @@ export default {
     .registerTooltip{
       margin-top: 25px;
       align-self: center;
-
     }
   }
 }
