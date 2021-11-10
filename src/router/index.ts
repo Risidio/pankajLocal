@@ -16,8 +16,8 @@ import Information from '../views/Information.vue'
 import ExhibitHere from '../views/ExhibitHere.vue'
 import ManageProfile from '../views/ManageProfile.vue'
 
-const Homepage = () => import('../views/Homepage.vue')
-const NumberOne = () => import('../views/NumberOne.vue')
+// const Homepage = () => import('../views/Homepage.vue')
+// const NumberOne = () => import('../views/NumberOne.vue')
 
 const Charity = () => import('../views/Charity.vue')
 const About = () => import('../views/About.vue')
@@ -56,27 +56,15 @@ const isPermitted = function (to, profile) {
     }
     return profile.loggedIn
   } else {
-    return true
+    return false
   }
 }
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'splash',
-    components: { default: NumberOne, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
-  },
-  {
-    path: '/home',
     name: 'home',
-    components: { default: Homepage, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
-  },
-  {
-    path: '/number-one',
-    name: 'number-one',
-    components: { default: NumberOne, header: MainNavbar, footer: MainFooter },
+    components: { default: NftGallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
   },
   {
@@ -109,7 +97,7 @@ const routes: Array<RouteConfig> = [
     name: 'exhibit-here',
     components: { default: ExhibitHere, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false,
       title: 'Join #1 and exhibit your artwork in decentralised gallery and marketplace'
     }
@@ -131,7 +119,7 @@ const routes: Array<RouteConfig> = [
     name: 'profile',
     components: { default: ManageProfile, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false,
       title: 'Manage Profile'
     }
@@ -171,7 +159,7 @@ const routes: Array<RouteConfig> = [
     name: 'nft-preview',
     components: { default: ItemPreview, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false,
       title: 'NFT Preview'
     }
@@ -181,7 +169,7 @@ const routes: Array<RouteConfig> = [
     name: 'item-preview',
     components: { default: ItemPreview, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false,
       title: 'Item preview'
     }
@@ -191,7 +179,7 @@ const routes: Array<RouteConfig> = [
     name: 'edit-item',
     components: { default: UpdateItem, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false
     }
   },
@@ -200,7 +188,7 @@ const routes: Array<RouteConfig> = [
     name: 'upload-item',
     components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false
     }
   },
@@ -209,7 +197,7 @@ const routes: Array<RouteConfig> = [
     name: 'my-nfts',
     components: { default: MyNftLibrary, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false
     }
   },
@@ -218,7 +206,7 @@ const routes: Array<RouteConfig> = [
     name: 'my-nfts',
     components: { default: MyNftLibrary, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       requiresAdmin: false
     }
   },
@@ -230,8 +218,8 @@ const routes: Array<RouteConfig> = [
     name: 'registry',
     components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -239,8 +227,8 @@ const routes: Array<RouteConfig> = [
     name: 'registry',
     components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -248,8 +236,8 @@ const routes: Array<RouteConfig> = [
     name: 'registry-section',
     components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -257,8 +245,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-privileges',
     components: { default: ManagePrivileges, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -266,8 +254,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-offers',
     components: { default: ManageOffers, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -275,8 +263,8 @@ const routes: Array<RouteConfig> = [
     name: 'exhibit-requests',
     components: { default: ManageRequests, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -284,8 +272,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-royalties',
     components: { default: ManageRoyalties, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -293,8 +281,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-collections',
     components: { default: ManageCollections, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -302,8 +290,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-collection',
     components: { default: ManageCollection, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -311,8 +299,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-allocation',
     components: { default: ManageAllocation, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -320,8 +308,8 @@ const routes: Array<RouteConfig> = [
     name: 'manage-collection',
     components: { default: ManageCollection, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   },
   {
@@ -329,8 +317,8 @@ const routes: Array<RouteConfig> = [
     name: 'app-admin',
     components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
     meta: {
-      requiresAuth: true,
-      requiresAdmin: true
+      requiresAuth: false,
+      requiresAdmin: false
     }
   }
 ]
