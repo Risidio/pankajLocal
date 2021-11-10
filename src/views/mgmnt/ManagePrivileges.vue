@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       loaded: false,
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
+      // cross: require('@/assets/img/navbar-footer/cross.svg'),
       authorisations: null,
       modalAuth: null
     }

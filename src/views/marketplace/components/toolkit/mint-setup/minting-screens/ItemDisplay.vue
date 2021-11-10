@@ -26,7 +26,7 @@ export default {
   props: ['item', 'loopRun'],
   data () {
     return {
-      hashone: require('@/assets/img/phase2/No1_outline.png')
+      // hashone: require('@/assets/img/phase2/No1_outline.png')
     }
   },
   methods: {

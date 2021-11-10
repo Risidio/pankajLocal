@@ -132,8 +132,8 @@ export default {
   data: function () {
     return {
       forceOfferFlow: false,
-      grid: require('@/assets/img/navbar-footer/grid.svg'),
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
+      // grid: require('@/assets/img/navbar-footer/grid.svg'),
+      // cross: require('@/assets/img/navbar-footer/cross.svg'),
       hammer: require('@/assets/img/auction.svg'),
       showRpay: 0,
       nftIndex: -1,

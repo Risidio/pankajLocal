@@ -24,7 +24,7 @@ export default {
     return {
       componentKey: 0,
       loaded: false,
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
+      // cross: require('@/assets/img/navbar-footer/cross.svg'),
       exhibitRequests: null,
       modalAuth: null,
       statusLabels: ['pending', 'approved', 'suspended']

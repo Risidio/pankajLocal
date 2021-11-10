@@ -61,7 +61,7 @@ export default {
   },
   data () {
     return {
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
+      // cross: require('@/assets/img/navbar-footer/cross.svg'),
       filter: {
         contractId: process.env.VUE_APP_STACKS_CONTRACT_ADDRESS + '.' + process.env.VUE_APP_STACKS_CONTRACT_NAME,
         assetHash: null,

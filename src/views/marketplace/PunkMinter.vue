@@ -59,7 +59,7 @@
                     Public minting starts soons
                   </div>
                 </div>
-                <div class="mt-4 pt-4 border-top text-right"><img :src="hashone" /></div>
+                <!-- <div class="mt-4 pt-4 border-top text-right"><img :src="hashone" /></div> -->
               </b-col>
             </b-row>
           </b-col>
@@ -107,7 +107,7 @@ export default {
   },
   data () {
     return {
-      hashone: require('@/assets/img/phase2/No1_outline.png'),
+      // hashone: require('@/assets/img/phase2/No1_outline.png'),
       waitingImage: 'https://images.prismic.io/radsoc/f60d92d0-f733-46e2-9cb7-c59e33a15fc1_download.jpeg?auto=compress,format',
       loaded: false,
       batchOption: 1,

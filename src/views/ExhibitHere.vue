@@ -29,7 +29,7 @@ export default {
   },
   data () {
     return {
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
+      // cross: require('@/assets/img/navbar-footer/cross.svg'),
       showForm: false,
       loaded: false,
       exhibitRequest: {}

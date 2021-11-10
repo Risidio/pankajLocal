@@ -30,8 +30,8 @@ export default {
   },
   data () {
     return {
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
-      logoRainbow: require('@/assets/img/logo-rainbow.svg')
+      // cross: require('@/assets/img/navbar-footer/cross.svg'),
+      // logoRainbow: require('@/assets/img/logo-rainbow.svg')
     }
   },
   methods: {
