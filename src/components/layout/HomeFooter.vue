@@ -32,10 +32,10 @@ export default {
 .footer-container {
   font-size: 1.4rem;
   padding: 90px 24px 24px;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 .footer-container a, .footer-container a:hover {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 /* FOOTER TOP ROW STYLE */
