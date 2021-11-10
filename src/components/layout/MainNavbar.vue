@@ -1,306 +1,362 @@
 <template>
 <div>
-<b-navbar toggleable="sm" class="p-4" :fixed="getFixed()" type="dark" :variant="bgVariant()">
-  <b-navbar-brand href="#"><b-link to="/"><img height="30px" :src="logo" /></b-link></b-navbar-brand>
+  <div class="navbar_container">
+    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
+  </div>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="">
+    <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo"/></router-link>
 
-  <b-navbar-toggle target="nav-collapse" class="text-white">
-    <template #default="{ expanded }">
-      <img width="60px" height="30px" class="text-white" v-if="expanded" :src="cross">
-      <img width="60px" height="30px" class="text-white" v-else :src="grid">
-    </template>
-  </b-navbar-toggle>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-  <b-sidebar id="my-sidebar" backdrop sidebar-class="border-left border-secondary" bg-variant="black" text-variant="white" aria-label="Sidebar" right>
-    <template #default="{ hide }">
-      <div class="text-center">
-        <div><b-link class="text-white top-content" to="/about"><img height="30px" :src="wtf" alt="about link"/></b-link></div>
-        <div v-if="profile.loggedIn" class="border-bottom py-5 mt-5 my-4 text-white text-center">
-          <div>
-            <span class="mr-3 stx-username">{{profile.username}}</span>
-          </div>
-          <div class="text-small mt-0" v-if="profile.username !== profile.stxAddress">
-            <span class="text-warning">{{profile.stxAddress}}</span>
-          </div>
-          <div v-if="profile.accountInfo" class="text-small">
-            <span class="mr-5"><a style="font-size: 1.2rem;" :href="getStacksMateUrl" v-b-tooltip.hover="{ variant: 'light' }" :title="'Top up your Stacks at Stacks Mate'" class="text-white text-small ml-3" target="_blank">Balance:</a> <span class="text-warning">{{profile.accountInfo.balance}}</span> STX</span>
-          </div>
-        </div>
-        <div class="mb-5"><b-link to="/nft-gallery">Gallery</b-link></div>
-        <div class="mb-5" v-if="!canUpload()">
-          <b-link v-if="profile.loggedIn" to="/exhibit-here">Apply to Exhibit</b-link>
-          <b-link v-else to="/login?redirect=%2Fexhibit-here">Exhibit Here?</b-link>
-        </div>
-        <div class="mb-5" v-if="canUpload()"><b-link to="/upload-item">Create NFT</b-link></div>
-        <div class="mb-5" v-if="profile.loggedIn"><b-link to="/profile">My Profile</b-link></div>
-        <div class="mb-5 pb-5 border-bottom" v-if="profile.loggedIn"><b-link to="/my-nfts">My NFTs</b-link></div>
-        <div class="mb-5" v-if="profile.superAdmin"><b-link to="/mgmnt/registry">Admin</b-link></div>
-        <div class="mb-5" v-if="!profile.loggedIn && webWalletNeeded">
-          <h1><a :href="webWalletLink" target="_blank">Get a Stacks Web Wallet <b-icon class="ml-3 mb-3" icon="arrow-up-right-square-fill"/></a></h1>
-        </div>
-        <div class="mb-5" @click="hide" v-if="profile.loggedIn"><b-link @click.prevent="logout()">Logout</b-link></div>
-      </div>
-    </template>
-  </b-sidebar>
-
-  <b-collapse id="nav-collapse" is-nav align="right">
-    <b-navbar-nav class="ml-auto">
-      <b-nav-item v-if="profile.loggedIn && profile.superAdmin" class="mt-3 mr-4 mt-0 d-none d-lg-block d-xl-none" to="/mgmnt/registry">Admin</b-nav-item>
-      <b-nav-item v-if="profile.loggedIn" class="mt-3 mr-4 mt-0" to="/my-nfts"><span class="mr-3"><img :src="listPoint"/></span> My NFTs</b-nav-item>
-      <b-nav-item v-if="profile.loggedIn" class="mt-3 mr-4 mt-0" to="/nft-marketplace"><span class="mr-3"><img :src="listPoint"/></span>Marketplace</b-nav-item>
-      <b-nav-item v-if="profile.loggedIn && canUpload()" class="mt-3 mr-4 mt-0" to="/upload-item"><span class="mr-3"><img :src="listPoint"/></span>Upload</b-nav-item>
-      <!-- <b-nav-item class="mb-5" to="/about"><img height="15px" :src="wtf" alt="about link"/></b-nav-item> -->
-      <b-nav-item v-if="profile.loggedIn" class="mr-4"><a v-b-toggle.my-sidebar class="nav-text" ><b-icon icon="person" font-scale="2" class="mb-3 mr-0"/></a></b-nav-item>
-      <b-nav-item v-else class="mt-3 text-big text-white" @click.prevent="startLogin()" href="#">Login</b-nav-item>
-      <MempoolReader/>
-    </b-navbar-nav>
-  </b-collapse>
-</b-navbar>
-<div class="d-flex justify-content-end mr-5">
-</div>
+      <b-collapse id="nav-collapse" is-nav class="text-center" >
+          <b-navbar-nav v-if=" profile.loggedIn" class="pb-3 pt-3">
+            <b-nav-item href="#"> Gallery </b-nav-item>
+            <b-nav-item href="#"> Collections </b-nav-item>
+          </b-navbar-nav>
+          <!-- Right aligned nav items -->
+          <b-navbar-nav class="ml-auto" v-if=" profile.loggedIn">
+              <b-nav-item href="#">About Risidio</b-nav-item>
+              <b-nav-item href="#">How It Works</b-nav-item>
+              <b-button to="/my_account" pill variant="outline-secondary" class="btn btn-outline-light"> My NFT's </b-button>
+          </b-navbar-nav>
+          <b-navbar-nav v-else>
+            <b-nav-item href="#"> Gallery </b-nav-item>
+            <b-nav-item href="#"> Collections </b-nav-item>
+            <b-nav-item @click.prevent="startLogin(); events();" id="login" class =" nav-items text-white">Login</b-nav-item>
+            <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-white" id="register" v-on:click="startRegister()"> Register <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div>
+          </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </div>
 </template>
 
 <script>
-import MempoolReader from '@/components/utils/MempoolReader'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'MainNavbar',
   components: {
-    MempoolReader
   },
   data () {
     return {
-      wtf: 'https://images.prismic.io/dbid/5b31fbd1-ca16-4fa0-bd5c-2d82b3ef98cc_WTF.png?auto=compress,format',
-      logo: require('@/assets/img/navbar-footer/logo.svg'),
-      listPoint: require('@/assets/img/phase2/Nav_Divider.png'),
-      grid: require('@/assets/img/navbar-footer/grid.svg'),
-      cross: require('@/assets/img/navbar-footer/cross.svg'),
-      collapsed: true
+      query: null,
+      banner: 'https://images.prismic.io/digirad/6e5bb3a5-21b7-4bcb-b5a7-85128b6e6e8a_Rumba_bg_small.png?auto=compress,format',
+      // logo: 'https://images.prismic.io/digirad/136adb87-c542-4439-8bcc-7199007290cc_Groupe+16068%402x.png?auto=compress,format',
+      logo: require('@/assets/img/risidio_white_logo.svg'),
+      isHidden: false
     }
   },
   methods: {
-    bgVariant: function () {
-      if (this.$route.name === 'profile') return 'black'
-      return 'transparent'
-    },
-    gotoStacksMateUrl: function () {
-      location.href = this.getStacksMateUrl
-    },
-    canUpload () {
-      const hasUploadPriv = this.$store.getters[APP_CONSTANTS.KEY_HAS_PRIVILEGE]('can-upload')
-      return hasUploadPriv
-    },
-    startExhibit () {
-      if (!this.profile.loggedIn) {
-        this.$router.push('/login?redirect=exhibit-here')
-      } else {
-        this.$router.push('/exhibit-here')
-      }
-    },
-    showAbout () {
-      return this.$route.name === 'about'
-    },
-    getFixed () {
-      return (this.$route.name === 'about') ? 'top' : 'none'
-    },
-    getLogo () {
-      return this.logo
-    },
-    username () {
-      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      return profile.username
-    },
     logout () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-logout' })
       this.$store.dispatch('rpayAuthStore/startLogout').then(() => {
         if (this.$route.name !== 'home') {
           this.$router.push('/')
         }
+        // sessionStorage.clear()
       }).catch((err) => {
         console.log(err)
         this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
       })
     },
+    events () {
+      console.log('clicked')
+    },
     startLogin () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-login' })
       const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
       if (myProfile.loggedIn) {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          this.$store.dispatch('rpayCategoryStore/fetchLatestLoopRunForStxAddress', { currentRunKey: process.env.VUE_APP_DEFAULT_LOOP_RUN, stxAddress: profile.stxAddress }, { root: true })
+          console.log(profile)
+          location.reload()
         }).catch(() => {
-          this.$store.dispatch('rpayCategoryStore/fetchLatestLoopRunForAnon', { currentRunKey: process.env.VUE_APP_DEFAULT_LOOP_RUN }, { root: true })
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
-          if (!this.profile.loggedIn) {
-            this.$router.push('/login?referer=navbar')
-          }
         })
       }
+    },
+    mobileNavebar () {
+      const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      if (myProfile.loggedIn) {
+        const navStart = document.getElementsByClassName('nav-start')[0]
+        const navEnd = document.getElementsByClassName('nav-end')[0]
+        const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
+        navStart.classList.toggle('active')
+        navEnd.classList.toggle('active')
+        mainNavbar.classList.toggle('active')
+        console.log('active profile')
+      } else {
+        const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
+        const notLogged = document.getElementsByClassName('navbar_links_not_logged')
+        mainNavbar.classList.toggle('active')
+        notLogged.classList.toggle('active')
+        console.log('active not profile')
+      }
+    },
+    startRegister () {
+      window.open('https://www.hiro.so/wallet', '_blank')
     }
   },
   computed: {
-    getStacksMateUrl () {
+    projects () {
+      const appmap = this.$store.getters[APP_CONSTANTS.KEY_REGISTRY]
+      if (appmap) return appmap.apps
+      return []
+    },
+    content () {
+      const content = this.$store.getters['contentStore/getHomepage']
+      return content
+    },
+    // bannerImage () {
+    //   return {
+    //     height: '128px',
+    //     width: '100%',
+    //     'background-repeat': 'no-repeat',
+    //     'background-image': `url(${this.banner})`,
+    //     'background-position': 'center center',
+    //     '-webkit-background-size': 'cover',
+    //     '-moz-background-size': 'cover',
+    //     '-o-background-size': 'cover',
+    //     'background-size': 'cover'
+    //   }
+    // },
+    showAdmin () {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      return this.$store.getters[APP_CONSTANTS.KEY_STACKS_MATE_URL](profile)
+      return profile.superAdmin || location.origin.indexOf('local') > -1
     },
-    webWalletLink () {
-      if (this.$browserDetect.isFirefox) {
-        return this.$store.getters[APP_CONSTANTS.KEY_WEB_WALLET_LINK_FIREFOX]
+    stxAddress () {
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      if (profile.wallet && profile.wallet.keyInfo.address) {
+        return profile.wallet.keyInfo.address.substring(0, 5) + '...' + profile.wallet.keyInfo.address.substring(profile.wallet.keyInfo.address.length - 5)
       }
-      return this.$store.getters[APP_CONSTANTS.KEY_WEB_WALLET_LINK_CHROME]
+      return 'n/a'
     },
-    webWalletNeeded () {
-      const webWalletNeeded = this.$store.getters[APP_CONSTANTS.KEY_WEB_WALLET_NEEDED]
-      return webWalletNeeded
+    username () {
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      if (!profile) {
+        return 'unknown'
+      } else if (profile.name && profile.name.length > 0) {
+        return profile.name
+      } else if (profile.username && profile.username.length > 0) {
+        return profile.username
+      } else {
+        return profile.identityAddress
+      }
+    },
+    avatar () {
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      if (profile.loggedIn) {
+        if (profile.avatarUrl) {
+          return (
+            '<img style="width: 30px; height: 30px; border-radius: 20px;" src="' +
+            profile.avatarUrl +
+            '"/>'
+          )
+        }
+      }
+      return null
     },
     profile () {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       return profile
     },
-    hasNfts () {
-      const purchased = this.$store.getters[APP_CONSTANTS.KEY_MY_PURCHASED_ITEMS]
-      return this.profile.loggedIn && purchased && purchased.length > 0
-    },
-    toggleIcon () {
-      return this.collapsed ? this.grid : this.cross
+    webWalletNeeded () {
+      const webWalletNeeded = this.$store.getters[APP_CONSTANTS.KEY_WEB_WALLET_NEEDED]
+      return webWalletNeeded
     }
   }
 }
 </script>
 
 <style lang="scss">
-/* NAVBAR GENERAL STYLE */
-.wtf-menu {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 80%;
-  min-height: 70vh;
+
+.mainNavbar{
+  display: flex;
+  width: 90vw;
+  margin: auto;
   margin-top: 20px;
-  padding: 30px 20px;
-  background-color: #000000;
 }
-.wtf-menu a {
-  font-size: 2.5rem;
-  margin-top: 30px;
-  color: #fff;
-}
-.top-content {
-  font-size: 2.6rem;
-}
-#one-nav nav {
-  height: 60px;
-}
-.navbar-light .navbar-nav .nav-link {
-    color: #fff;
-}
-
-.navbar-nav {
-  z-index: 4;
-}
-
-#one-nav .toggle-icon .nav-link {
-  padding: 0;
-}
-
-/* COLLAPSIBLE PART OF NAVBAR STYLE */
-#collapse {
+/* NAVBAR PADDING AND WIDTH */
+.nav_banner{
   position: absolute;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  background-color: #000000;
-  color: #ffffff;
   top: 0px;
-  text-align: center;
-  z-index: 3;
-  background-repeat: no-repeat;
-  background-size: cover;
-  transition: all 0.3s ease-out;
-}
-#collapse a {
-  color: #ffffff;
+  left: 0px;
+  width: 100%;
+  height: 128px;
+  object-fit: cover;
+  z-index: -11;
 }
 
-/* Top collapse section style */
-#collapse .top-content li {
-  list-style: none;
-  padding-top: 50px;
+.nav-start{
+  justify-items: flex-start;
+  align-items: flex-start;
+  color: white;
+  padding: 20px;
+  font-size: 1.2rem;
 }
-#collapse .top-content li a {
-  font-size: 3.5rem;
+// .nav-start:hover{
+//   color: white;
+// }
+.nav-end{
+  justify-self: flex-end;
+  align-self: flex-end;
+  color: white;
+  padding: 20px;
+  font-size: 1.2rem;
+  width:fit-content;
 }
-#collapse .top-content {
-  height: 100%;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  padding-top: 60px;
+.nav-start:hover{
+  color: white;
 }
 
-/* Bottom collapse section style */
-#collapse .bottom-content {
-  width: 90%;
+.navbar_links_not_logged{
+  justify-content: flex-end;
+  align-content: flex-end ;
   display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.navbar_links{
   justify-content: space-between;
-  padding: 50px 0;
-}
-#collapse .bottom-content--container {
+  align-content: space-between ;
   display: flex;
+  flex-direction: row;
+  width: 100%;
 }
-#collapse .bottom-content--container .nav-item:not(:last-child) {
-  padding-right: 20px;
+.toggle-button{
+  position:absolute;
+  top: 3.7rem;
+  right: 3.5rem;
+  display:none;
+  flex-direction:column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+}
+.toggle-button .bar{
+  height: 2px;
+  width:90%;
+  background-color: #fff;
+  border-radius:10px;
+}
+.nav-items{
+  padding: 20px;
+  width: 12rem;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 0px;
+  color: white;
+  cursor: pointer;
+}
+.nav-items:hover{
+  color: white;
 }
 
-/* Break line img style */
-#collapse .break-line {
-  padding-top: 50px;
-  width: 75%;
+.navBtn{
+  background: rgba(255, 255, 255, 0.247);
+  padding: 15px;
+  border-radius: 50px;
+  margin-top: 8px;
+  margin-left: 5px;
+  width: 12rem;
+  height: 4rem;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+  color: #5FBDC1;
+  cursor: pointer;
+  outline: none;
 }
-#collapse .break-line img {
-  max-width: 100%;
+.navBtn:hover{
+  color: white;
 }
 
-/* MOBILE DESIGN */
-@media only screen and (max-width: 700px) {
-  #collapse .bottom-content {
-    width: 90%;
-    display: flex;
-    flex-flow: column;
+.registerTooltip{
+  margin-top: 25px;
+  margin-left: -10.2rem;
+  width: 20rem;
+  padding: 10px;
+  background: rgb(234, 247, 255);
+  color: black;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: default;
+}
+@media only screen and (max-width: 1000px){
+  .toggle-button{
+    display:flex;
+  }
+  .mainNavbar{
+    flex-direction:column;
+    z-index: 1000;
+  }
+  .nav-start, .nav-end {
+    display: none;
+  }
+  .navbar_links_not_logged{
+    display: none;
+  }
+  .login{
+    min-width: 200px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 20px;
+  }
+  .navbar_links_not_logged.active{ display: flex;}
+  .nav-start.active, .nav-end.active{
+    display:flex;
+    padding: 15px;
+    width:100%;
+    flex-direction: column;
+    .nav-items{
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .mainNavbar.active{
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    z-index: 20;
+    transition:all ease-in .1s;
+    padding-top: 50px;
+    background: linear-gradient(#261399,#13086c);
     align-items: center;
-    padding: 20px 0;
-  }
-  #collapse .bottom-content--container:not(:last-child) {
-    padding-bottom: 20px;
+    padding-bottom: 100px;
+    margin-top: -20px;
+    .toggle-button{
+      top: 6rem;
+    }
+    .toggle-button .bar{
+      display: none;
+    }
+    .toggle-button .bar:first-child{
+      display:flex;
+      transform: rotate(45deg);
+      margin-top: 10px;
+    }
+    .toggle-button .bar:last-child{
+      display:flex;
+      transform: rotate(-45deg);
+      margin-bottom: 10px;
+    }
+    .navbar_links_not_logged{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .registerTooltip{
+      margin-top: 25px;
+      align-self: center;
+
+    }
   }
 }
-
-@media only screen and (max-width: 500px) {
-  #collapse .bottom-content--container:not(:last-child) {
-    padding-bottom: 0;
-  }
-}
-
-@media only screen and (max-width: 376px) {
-  #collapse .top-content li {
-    padding-top: 30px;
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  #collapse .break-line {
-    padding-top: 0;
-  }
-  #collapse .top-content li {
-    padding-top: 20px;
-    font-size: 3rem;
-  }
-}
-
 </style>
