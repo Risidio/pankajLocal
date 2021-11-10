@@ -22,9 +22,9 @@ export default {
   data () {
     return {
       height: 300,
-      opacity: 0,
-      likeIconTurquoise: require('@/assets/img/Favorite_button_turquoise_empty.png'),
-      likeIconPurple: require('@/assets/img/Favorite_button_purple_empty.png')
+      opacity: 0
+      // likeIconTurquoise: require('@/assets/img/Favorite_button_turquoise_empty.png'),
+      // likeIconPurple: require('@/assets/img/Favorite_button_purple_empty.png')
     }
   },
   mounted () {

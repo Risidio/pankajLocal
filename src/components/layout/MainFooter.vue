@@ -79,7 +79,7 @@ export default {
   },
   data () {
     return {
-      // logo: require('@/assets/img/risidio_white.png'),
+      logo: require('@/assets/img/risidio_white.png')
       // year: new Date().getFullYear(),
       // discordLogo: require('@/assets/img/discord-logo.svg'),
       // instagramLogo: require('@/assets/img/instagram-logo.svg'),
