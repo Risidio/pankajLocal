@@ -18,65 +18,82 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   width: 100%;
-  background-color: #000;
-  color: #fff;
+  background-color: none;
+  color: black;
+}
+
+.container{
+  margin-top: 100px;
 }
 
 body h1 {
+  color: black;
   font-size: 3.0rem;
   font-weight: 400;
   margin-bottom: 0;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h2 {
-  color: #FF9900;
+  color: black;
   font-size: 2.7rem;
   font-weight: 400;
   margin-bottom: 15px;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h3 {
+  color: black;
   font-size: 2.4rem;
   font-weight: 400;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h4 {
+  color: black;
   font-size: 2.1rem;
   font-weight: 300;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body p {
+  color: black;
   font-size: 1.6rem;
   font-weight: 400;
   margin-bottom: 10px;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h1 a {
+  color: black;
   font-size: 3.0rem;
   font-weight: 400;
   margin-bottom: 0;
-  color: #fff;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h1 a:hover {
-  color: $warning;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h2 a {
+  color: black;
   font-size: 2.0rem;
   font-weight: 400;
   margin-bottom: 0;
-  color: #fff;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body h2 a:hover {
-  color: $warning;
+  
 }
 body a {
-  color: #fff;
+  color: black;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 body a:hover {
   text-decoration: none !important;
-  color: $warning;
 }
 
 input {
   font-weight: 700;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 select {
   font-weight: 700;
+  font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
 // .navbar-dark .navbar-nav .nav-link {
 //   color: #fff !important;
