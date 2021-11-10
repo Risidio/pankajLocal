@@ -16,6 +16,9 @@ import Information from '../views/Information.vue'
 import ExhibitHere from '../views/ExhibitHere.vue'
 import ManageProfile from '../views/ManageProfile.vue'
 
+// private pages
+import MyAccount from '../views/userProfile/MyAccount.vue'
+
 // const Homepage = () => import('../views/Homepage.vue')
 // const NumberOne = () => import('../views/NumberOne.vue')
 
@@ -33,7 +36,7 @@ const MyNftLibrary = () => import('@/views/marketplace/MyNftLibrary.vue')
 const NftGallery = () => import('@/views/marketplace/NftGallery.vue')
 const NftMarketplace = () => import('@/views/marketplace/NftMarketplace.vue')
 const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
-const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
+// const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const UpdateItem = () => import('@/views/marketplace/UpdateItem.vue')
 
@@ -65,6 +68,12 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'home',
     components: { default: NftGallery, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
+  },
+  {
+    path: '/my-account',
+    name: 'my-account',
+    components: { default: MyAccount, header: MainNavbar, footer: MainFooter },
     meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
   },
   {

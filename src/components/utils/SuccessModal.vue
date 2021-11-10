@@ -5,9 +5,6 @@
       <b-col cols="8">
         <div v-html="modalMessage"></div>
       </b-col>
-      <b-col cols="4">
-        <img :src="logoRainbow" style="width: 100%;" alt="logo number one" />
-      </b-col>
     </b-row>
   </b-container>
     <template #modal-header="{ close }">
@@ -30,8 +27,7 @@ export default {
   },
   data () {
     return {
-      // cross: require('@/assets/img/navbar-footer/cross.svg'),
-      // logoRainbow: require('@/assets/img/logo-rainbow.svg')
+
     }
   },
   methods: {

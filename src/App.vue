@@ -1,5 +1,5 @@
 <template>
-<div id="app" v-if="!loading" :style="'z-index: -40; min-height: 90vh; background-size: contain; background-image: url(' + getPixelBackground + ')'">
+<div id="app" v-if="!loading" :style="'z-index: -40; min-height: 90vh; background-size: contain; background-image:'">
   <div v-if="!configured">
     <RisidioPay :configuration="configuration"/>
   </div>
