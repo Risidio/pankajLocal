@@ -16,7 +16,10 @@ import Information from '../views/Information.vue'
 import ExhibitHere from '../views/ExhibitHere.vue'
 import ManageProfile from '../views/ManageProfile.vue'
 
-// const Homepage = () => import('../views/Homepage.vue')
+// private pages
+// import MyAccount from '../views/userProfile/MyAccount.vue'
+
+const Homepage = () => import('../views/Homepage.vue')
 // const NumberOne = () => import('../views/NumberOne.vue')
 
 const Charity = () => import('../views/Charity.vue')
@@ -65,7 +68,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'home',
-    components: { default: NftGallery, header: MainNavbar, footer: MainFooter },
+    components: { default: Homepage, header: MainNavbar, footer: MainFooter },
     meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
   },
   {
