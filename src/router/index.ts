@@ -16,9 +16,6 @@ import Information from '../views/Information.vue'
 import ExhibitHere from '../views/ExhibitHere.vue'
 import ManageProfile from '../views/ManageProfile.vue'
 
-// private pages
-import MyAccount from '../views/userProfile/MyAccount.vue'
-
 // const Homepage = () => import('../views/Homepage.vue')
 // const NumberOne = () => import('../views/NumberOne.vue')
 
@@ -49,6 +46,7 @@ const ManageCollection = () => import(/* webpackChunkName: "ManageCollection" */
 const ManageAllocation = () => import(/* webpackChunkName: "ManageAllocation" */ '@/views/mgmnt/ManageAllocation.vue')
 const ManageRoyalties = () => import(/* webpackChunkName: "ManageRoyalties" */ '@/views/mgmnt/ManageRoyalties.vue')
 const ManageOffers = () => import(/* webpackChunkName: "ManageOffers" */ '@/views/mgmnt/ManageOffers.vue')
+const MyAccount = () => import('@/views/userProfile/MyAccount.vue')
 
 Vue.use(VueRouter)
 
