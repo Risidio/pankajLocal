@@ -230,7 +230,7 @@ export default {
   margin: 50px auto;
 }
 .viewContainer{
-  margin: auto;
+  margin: 100px auto;
   width: 80vw;
   height: 100%;
 

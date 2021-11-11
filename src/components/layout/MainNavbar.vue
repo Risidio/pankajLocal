@@ -11,11 +11,11 @@
           <span class="bar"></span>
         </a>
         <div v-if=" profile.loggedIn" class="navbar_links">
-            <router-link class="nav-items" to="/">Gallery</router-link>
-            <router-link class="nav-items" to="/">Collections</router-link>
-            <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
+            <router-link class="nav-items" to="/nft-gallery">Gallery</router-link>
+            <router-link class="nav-items" to="/nft-marketplace/:maker/:collection">Collections</router-link>
+            <router-link class="nav-items text-white" to="/about" style="margin-left: auto;">How It Works</router-link>
             <router-link class="nav-items text-white" to="/about">About Risidio </router-link>
-            <router-link class="nav-items navBtn" to="/my_account"> My NFT's </router-link>
+            <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
             <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
