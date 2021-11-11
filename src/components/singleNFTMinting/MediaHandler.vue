@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import MediaUpload from '@/components/minting/MediaUpload'
-import MediaItem from '@/components/minting/MediaItem'
+import MediaUpload from '@/components/singleNFTMinting/MediaUpload'
+import MediaItem from '@/components/singleNFTMinting/MediaItem'
 
 export default {
   name: 'MediaHandler',

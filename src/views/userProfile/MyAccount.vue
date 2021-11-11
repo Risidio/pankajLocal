@@ -90,7 +90,7 @@
 
 <script>
 // import GalleryNft from '@/components/marketplace/GalleryNft'
-import MySingleNft from '@/components/minting/MySingleNft'
+import MySingleNft from '@/components/singleNFTMinting/MySingleNft'
 import { APP_CONSTANTS } from '@/app-constants'
 const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME

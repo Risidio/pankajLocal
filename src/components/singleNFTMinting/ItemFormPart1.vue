@@ -49,7 +49,7 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import CategoryChoice from '@/components/minting/CategoryChoice'
+import CategoryChoice from '@/components/singleNFTMinting/CategoryChoice'
 
 export default {
   name: 'ItemFormPart1',

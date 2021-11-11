@@ -33,9 +33,9 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import NftCoverImage from '@/components/minting/NftCoverImage'
-import ItemFormPart1 from '@/components/minting/ItemFormPart1'
-import ItemFormPart2 from '@/components/minting/ItemFormPart2'
+import NftCoverImage from '@/components/singleNFTMinting/NftCoverImage'
+import ItemFormPart1 from '@/components/singleNFTMinting/ItemFormPart1'
+import ItemFormPart2 from '@/components/singleNFTMinting/ItemFormPart2'
 import utils from '@/services/utils'
 
 export default {

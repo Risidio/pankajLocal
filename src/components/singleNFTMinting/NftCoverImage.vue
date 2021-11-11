@@ -13,8 +13,8 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import MediaItem from '@/components/minting/MediaItem'
-import MediaUpload from '@/components/minting/MediaUpload'
+import MediaItem from '@/components/singleNFTMinting/MediaItem'
+import MediaUpload from '@/components/singleNFTMinting/MediaUpload'
 
 export default {
   name: 'NftCoverImage',

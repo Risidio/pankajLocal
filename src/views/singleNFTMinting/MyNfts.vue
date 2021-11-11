@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import MySingleNft from '@/components/minting/MySingleNft'
+import MySingleNft from '@/components/singleNFTMinting/MySingleNft'
 // import SingleNft from '@/components/upload/SingleNft'
 import { APP_CONSTANTS } from '@/app-constants'
 
