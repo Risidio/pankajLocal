@@ -1,117 +1,139 @@
 <template>
-<!--
-<div>
-  <about-section1 :content="content"></about-section1>
-</div>
--->
-<b-container fluid id="number-one-section" class="mt-5 pt-2" v-if="content">
-  <b-row class="mt-2 pt-5 center" align-h="center" style="'min-height: 80vh'">
-    <b-col lg="6" md="12" class="text-center">
-      <div><img :src="rainbowOne" width="300rem;"/></div>
-      <PrismicItems v-if="content" class="mt-5 mx-2 text-center" :prismicItems="content.newhometext"></PrismicItems>
-    </b-col>
-    <b-col lg="6" md="12" style="min-height: 400px;" class="text-center m-0 p-0 pl-4">
-      <b-row style="height: 100%;">
-        <b-col cols="6" class="p-0 px-2">
-          <div class="border text-center " id="container">
-            <div id="content">
-              <h3><b-link to="/nft-marketplace">Artists & Collections</b-link></h3>
+    <div>
+        <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
+        <div v-if=" profile.loggedIn">
+            <div class="loggedBanner">
+                <div class="vueSlideContainer">
+                  <vueper-slides
+                  :infinite="true"
+                  fixed-height="true"
+                  class="no-shadow"
+                  arrows-outside
+                  autoplay
+                  >
+                    <template #arrow-left>
+                      <img src="https://res.cloudinary.com/risidio/image/upload/v1633609469/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_v37pyt.svg" alt="wallet" class="arrow"/>
+                    </template>
+                    <template #arrow-right>
+                      <img src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="wallet" class="arrow"/>
+                    </template>
+                    <vueper-slide
+                    v-for="(slide) in slide"
+                    :key="slide.id"
+                    :title="slide.title">
+                        <template #content>
+                            <div v-if="slide.id==1" class = "container">
+                                <h1>Lorem ipsum dolor, sit amet </h1>
+                            </div>
+                            <div v-if="slide.id==2" class = "container">
+                            </div>
+                            <div v-if="slide.id==3" class = "container">
+                            </div>
+                        </template>
+                    </vueper-slide>
+                  </vueper-slides>
+                </div>
             </div>
-          </div>
-        </b-col>
-        <b-col cols="6" class="p-0 px-2">
-          <div class="border text-center " id="container">
-            <div id="content">
-              <h3><b-link to="/nft-marketplace">Marketplace</b-link></h3>
+        </div>
+        <div v-else>
+            <div class="container section1">
+                <div class="market_introduction_text">
+                    <p class="market_intro_Ex">Explore the New Era of Digital Art</p>
+                    <h1 class="market_intro_h1"> Risidio Marketplace</h1>
+                </div>
             </div>
-          </div>
-        </b-col>
-        <b-col cols="6" class="p-0 px-2 mt-3">
-          <div class="border text-center " id="container">
-            <div id="content">
-              <div v-if="profile.loggedIn"><h3><b-link :to="'/my-nfts/' + loopRun.currentRunKey">My NFTs</b-link></h3></div>
-              <div v-else><h3><b-link :to="'/my-nfts/' + loopRun.currentRunKey">Login</b-link></h3></div>
-            </div>
-          </div>
-        </b-col>
-        <b-col cols="6" class="p-0 px-2 mt-3">
-          <div class="border text-center " id="container">
-            <div id="content">
-              <h3><b-link to="/about">WTF?</b-link></h3>
-            </div>
-          </div>
-        </b-col>
-      </b-row>
-    </b-col>
-  </b-row>
-</b-container>
+        </div>
+    </div>
 </template>
 
 <script>
-import PrismicItems from '@/components/prismic/PrismicItems'
 import { APP_CONSTANTS } from '@/app-constants'
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
+const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
+const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 
 export default {
-  name: 'Homepage',
+  name: 'MarketPlace',
   components: {
-    PrismicItems
+    VueperSlides,
+    VueperSlide
   },
-  data () {
-    return {
-      rainbowOne: require('@/assets/img/Group 76.svg')
+  data: () => ({
+    slide: [
+      {
+        id: '1',
+        text: 'Upload Your Item'
+      },
+      {
+        id: '2',
+        text: 'Mint the Bitcoin'
+      },
+      {
+        id: '3',
+        text: 'Set Your Royalties'
+      }
+    ],
+    return: {
+      resultSet: [],
+      loaded: false
     }
-  },
+  }),
   mounted () {
-    // this.findAssets()
+    this.findAssets()
   },
   methods: {
     findAssets () {
-      // const pid = STX_CONTRACT_NAME.split('-')[0]
-      // this.$store.dispatch('rpayStacksContractStore/fetchContractDataFirstEditions').then(() => {
-      // this.resultSet = results
-      this.loaded = true
-      // })
+      this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
+        this.resultSet = results.filter(result => result.attributes.artworkFile.fileUrl !== null)
+      })
     }
   },
   computed: {
-    loopRun () {
-      let loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](this.runKey)
-      if (!loopRun) {
-        loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](process.env.VUE_APP_DEFAULT_LOOP_RUN)
-      }
-      return loopRun
-    },
-    runKey () {
-      const defaultLoopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
-      let runKey = (this.item && this.item.currentRunKey) ? this.item.currentRunKey : defaultLoopRun
-      if (runKey.indexOf('/') > -1) {
-        runKey = runKey.split('/')[0]
-      }
-      return runKey
+    content () {
+      const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_MARKET]
+      return content
     },
     profile () {
-      const profile = this.$store.getters['rpayAuthStore/getMyProfile']
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       return profile
-    },
-    content () {
-      const content = this.$store.getters['contentStore/getHomepage']
-      return content
     }
   }
 }
 </script>
 
 <style scoped>
-#container {
-  border: 1pt solid white;
+.banner{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 55vh;
+  object-fit: cover;
+  z-index: -10;
+  transform: rotate(180deg);
 }
-
-#content {
-  flex: 0 0 120px;
+.vueperslide {
+  background-color:rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
 }
+.vueperslides--fixed-height {
+  height: 40vh;
+  max-width: 100%;
+}
+.loggedBanner{
+  max-width: 1500px;
+  margin: 10px auto;
+}
+.vueperslides__arrow .arrow{
+  width: 35px;
+  height: 35px;
+}
+ /* @media only screen and (max-width: 770px)  {
+  .vueperslides--fixed-height {height: 80vh;}
+} */
+/*
+@media only screen and (max-width: 500px)  {
+  .vueperslides--fixed-height {height: 120vh;}
+} */
 </style>
