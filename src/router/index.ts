@@ -112,8 +112,14 @@ const routes: Array<RouteConfig> = [
   {
     path: '/about',
     name: 'about',
-    components: { default: About, footer: MainFooter },
+    components: { default: About, header: MainNavbar, footer: MainFooter },
     meta: { title: 'About page' }
+  },
+  {
+    path: '/create',
+    name: 'create',
+    components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Upload your NFT' }
   },
   {
     path: '/login',
