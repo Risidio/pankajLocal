@@ -34,12 +34,13 @@
                 <button class='button'> Something </button>
             </div>
             <div>
+                <div>
                 <img src='https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png'/>
                 <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                 Molestiae iure a culpa sed quidem totam reiciendis deleniti
                 deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                nemo ipsum corporis molestias  quidem totam reiciendis d  quidem totam reiciendis d.</p>
-                <button class='button'> Something </button>
+                nemo ipsum corporis molestias  quidem totam reiciendis d  quidem totam reiciendis d.</p></div>
+                <div class='buttonCon'><button class='button'> Something </button></div>
             </div>
         </div>
     </section>
@@ -90,8 +91,12 @@ export default {
         max-width: 320px;
     }
 }
+.buttonCon{
+    height: 70px;
+    display: block;
+    margin-top: auto auto 0 auto;
+}
 .button{
-  align-self: flex-end;
   display: flex;
   margin: auto auto 0 auto;
   padding: 15px 30px;

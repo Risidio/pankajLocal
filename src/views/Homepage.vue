@@ -3,20 +3,23 @@
       <HomeBanner/>
       <HomeMarket/>
       <HomeInfo/>
+      <HomeSeeAlso/>
     </section>
 </template>
 
 <script>
 import HomeBanner from '@/components/homepage/homebanner'
 import HomeMarket from '@/components/homepage/homeMarket'
-import HomeInfo from '@/components/homepage/homeInfo.vue'
+import HomeInfo from '@/components/homepage/homeInfo'
+import HomeSeeAlso from '@/components/homepage/homeSeeAlso'
 
 export default {
   name: 'Homepage',
   components: {
     HomeBanner,
     HomeMarket,
-    HomeInfo
+    HomeInfo,
+    HomeSeeAlso
   },
   data () {
     return {
@@ -32,5 +35,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
 </style>
