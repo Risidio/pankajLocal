@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { APP_CONSTANTS } from '@/app-constants'
 
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 
 const MESH_API_PATH = process.env.VUE_APP_RISIDIO_API + '/mesh'
 
@@ -84,7 +84,7 @@ const assetGeneralStore = {
     },
     saveTokenFilter ({ commit }, tokenFilter) {
       return new Promise(function (resolve) {
-        axios.post(MESH_API_PATH + '/v2/token-filter', tokenFilter).then((result) => {
+        axios.post(MESH_API_PATH + '/mgmnt-v2/token-filter', tokenFilter).then((result) => {
           commit('addFilter', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -95,7 +95,7 @@ const assetGeneralStore = {
     updateTokenFilter ({ commit, rootGetters }, tokenFilter) {
       return new Promise(function (resolve) {
         const authHeaders = rootGetters[APP_CONSTANTS.KEY_AUTH_HEADERS]
-        axios.put(MESH_API_PATH + '/v2/token-filter', tokenFilter, authHeaders).then((result) => {
+        axios.put(MESH_API_PATH + '/mgmnt-v2/token-filter', tokenFilter, authHeaders).then((result) => {
           commit('addFilter', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -105,7 +105,7 @@ const assetGeneralStore = {
     },
     deleteTokenFilter ({ commit }, filterId) {
       return new Promise(function (resolve) {
-        axios.delete(MESH_API_PATH + '/v2/token-filter/' + filterId).then(() => {
+        axios.delete(MESH_API_PATH + '/mgmnt-v2/token-filter/' + filterId).then(() => {
           commit('addFilter', { filterId: filterId })
           resolve(filterId)
         }).catch((error) => {
@@ -125,7 +125,7 @@ const assetGeneralStore = {
     },
     tokenFilters ({ commit }) {
       return new Promise(function (resolve) {
-        axios.get(MESH_API_PATH + '/v2/token-filters').then((result) => {
+        axios.get(MESH_API_PATH + '/mgmnt-v2/token-filters').then((result) => {
           commit('setFilters', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -135,7 +135,7 @@ const assetGeneralStore = {
     },
     buildCacheAll ({ commit }) {
       return new Promise(function (resolve) {
-        axios.get(MESH_API_PATH + '/v2/build-application-cache').then((result) => {
+        axios.get(MESH_API_PATH + '/mgmnt-v2/build-application-cache').then((result) => {
           commit('setCacheState', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -145,7 +145,7 @@ const assetGeneralStore = {
     },
     buildCache ({ commit }, contractId) {
       return new Promise(function (resolve) {
-        axios.get(MESH_API_PATH + '/v2/build-cache/' + contractId).then((result) => {
+        axios.get(MESH_API_PATH + '/mgmnt-v2/build-cache/' + contractId).then((result) => {
           commit('setCacheState', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -157,7 +157,7 @@ const assetGeneralStore = {
       return new Promise(function (resolve, reject) {
         // const authHeaders = rootGetters[APP_CONSTANTS.KEY_AUTH_HEADERS]
         axios.defaults.withCredentials = true
-        axios.get(MESH_API_PATH + '/v2/clear-cache/' + contractId).then((result) => {
+        axios.get(MESH_API_PATH + '/mgmnt-v2/clear-cache/' + contractId).then((result) => {
           commit('setCacheState', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -168,7 +168,7 @@ const assetGeneralStore = {
     buildSearchIndex ({ commit, rootGetters }, contractId) {
       return new Promise(function (resolve) {
         const authHeaders = rootGetters[APP_CONSTANTS.KEY_AUTH_HEADERS]
-        axios.get(MESH_API_PATH + '/v2/gaia/indexFiles/' + contractId, authHeaders).then((result) => {
+        axios.get(MESH_API_PATH + '/mgmnt-v2/gaia/indexFiles/' + contractId, authHeaders).then((result) => {
           commit('setCacheState', result.data)
           resolve(result.data)
         }).catch((error) => {
@@ -178,7 +178,7 @@ const assetGeneralStore = {
     },
     clearSearchIndex ({ commit }, contractId) {
       return new Promise(function (resolve) {
-        axios.get(MESH_API_PATH + '/v2/gaia/clearFiles/' + contractId).then((result) => {
+        axios.get(MESH_API_PATH + '/mgmnt-v2/gaia/clearFiles/' + contractId).then((result) => {
           commit('setData', result.data)
           resolve(result.data)
         }).catch((error) => {

@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-PATH_DEPLOY=~/hubgit/radicle-solutions/radsoc/volumes/www/development/thisisnumberone
+PATH_DEPLOY=~/hubgit/radicle-solutions/radsoc/volumes/www/development/xchange
 mkdir -p $PATH_DEPLOY
 
 printf "\n-----------------------------------------------------------------------------------------------------\n";
