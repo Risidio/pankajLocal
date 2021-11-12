@@ -77,11 +77,14 @@ export default {
 </script>
 
 <style scoped>
+#frame{
+  margin: 50px auto;
+}
 .vueperslide {
   background-color:#170A6D;
 }
 .vueperslides--fixed-height {
-  height: 70vh;
+  height: 100vh;
 }
 h1{
   color:white;
@@ -113,6 +116,7 @@ p{
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  color: white;
 }
 .container{
   color:white;

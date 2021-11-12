@@ -35,9 +35,11 @@ export default {
   object-fit: cover;
   z-index: -10;
   transform: rotate(180deg);
+    color:white;
 }
 .HTitle{
   width:100%;
+    color:white;
 }
 .container {
   min-width: 100%;
@@ -49,9 +51,11 @@ export default {
   min-height: 40vh;
 }
 .container h1{
+  margin-top: 50px;
   font-family: inherit;
   font-size: clamp(4rem, 5rem, 6rem);
   font-weight: 300;
+    color:white;
 
 }
 .container p{
@@ -60,6 +64,7 @@ export default {
   font-size: 1.2em;
   font-weight: 300;
   max-width: 750px;
+    color:white;
 }
 .button{
   margin-top: 50px;
@@ -71,6 +76,7 @@ export default {
   font-size: 12px;
   font-weight:700;
   color: rgb(0, 177, 201);
+  background: rgb(255, 255, 255);
 }
 a, a:after, a:hover{
     color:black;

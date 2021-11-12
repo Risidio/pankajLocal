@@ -60,9 +60,14 @@ export default {
 .main-container p{
   font-size: 1.1em;
   font-weight:300;
+  padding: 0px;
+}
+.container{
+  margin: 0px;
 }
 .button{
-  margin-top: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 200px;
   height: 60px;
   border-radius: 100px;

@@ -66,7 +66,7 @@ export default {
 .main-container p{
   font-size: 1.1em;
   font-weight:300;
-  padding-top: 20px;
+  /* padding-top: 20px; */
 }
 .button{
   margin-top: 50px;
@@ -78,6 +78,8 @@ export default {
   font-size: 14px;
   font-weight:700;
   color: rgb(0, 177, 201);
+  /* margin-bottom: 50px; */
+  /* padding-bottom: 50px; */
 }
 .wallet{
   margin: 0 auto 25px auto;

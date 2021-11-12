@@ -1,5 +1,5 @@
 <template>
-  <div v-if="content">
+  <div class="howitworks" v-if="content">
         <HSection1 :content="content"/>
         <HSection4 :content="content"/>
         <HSection3 :content="content"/>
@@ -47,6 +47,10 @@ export default {
 </script>
 
 <style>
+.howitworks{
+  /* margin-top: 100px; */
+}
+
 #deep-logos li {
   cursor: pointer;
 }
@@ -60,7 +64,7 @@ export default {
 }
 .link-panel--container {
   width: 100%;
-  padding: 30px 0;
+  /* padding: 30px 0; */
   box-shadow: 0px 3px 6px #00000029;
 }
 .link-panel--content {

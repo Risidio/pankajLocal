@@ -99,6 +99,11 @@ export default {
           this.$store.commit('contentStore/addHomeContent', document.data)
         }
       })
+      this.$prismic.client.getSingle('howitworks').then(document => {
+        if (document) {
+          this.$store.commit('contentStore/addHowItWorks', document.data)
+        }
+      })
       this.$prismic.client.getSingle('mainfooter').then((document) => {
         if (document) {
           this.$store.commit('contentStore/addMainFooter', document.data)
