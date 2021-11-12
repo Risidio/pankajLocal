@@ -36,6 +36,7 @@ const MyNftLibrary = () => import('@/views/marketplace/MyNftLibrary.vue')
 const NftGallery = () => import('@/views/marketplace/NftGallery.vue')
 const NftMarketplace = () => import('@/views/marketplace/NftMarketplace.vue')
 const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
+const HowItWorks = () => import('@/views/HowItWorks.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const UpdateItem = () => import('@/views/marketplace/UpdateItem.vue')
@@ -82,6 +83,12 @@ const routes: Array<RouteConfig> = [
     name: 'nft-gallery',
     components: { default: NftGallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Gallery - Risidio' }
+  },
+  {
+    path: '/how-it-works',
+    name: 'how-it-works',
+    components: { default: HowItWorks, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'How it Works - Risidio' }
   },
   {
     path: '/nft-marketplace',

@@ -1,120 +1,92 @@
 <template>
-  <section class="container home-content" v-if="slices">
-    <div class="row">
-      <div class="col-12">
-        <h1 class="home-content text-white">{{title}}</h1>
-        <slices-block :rootId="'slice-'" :slices="slices" :columns="columns" class="container-fluid"/>
-      </div>
-    </div>
-  </section>
+  <div class="howitworks" v-if="content">
+        <HSection1 :content="content"/>
+        <HSection4 :content="content"/>
+        <HSection3 :content="content"/>
+        <HSection2 :content="content"/>
+  </div>
 </template>
 
 <script>
-import SlicesBlock from '@/components/prismic/SlicesBlock.vue'
+import HSection1 from '@/components/howitworks/HSection1'
+import HSection2 from '@/components/howitworks/HSection2'
+import HSection3 from '@/components/howitworks/HSection3'
+import HSection4 from '@/components/howitworks/HSection4'
+import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
-  name: 'HowItWorks',
+  name: 'howitworks',
   components: {
-    SlicesBlock
+    HSection1,
+    HSection2,
+    HSection3,
+    HSection4
   },
+  props: ['howitworks'],
   data () {
     return {
-      columns: [2, 2, -1, 1, 1]
+    }
+  },
+  methods: {
+    changeModel (name) {
+      this.currentModel = this.rootPath + name
     }
   },
   computed: {
-    slices () {
-      const content = this.$store.getters['contentStore/getHowItWorks']
-      return (content) ? content.body : null
+    sectionDimensions () {
+      const height = this.$store.getters[APP_CONSTANTS.KEY_SECTION_HEIGHT]
+      return 'min-height: ' + height + 'px; width: auto;'
     },
-    title () {
-      const content = this.$store.getters['contentStore/getHowItWorks']
-      return (content) ? content.title[0].text : null
+    content () {
+      // const pageId = this.$route.params.pageId
+      const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_HOW]
+      return content
     }
   }
 }
 </script>
-<style lang="scss">
-//@import "@/assets/scss/custom.scss";
-.my-header {
-  position: absolute;
-  top: 15vh;
-  left: 10vw;
-}
-.home-content {
-  position: relative;
-  top: 40px;
+
+<style>
+.howitworks{
+  /* margin-top: 100px; */
 }
 
-#slice-0 {
-  margin-top: 100vh;
-  background-color: #fff;
-  padding: 60px 40px;
+#deep-logos li {
+  cursor: pointer;
 }
-#slice-0 h1 {
-  margin-bottom: 60px;
-  font-size: 2.3rem;
+.text-nowrap {
+  white-space: nowrap;
 }
-#slice-0 h2 {
-  margin-left: 45px;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+.link-panel {
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-#slice-0 p {
-  margin-left: 30px;
+.link-panel--container {
+  width: 100%;
+  /* padding: 30px 0; */
+  box-shadow: 0px 3px 6px #00000029;
 }
-
-#slice-1 {
-  position: relative;
-  top: 200px;
-  left: 100px;
-  background-color: #fff;
-  padding: 60px 40px;
-  max-width: 40%
-}
-#slice-1 h1 {
-  margin-bottom: 30px;
-  font-size: 3rem;
+.link-panel--content {
+  width: 50%;
+  color: #333333;
+  font-size: 1.4rem;
 }
 
-#slice-2 {
-  background-color: #dc3545;
-  color: #fff;
-  padding: 50px;
-  z-index: 2;
-  margin: 50px 0px;
-  text-align: center;
+/* Link panel responsive design */
+@media only screen and (max-width: 768px) {
+  .link-panel--content {
+    width: 70%;
+  }
 }
-#slice-2 h1 {
-  margin-bottom: 30px;
-  font-size: 3rem;
+@media only screen and (max-width: 600px) {
+  .link-panel--content {
+    width: 100%;
+  }
 }
-
-#slice-3 {
-  margin: 50px 0;
-}
-#slice-3 {
-  text-align: center;
-}
-#slice-4 {
-  text-align: center;
-  background-color: #dc3545;
-  color: #fff;
-  padding: 50px;
-  z-index: 2;
-  margin: 50px 0px;
-}
-#slice-5 {
-  text-align: center;
-  padding: 50px 300px;
-  width: 60%;
-  margin: 50px 0px;
-}
-#slice-5 p {
-  padding: 50px;
-}
-
-.container-fluid {
-  margin: 0;
+@media only screen and (max-width: 376px) {
+  .link-panel--content {
+    font-size: 1.2rem;
+  }
 }
 </style>

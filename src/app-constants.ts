@@ -36,6 +36,7 @@ export const APP_CONSTANTS = {
   KEY_AUTHORISATION: 'rpayPrivilegeStore/getAuthorisation',
 
   KEY_CONTENT_ABOUT: 'contentStore/getAbout',
+  KEY_CONTENT_HOW: 'contentStore/getHowItWorks',
 
   KEY_MY_ITEMS: 'rpayMyItemStore/getMyItems',
   KEY_MY_UNMINTED_ITEMS: 'rpayMyItemStore/getMyUnmintedItems',
