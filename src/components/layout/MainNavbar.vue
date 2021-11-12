@@ -29,7 +29,6 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-
 export default {
   name: 'MainNavbar',
   components: {
@@ -38,7 +37,7 @@ export default {
     return {
       query: null,
       banner: 'https://images.prismic.io/digirad/6e5bb3a5-21b7-4bcb-b5a7-85128b6e6e8a_Rumba_bg_small.png?auto=compress,format',
-      logo: require('@/assets/img/risidio_white_logo.svg'),
+      logo: 'https://res.cloudinary.com/risidio/image/upload/v1636649879/RisidioMarketplace/Groupe_15980_s92src.svg',
       isHidden: false
     }
   },
@@ -205,10 +204,9 @@ export default {
   border-radius:10px;
 }
 .nav-items{
+  margin: auto 0;
   padding: 20px;
   font-size: 1.2rem;
-  text-align: center;
-  margin-top: 0px;
   color: white;
   cursor: pointer;
 }
@@ -218,10 +216,9 @@ export default {
 
 .navBtn{
   background: rgba(255, 255, 255, 0.247);
-  padding: 15px;
+  padding: 15px 40px;
   border-radius: 50px;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: auto 0 auto 40px;
   max-height: 50px;
   text-align: center;
   justify-items: center;
