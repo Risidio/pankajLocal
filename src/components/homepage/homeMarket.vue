@@ -17,33 +17,20 @@
 </template>
 
 <script>
-import { APP_CONSTANTS } from '@/app-constants'
-const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
-const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 
 export default {
   name: 'homeMarket',
   data () {
     return {
       resultSet: [],
-      loaded: false
-    }
-  },
-  mounted () {
-    this.findAssets()
-  },
-  methods: {
-    findAssets () {
-      this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
-        this.resultSet = results.filter(result => result.attributes.artworkFile.fileUrl !== null)
-      })
-      console.log(this.resultSet)
-    }
-  },
-  computed: {
-    content () {
-      const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_MARKET]
-      return content
+      loaded: false,
+      placeHolderItems: [{
+        name: 'item1',
+        coverImage: 'https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png',
+        nFTArtist: 'unknown',
+        price: 50
+      }
+      ]
     }
   }
 }

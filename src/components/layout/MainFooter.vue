@@ -1,6 +1,6 @@
 <template>
 <!-- <div v-if="content"> -->
-  <div>
+  <div class="footer">
   <footer id="footer" class="text-white">
     <div class="container">
       <div class="row m-0 d-flex">
@@ -114,8 +114,9 @@ export default {
 </script>
 <style>
 /* FOOTER STYLE */
+
 footer {
-  /*height: 440px;*/
+  margin-top: -16vh;
   background-color: #5154A1;
 }
 
