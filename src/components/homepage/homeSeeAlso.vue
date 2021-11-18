@@ -54,7 +54,7 @@ export default {
 <style lang="scss" scoped>
 .seeAlso{
     min-height: 60vh;
-    margin: 0 50px;
+    margin: 0 3%;
     h2{
         font-size: 40px;
         margin: 100px 20px 50px 20px;
@@ -62,8 +62,12 @@ export default {
     }
 }
 .seeAlsoContainer{
-    max-width: 1600px;
-    margin: auto;
+  max-width: 1600px;
+  margin: auto;
+}
+.vueperslides{
+  margin: 0 auto;
+  max-width: 1500px;
 }
 .vueperslide{
   background-color:rgba(226, 226, 226, 0.8);
