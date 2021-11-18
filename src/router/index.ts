@@ -36,6 +36,7 @@ const MyNftLibrary = () => import('@/views/marketplace/MyNftLibrary.vue')
 const NftGallery = () => import('@/views/marketplace/NftGallery.vue')
 const NftMarketplace = () => import('@/views/marketplace/NftMarketplace.vue')
 const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
+const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
@@ -89,6 +90,12 @@ const routes: Array<RouteConfig> = [
     name: 'how-it-works',
     components: { default: HowItWorks, header: MainNavbar, footer: MainFooter },
     meta: { title: 'How it Works - Risidio' }
+  },
+  {
+    path: '/gallery',
+    name: 'gallery',
+    components: { default: Gallery, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
   },
   {
     path: '/nft-marketplace',
