@@ -11,7 +11,7 @@
           <span class="bar"></span>
         </a>
         <div v-if=" profile.loggedIn" class="navbar_links">
-            <router-link class="nav-items" to="/nft-gallery">Gallery</router-link>
+            <router-link class="nav-items" to="/gallery">Gallery</router-link>
             <router-link class="nav-items" to="/nft-marketplace/:maker/:collection">Collections</router-link>
             <router-link class="nav-items text-white" to="/about" style="margin-left: auto;">How It Works</router-link>
             <router-link class="nav-items text-white" to="/about">About Risidio </router-link>
@@ -153,8 +153,7 @@ export default {
 .mainNavbar{
   display: flex;
   width: 90vw;
-  margin: auto;
-  margin-top: 20px;
+  margin: 20px auto 13px auto;
 }
 /* NAVBAR PADDING AND WIDTH */
 .nav_banner{

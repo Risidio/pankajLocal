@@ -1,0 +1,220 @@
+<template>
+    <section class="mainGallery">
+        <div class="mainGalleryContainer">
+            <div class="mainGallerySidebar">
+                <div class="galleryCollections">
+                    <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                    <div class="collectionsMenu">
+                        <a href="#">Collection 1</a>
+                        <a href="#">Collection 2</a>
+                        <a href="#">Collection 3</a>
+                    </div>
+                </div>
+                <hr class="hr"/>
+                <div class="galleryCategory">
+                <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                    <div class="galleryCategories">
+                        <a href="#">Category 1</a>
+                        <a href="#">Category 2</a>
+                        <a href="#">Category 3</a>
+                        <a href="#">Category 4</a>
+                        <a href="#">Category 5</a>
+                    </div>
+                </div>
+                <hr class="hr"/>
+            </div>
+            <div class="mainGalleryBody">
+                <div class="filter">
+                    <div>
+                        <p class="view">View</p>
+                        <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div class="galleryCategories">
+                            <a href="#">Category 1</a>
+                            <a href="#">Category 2</a>
+                            <a href="#">Category 3</a>
+                            <a href="#">Category 4</a>
+                            <a href="#">Category 5</a>
+                        </div>
+                        <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div class="galleryCategories">
+                            <a href="#">Category 1</a>
+                            <a href="#">Category 2</a>
+                            <a href="#">Category 3</a>
+                            <a href="#">Category 4</a>
+                            <a href="#">Category 5</a>
+                        </div>
+                    </div>
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                </div>
+                <hr/>
+                <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
+                    <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
+                        <div>
+                            <img :src="item.coverImage" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/>
+                            <div class="itemHover">
+                                <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                                <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      resultSet: [],
+      loaded: false,
+      placeHolderItems: []
+    }
+  },
+  mounted () {
+    this.generateData()
+  },
+  methods: {
+    showCollections () {
+      const collection = document.getElementsByClassName('collectionsMenu')[0]
+      const arrow = document.getElementsByClassName('arrow1')[0]
+      collection.classList.toggle('active')
+      arrow.classList.toggle('active')
+    },
+    showCategories () {
+      const categories = document.getElementsByClassName('galleryCategories')[0]
+      const arrow = document.getElementsByClassName('arrow2')[0]
+      categories.classList.toggle('active')
+      arrow.classList.toggle('active')
+    },
+    generateData () {
+      const array = {
+        name: 'item1',
+        coverImage: 'https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png',
+        nFTArtist: 'unknown',
+        price: 13,
+        type: 'image'
+      }
+      for (let i = 0; i < 20; ++i) {
+        this.placeHolderItems.push(array)
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.mainGalleryContainer{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+.mainGalleryContainer .mainGallerySidebar{
+    flex: 1 1 15%;
+    min-width: 200px;
+}
+.mainGalleryContainer .mainGalleryBody{
+    flex: 1 1 85%;
+    padding: 1% 5%;
+}
+.filter{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    width: 100%;
+}
+.filter >*:nth-child(1){
+    flex: 1 1 500px;
+    display: flex;
+}
+.filter >*:nth-child(2){
+    flex: 1 1 500px;
+}
+.search{
+    margin: 20px 0 0 30px;
+    padding: 10px 10px 10px 50px;
+    border: 0;
+    border-left: solid 0.5px rgb(196, 196, 196);
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 300;
+}
+.mainGallerySidebar{
+    background: #F5F5F5;
+}
+.galleryCollections, .galleryCategory{
+  position: relative;
+  display: inline-block;
+  min-height: 50px;
+}
+.collectionsButton{
+  margin: 20px 0 0 20px;
+  background-color: transparent;
+  color: rgb(49, 49, 49);
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+}
+
+.view{
+    margin: 20px 0 0 0;
+    padding: 16px 0;
+}
+.collectionsMenu, .galleryCategories{
+  display: none;
+  background: transparent;
+  min-width: 160px;
+  z-index: 1;
+    a {
+    margin-left: 35px;
+    font-size: 15px;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background: transparent
+    }
+    a:hover{
+        font-weight: 500;
+        color: #5FBDC1;
+    }
+}
+.galleryCollections .collectionsMenu.active, .galleryCategory .galleryCategories.active{
+    display: block;
+}
+.arrow1, .arrow2{
+    margin-left: 80px;
+    width: 12px;
+    height: 12px;
+    transform: rotate(90deg)
+}
+.arrow1.active, .arrow2.active{
+    transform: rotate(180deg)
+}
+.galleryContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+.galleryItem{
+    flex: 1 1 250px;
+    margin: 50px auto 0 auto;
+    max-width: 250px;
+}
+.galleryItem:hover{
+    .itemHover{
+        display:block;
+    }
+}
+.itemHover{
+    position: absolute;
+    width: 250px;
+    margin-top: -100px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    display: none;
+    padding: 5px;
+}
+</style>
