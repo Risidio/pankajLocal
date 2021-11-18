@@ -13,8 +13,8 @@
         <div v-if=" profile.loggedIn" class="navbar_links">
             <router-link class="nav-items" to="/gallery">Gallery</router-link>
             <router-link class="nav-items" to="/nft-marketplace/:maker/:collection">Collections</router-link>
-            <router-link class="nav-items text-white" to="/about" style="margin-left: auto;">How It Works</router-link>
-            <router-link class="nav-items text-white" to="/about">About Risidio </router-link>
+            <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
+            <div class="nav-items text-white" v-on:click="aboutRisidio()">About Risidio </div>
             <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
@@ -89,6 +89,9 @@ export default {
     },
     startRegister () {
       window.open('https://www.hiro.so/wallet', '_blank')
+    },
+    aboutRisidio () {
+      window.open('https://www.Risidio.com', '_blank')
     }
   },
   computed: {

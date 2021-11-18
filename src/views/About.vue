@@ -1,19 +1,16 @@
 <template>
   <div>
-    <MainNavbar/>
 
   </div>
 </template>
 
 <script>
 
-import MainNavbar from '../components/layout/MainNavbar.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'Gallery',
   components: {
-    MainNavbar
   },
   data () {
     return {

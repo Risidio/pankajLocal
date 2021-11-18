@@ -131,6 +131,9 @@ const contentStore = {
     addAboutContent (state, o) {
       state.content.about = o
     },
+    addHowItWorks (state, o) {
+      state.content.howItWorks = o
+    },
     addCollaboration (state, o) {
       state.content.collaboration = o
     },

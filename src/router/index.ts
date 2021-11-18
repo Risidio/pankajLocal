@@ -37,6 +37,7 @@ const NftGallery = () => import('@/views/marketplace/NftGallery.vue')
 const NftMarketplace = () => import('@/views/marketplace/NftMarketplace.vue')
 const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
 const Gallery = () => import('@/views/Gallery.vue')
+const HowItWorks = () => import('@/views/HowItWorks.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const UpdateItem = () => import('@/views/marketplace/UpdateItem.vue')
@@ -70,19 +71,25 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'home',
     components: { default: Homepage, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
+    meta: { title: 'Home - Risidio' }
   },
   {
     path: '/my-account',
     name: 'my-account',
     components: { default: MyAccount, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'This is Number One on Stacks NFT Marketplace secured by Bitcoin' }
+    meta: { title: 'Your Account - Risidio' }
   },
   {
     path: '/nft-gallery',
     name: 'nft-gallery',
     components: { default: NftGallery, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
+    meta: { title: 'Gallery - Risidio' }
+  },
+  {
+    path: '/how-it-works',
+    name: 'how-it-works',
+    components: { default: HowItWorks, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'How it Works - Risidio' }
   },
   {
     path: '/gallery',
@@ -95,7 +102,7 @@ const routes: Array<RouteConfig> = [
     alias: '/nft-market',
     name: 'nft-marketplace',
     components: { default: NftMarketplace, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
+    meta: { title: 'Risidio Marketplace' }
   },
   // {
   //   path: '/punk-minter/:maker/:collection',
@@ -107,7 +114,7 @@ const routes: Array<RouteConfig> = [
     path: '/nft-marketplace/:maker/:collection',
     name: 'nft-collection',
     components: { default: NftCollection, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
+    meta: { title: 'Collections - Risidio Marketplace' }
   },
   {
     path: '/exhibit-here',
@@ -116,14 +123,14 @@ const routes: Array<RouteConfig> = [
     meta: {
       requiresAuth: false,
       requiresAdmin: false,
-      title: 'Join #1 and exhibit your artwork in decentralised gallery and marketplace'
+      title: 'Join - Risidio'
     }
   },
   {
     path: '/about',
     name: 'about',
     components: { default: About, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'About page' }
+    meta: { title: 'About - Risidio' }
   },
   {
     path: '/create',
