@@ -8,7 +8,8 @@
             :gap="3"
             :slide-ratio="1 / 4"
             :dragging-distance="100"
-            :breakpoints="breakpoints">
+            :breakpoints="breakpoints"
+            autoplay>
             <template #arrow-left>
                 <img src="https://res.cloudinary.com/risidio/image/upload/v1633609469/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_v37pyt.svg" alt="wallet" class="arrow"/>
             </template>
@@ -23,7 +24,7 @@
                   <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
                 </div>
               </template>
-            </vueper-slide>
+          </vueper-slide>
         </vueper-slides>
         </div>
     </section>
