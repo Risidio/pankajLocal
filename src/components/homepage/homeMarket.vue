@@ -20,7 +20,7 @@
               </div>
           </div>
       </div>
-      <button class="button">See More Collectables</button>
+            <button class="button"><router-link to="/gallery">See More Collectables</router-link></button>
     </div>
     </section>
 </template>
