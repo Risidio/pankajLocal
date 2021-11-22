@@ -3,9 +3,9 @@
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
     <div v-if="profile.loggedIn" class="if">
         <div class="loggedBanner">
-            <div class="vueSlideContainer">
+            <div class="vueSlideContainer galleryContainer">
               <vueper-slides
-              :infinite="true"
+              :infinite="false"
               fixed-height="true"
               class="no-shadow"
               arrows-outside
@@ -21,14 +21,14 @@
                 <vueper-slide
                 v-for="(slide) in slide"
                 :key="slide.id"
-                :title="slide.title">
+                >
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
 
                             </div>
                             <div class="slideText">
-                              <h2>Collection</h2>
+                              <h2>{{slide.text}}</h2>
                               <p> lorem ipsum dolor sit amet<br>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.
                               Dolor animi natus officiis sint, neque nisi consequuntur,
@@ -42,7 +42,7 @@
 
                             </div>
                             <div class="slideText">
-                              <h2>Collection</h2>
+                              <h2>{{slide.text}}</h2>
                               <p> lorem ipsum dolor sit amet<br>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.
                               Dolor animi natus officiis sint, neque nisi consequuntur,
@@ -56,7 +56,7 @@
 
                             </div>
                             <div class="slideText">
-                              <h2>Collection</h2>
+                              <h2>{{slide.text}}</h2>
                               <p> lorem ipsum dolor sit amet<br>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.
                               Dolor animi natus officiis sint, neque nisi consequuntur,
@@ -98,15 +98,15 @@ export default {
     slide: [
       {
         id: '1',
-        text: 'Upload Your Item'
+        text: 'Collection'
       },
       {
         id: '2',
-        text: 'Mint the Bitcoin'
+        text: 'Collection'
       },
       {
         id: '3',
-        text: 'Set Your Royalties'
+        text: 'Collection'
       }
     ],
     return: {
