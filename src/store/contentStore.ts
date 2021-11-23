@@ -6,6 +6,7 @@ const contentStore = {
       artists: [],
       charities: [],
       mainFooter: null,
+      marketplacetemplate: null,
       information: null,
       navigation: null,
       homepage: null,
@@ -86,6 +87,9 @@ const contentStore = {
     getArtists: state => {
       return state.content.artists
     },
+    getMarket: state => {
+      return state.content.marketplacetemplate
+    },
     getArtistById: state => id => {
       return (state.content.artists) ? state.content.artists.find((o) => o.uid === id) : null
     },
@@ -121,6 +125,9 @@ const contentStore = {
     },
     addEmails (state, o) {
       state.content.emails = o
+    },
+    addMarket (state, o) {
+      state.content.marketplacetemplate = o
     },
     addDialogs (state, o) {
       state.content.dialogs = o
