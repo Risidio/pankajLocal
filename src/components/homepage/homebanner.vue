@@ -74,8 +74,8 @@
     <div v-else>
         <div class="container section1">
             <div class="market_introduction_text">
-                <p class="market_intro_Ex">Explore the New Era of Digital Art</p>
-                <h1 class="market_intro_h1"> Risidio Marketplace</h1>
+            <h1 class="market_intro_h1"> {{content.heroarea[0].herotitle[0].text}}</h1>
+            <p class="market_intro">{{content.heroarea[0].herotext[0].text}}</p>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@ import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: 'Homebanner',
-  props: ['profile'],
+  props: ['profile', 'content'],
 
   components: {
     VueperSlides,
@@ -114,6 +114,7 @@ export default {
       loaded: false
     }
   })
+
 }
 </script>
 
@@ -126,6 +127,32 @@ h2{
   letter-spacing: 1px;
   font-size: 40px;
   font-weight: 400;
+}
+.market_introduction_text{
+  margin: auto;
+  max-width: 1600px;
+  text-align: center;
+  color: white;
+  margin: auto;
+}
+
+.market_intro_h1{
+  margin-bottom: 25px;
+  color: white;
+  font-weight: 200;
+  font-size: clamp(2rem, 5rem, 7rem);
+  word-wrap: break-word;
+}
+.market_intro{
+  font-size: 0.7em;
+  font-weight: 300;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  color: white;
+}
+.market_intro_Ex{
+  font-size: 1.2em;
 }
 .banner{
   position: absolute;
