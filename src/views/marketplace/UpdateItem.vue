@@ -249,6 +249,7 @@ export default {
 }
 </script>
 <style lang="scss" >
+*{color:black;}
 #upload-item .drop-zone {
   min-width: 300px;
   min-height: 300px;
