@@ -57,7 +57,7 @@
           <a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
         </div>
         <div>
-          &copy; &nbsp; {{ year }} Risidio Ltd. All right reserved.
+          &copy; &nbsp; Risidio Ltd. All right reserved.
         </div>
         <div>
           <span>Privacy Policy</span>
