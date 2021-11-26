@@ -35,7 +35,7 @@
       <div class="footer__divider"></div>
       <div class="col-12 d-lg-flex d-none justify-content-between footer__bottom-row">
         <div>
-          &copy; &nbsp; {{ year }} Risidio Ltd. All right reserved.
+          &copy; &nbsp; Risidio Ltd. All right reserved.
         </div>
         <div>
           <!-- <a href="https://discord.gg/qvuxB9P"><img :src="discordLogo" alt="discord-logo"></a>
