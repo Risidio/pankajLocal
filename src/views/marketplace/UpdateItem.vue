@@ -9,6 +9,9 @@
           <div class="mr-1" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
         <div>
+          <ChooseCollection :type="'traditional'" :runKey="runKey" @updateCollection="updateCollection"/>
+        </div>
+        <div>
           <ItemFormPart1 v-if="uploadState > 2" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
           <ItemFormPart2 v-if="uploadState > 3" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
         </div>
@@ -37,13 +40,15 @@ import NftCoverImage from '@/views/marketplace/components/update/NftCoverImage'
 import ItemFormPart1 from '@/views/marketplace/components/update/ItemFormPart1'
 import ItemFormPart2 from '@/views/marketplace/components/update/ItemFormPart2'
 import utils from '@/services/utils'
+import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
 
 export default {
   name: 'UpdateItem',
   components: {
     NftCoverImage,
     ItemFormPart1,
-    ItemFormPart2
+    ItemFormPart2,
+    ChooseCollection
   },
   data () {
     return {
@@ -52,6 +57,7 @@ export default {
       formSubmitted: false,
       dims: { width: 360, height: 202 },
       showErrors: false,
+      loopRun: null,
       componentKey: 0,
       uploadState: 10,
       loaded: false,
@@ -96,10 +102,16 @@ export default {
         return
       }
       this.item = item
-      this.loaded = true
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', this.runKey).then((loopRun) => {
+        this.loopRun = loopRun
+        this.loaded = true
+      })
     })
   },
   methods: {
+    updateCollection (data) {
+      this.loopRun = data.loopRun
+    },
     hasFile (file) {
       const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](this.assetHash)
       if (!item || !item.attributes) return
@@ -122,7 +134,6 @@ export default {
       })
     },
     updateUploadState: function (data) {
-      this.item.projectId = this.loopRun.contractId
       this.$store.dispatch('rpayMyItemStore/saveItem', this.item).then(() => {
         this.$store.dispatch('rpayMyItemStore/saveRootFileOnce')
         if (data.change === 'done') {
@@ -146,7 +157,7 @@ export default {
         this.$store.dispatch('rpayMyItemStore/saveAttributesObject', { assetHash: this.assetHash, attributes: data.media }).then((attributes) => {
           const myAsset = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](this.assetHash)
           myAsset.attributes[attributes.id] = attributes
-          myAsset.currentRunKey = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
+          myAsset.attributes.collection = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
           myAsset.projectId = this.loopRun.contractId
           $self.$store.dispatch('rpayMyItemStore/saveItem', myAsset).then((item) => {
             $self.$store.dispatch('rpayMyItemStore/saveRootFileOnce')
@@ -180,7 +191,11 @@ export default {
     uploadItem: function () {
       this.showErrors = false
       const invalidItems = this.$store.getters[APP_CONSTANTS.KEY_ITEM_VALIDITY](this.item)
-      if (this.item.editions) this.item.editions = parseInt(this.item.editions)
+      if (this.item.attributes.editions) {
+        this.item.attributes.editions = parseInt(this.item.attributes.editions)
+      } else {
+        this.item.attributes.editions = 10
+      }
       if (this.doValidate && invalidItems.length > 0) {
         this.showErrors = true
         this.$notify({ type: 'error', title: 'Upload Error', text: 'Please enter missing data' })
@@ -190,7 +205,11 @@ export default {
       this.$store.commit('setModalMessage', 'Uploading... once its saved you\'ll be able to mint this artwork - registering your ownership on the blockchain. Once registered you\'ll be able to prove you own it and be able to benefit from sales and from secondary sales.')
       this.$root.$emit('bv::show::modal', 'waiting-modal')
       this.item.projectId = this.loopRun.contractId
-      this.item.currentRunKey = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
+      if (this.overrideLoopRun) {
+        this.item.attributes.collection = this.overrideLoopRun.currentRunKey + '/' + this.overrideLoopRun.makerUrlKey
+      } else {
+        this.item.attributes.collection = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
+      }
       this.$store.dispatch('rpayMyItemStore/saveItem', this.item).then(() => {
         this.$store.dispatch('rpayMyItemStore/saveRootFileOnce')
         this.$root.$emit('bv::hide::modal', 'waiting-modal')
@@ -204,13 +223,9 @@ export default {
     }
   },
   computed: {
-    loopRun () {
-      const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](this.runKey)
-      return loopRun
-    },
     runKey () {
       const defaultLoopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
-      let runKey = (this.item && this.item.currentRunKey) ? this.item.currentRunKey : defaultLoopRun
+      let runKey = (this.item && this.item.attributes.collection) ? this.item.attributes.collection : defaultLoopRun
       if (runKey.indexOf('/') > -1) {
         runKey = runKey.split('/')[0]
       }

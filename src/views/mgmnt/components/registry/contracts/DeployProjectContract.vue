@@ -39,17 +39,13 @@ export default {
 ;; (impl-trait .nft-trait.nft-trait)
 ;; (impl-trait .nft-tradable-trait.nft-tradable-trait)
 
-;; (impl-trait 'ST1ESYCGJB5Z5NBHS39XPC70PGC14WAQK5XXNQYDW.nft-tradable-trait.nft-tradable-trait)
-;; (impl-trait 'SP1JSH2FPE8BWNTP228YZ1AZZ0HE0064PS6RXRAY4.nft-trait.nft-trait)
-(impl-trait 'params.administrator.nft-tradable-trait.nft-tradable-trait)
-(impl-trait 'params.administrator.nft-trait.nft-trait)
+(impl-trait 'params.nfttrait)
+(impl-trait 'params.approvabletrait)
 
 ;; contract variables
 (define-data-var administrator principal 'params.administrator)
 (define-data-var mint-price uint uparams.mintPrice)
-(define-data-var base-token-uri (string-ascii 256) params.callBack)
 (define-data-var mint-counter uint u0)
-(define-data-var platform-fee uint u5)
 (define-data-var signer (buff 33) 0x02815c03f6d7181332afb1b0114f5a1c97286b6092957910ae3fab4006598aee1b)
 (define-data-var is-collection bool params.projectType)
 (define-data-var collection-mint-addresses (list 4 principal) (list))
@@ -66,9 +62,9 @@ export default {
 (define-non-fungible-token loopbomb uint)
 
 ;; data structures
-(define-map nft-approvals {nft-index: uint} {approval: principal})
+(define-map approvals {owner: principal, operator: principal, nft-index: uint} bool)
 (define-map nft-lookup {asset-hash: (buff 32), edition: uint} {nft-index: uint})
-(define-map nft-data {nft-index: uint} {asset-hash: (buff 32), meta-data-url: (buff 200), max-editions: uint, edition: uint, edition-cost: uint, series-original: uint})
+(define-map nft-data {nft-index: uint} {asset-hash: (buff 32), meta-data-url: (string-ascii 256), max-editions: uint, edition: uint, edition-cost: uint, series-original: uint})
 (define-map nft-sale-data {nft-index: uint} {sale-type: uint, increment-stx: uint, reserve-stx: uint, amount-stx: uint, bidding-end-time: uint, sale-cycle-index: uint})
 (define-map nft-beneficiaries {nft-index: uint} { addresses: (list 10 principal), shares: (list 10 uint), secondaries: (list 10 uint) })
 (define-map nft-bid-history {nft-index: uint, bid-index: uint} {sale-cycle: uint, bidder: principal, amount: uint, bid-in-block: uint})
@@ -110,39 +106,37 @@ export default {
 (define-constant bidding-amount-error (err u39))
 (define-constant bidding-endtime-error (err u40))
 (define-constant collection-limit-reached (err u41))
-
 (define-constant nft-not-owned-err (err u401)) ;; unauthorized
 (define-constant sender-equals-recipient-err (err u405)) ;; method not allowed
 (define-constant nft-not-found-err (err u404)) ;; not found
 
-;; interface methods
 ;; from nft-trait: Last token ID, limited to uint range
-;; note decrement as mint counter is the id of the next nft
 (define-read-only (get-last-token-id)
   (ok (- (var-get mint-counter) u1))
 )
 
 ;; from nft-trait: URI for metadata associated with the token
 (define-read-only (get-token-uri (nftIndex uint))
-  (ok (some (var-get base-token-uri)))
+  (ok (get meta-data-url (map-get? nft-data {nft-index: nftIndex})))
+)
+;; allows the meta data url to change - e.g. when an nft transfers from buyer to seller allows the meta data to move to new owners gaia storage.
+(define-public (update-meta-data-url (nftIndex uint) (newMetaDataUrl (string-ascii 256)))
+    (let
+        (
+            (ahash           (unwrap! (get asset-hash   (map-get? nft-data {nft-index: nftIndex})) not-allowed))
+            (edition         (unwrap! (get edition (map-get? nft-data {nft-index: nftIndex})) not-allowed))
+            (editionCost     (unwrap! (get edition-cost (map-get? nft-data {nft-index: nftIndex})) not-allowed))
+            (maxEditions     (unwrap! (get max-editions (map-get? nft-data {nft-index: nftIndex})) not-allowed))
+            (seriesOriginal  (unwrap! (get series-original (map-get? nft-data {nft-index: nftIndex})) not-allowed))
+        )
+        (asserts! (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) not-allowed)) not-allowed)
+        (ok (map-set nft-data {nft-index: nftIndex} {asset-hash: ahash, meta-data-url: newMetaDataUrl, max-editions: maxEditions, edition: edition, edition-cost: editionCost, series-original: seriesOriginal}))
+    )
 )
 
 ;; from nft-trait: Gets the owner of the 'SPecified token ID.
 (define-read-only (get-owner (nftIndex uint))
   (ok (nft-get-owner? loopbomb nftIndex))
-)
-
-;; see nft-tradable-trait
-(define-read-only (get-approval (nftIndex uint))
-  (ok (some (unwrap! (get approval (map-get? nft-approvals {nft-index: nftIndex})) not-found)))
-)
-
-;; see nft-tradable-trait
-(define-public (set-approval-for (nftIndex uint) (approval principal))
-    (begin
-        (asserts! (is-owner nftIndex contract-caller) nft-not-owned-err)
-        (ok (map-set nft-approvals {nft-index: nftIndex} {approval: approval}))
-    )
 )
 
 (define-public (set-is-collection (new-is-collection bool))
@@ -207,38 +201,45 @@ export default {
 
 ;; Transfers tokens to a 'SPecified principal.
 (define-public (transfer (nftIndex uint) (owner principal) (recipient principal))
-  (if (and (is-owner-or-approval nftIndex owner) (is-owner-or-approval nftIndex contract-caller))
+  (if (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err))
     (match (nft-transfer? loopbomb nftIndex owner recipient)
-        success (begin
-            (reset-approval-for nftIndex)
-            (ok success)
-        )
-        error (err {kind: "nft-transfer-failed", code: error}))
-    (err {kind: "permission-denied", code: err-permission-denied}))
+        success (begin (ok success))
+        error (nft-transfer-err error))
+    nft-not-owned-err)
 )
 
 ;; Burns tokens
 (define-public (burn (nftIndex uint) (owner principal))
-  (if (and (is-owner-or-approval nftIndex owner) (is-owner-or-approval nftIndex contract-caller))
+  (if (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err))
     (match (nft-burn? loopbomb nftIndex owner)
         success (begin
-            (reset-approval-for nftIndex)
             (ok success)
         )
-        error (err {kind: "nft-transfer-failed", code: error}))
-    (err {kind: "permission-denied", code: err-permission-denied}))
+        error (nft-transfer-err error))
+    nft-not-owned-err)
 )
-(define-private (is-owner (nftIndex uint) (user principal))
-  (is-eq user (unwrap! (nft-get-owner? loopbomb nftIndex) false))
+
+(define-private (nft-transfer-err (code uint))
+  (if (is-eq u1 code)
+    nft-not-owned-err
+    (if (is-eq u2 code)
+      sender-equals-recipient-err
+      (if (is-eq u3 code)
+        nft-not-found-err
+        (err code)))))
+
+;; see nft-approvable-trait
+(define-public (set-approved (operator principal) (token-id uint) (approved bool))
+  (ok (map-set approvals {owner: tx-sender, operator: operator, nft-index: token-id} approved))
 )
-(define-private (is-approval (nftIndex uint) (user principal))
-  (is-eq user (unwrap! (get approval (map-get? nft-approvals {nft-index: nftIndex})) false))
-)
-(define-private (is-owner-or-approval (nftIndex uint) (user principal))
-    (if (or (is-owner nftIndex user) (is-approval nftIndex user))
-        true
-        false
-    )
+
+(define-read-only (is-approved (nftIndex uint) (owner principal))
+  (or
+    (is-eq owner tx-sender)
+    (is-eq owner contract-caller)
+    (default-to false (map-get? approvals {owner: owner, operator: tx-sender, nft-index: nftIndex}))
+    (default-to false (map-get? approvals {owner: owner, operator: contract-caller, nft-index: nftIndex}))
+  )
 )
 
 ;; public methods
@@ -248,16 +249,6 @@ export default {
     (begin
         (asserts! (is-eq (var-get administrator) contract-caller) not-allowed)
         (var-set administrator new-administrator)
-        (ok true)
-    )
-)
-
-;; the contract administrator can change the base uri - where meta data for tokens in this contract
-;; are located
-(define-public (update-base-token-uri (new-base-token-uri (string-ascii 256)))
-    (begin
-        (asserts! (is-eq (var-get administrator) contract-caller) not-allowed)
-        (var-set base-token-uri new-base-token-uri)
         (ok true)
     )
 )
@@ -294,7 +285,7 @@ export default {
 )
 
 ;; mint twenty tokens
-(define-public (mint-token-twenty (signature (buff 65)) (message (buff 32)) (hashes (list 20 (buff 32))) (meta-urls (list 20 (buff 200))) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint) (mintAddresses (list 4 principal)) (mintShares (list 4 uint)) (addresses (list 10 principal)) (shares (list 10 uint)) (secondaries (list 10 uint)))
+(define-public (mint-token-twenty (signature (buff 65)) (message (buff 32)) (hashes (list 20 (buff 32))) (meta-urls (list 20 (string-ascii 256))) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint) (mintAddresses (list 4 principal)) (mintShares (list 4 uint)) (addresses (list 10 principal)) (shares (list 10 uint)) (secondaries (list 10 uint)))
     (begin
         (unwrap! (mint-token signature message (unwrap! (element-at hashes u0) not-allowed) (unwrap! (element-at meta-urls u0) not-allowed) maxEditions editionCost clientMintPrice buyNowPrice mintAddresses mintShares addresses shares secondaries) not-allowed)
         (unwrap! (mint-token signature message (unwrap! (element-at hashes u1) not-allowed) (unwrap! (element-at meta-urls u1) not-allowed) maxEditions editionCost clientMintPrice buyNowPrice mintAddresses mintShares addresses shares secondaries) not-allowed)
@@ -322,7 +313,7 @@ export default {
 )
 
 ;; mint twenty tokens
-(define-public (collection-mint-token-twenty (signature (buff 65)) (message (buff 32)) (hashes (list 20 (buff 32))) (meta-urls (list 20 (buff 200))) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint))
+(define-public (collection-mint-token-twenty (signature (buff 65)) (message (buff 32)) (hashes (list 20 (buff 32))) (meta-urls (list 20 (string-ascii 256))) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint))
     (begin
         (unwrap! (collection-mint-token signature message (unwrap! (element-at hashes u0) not-allowed) (unwrap! (element-at meta-urls u0) not-allowed) maxEditions editionCost clientMintPrice buyNowPrice) not-allowed)
         (unwrap! (collection-mint-token signature message (unwrap! (element-at hashes u1) not-allowed) (unwrap! (element-at meta-urls u1) not-allowed) maxEditions editionCost clientMintPrice buyNowPrice) not-allowed)
@@ -362,7 +353,7 @@ export default {
 ;; Note series-original in the case of the original in series is just
 ;; mintCounter - for editions this provides a safety hook back to the original in cases
 ;; where the asset hash is unknown (ie cant be found from nft-lookup).
-(define-public (mint-token (signature (buff 65)) (message-hash (buff 32)) (asset-hash (buff 32)) (metaDataUrl (buff 200)) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint) (mintAddresses (list 4 principal)) (mintShares (list 4 uint)) (addresses (list 10 principal)) (shares (list 10 uint)) (secondaries (list 10 uint)))
+(define-public (mint-token (signature (buff 65)) (message-hash (buff 32)) (asset-hash (buff 32)) (metaDataUrl (string-ascii 256)) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint) (mintAddresses (list 4 principal)) (mintShares (list 4 uint)) (addresses (list 10 principal)) (shares (list 10 uint)) (secondaries (list 10 uint)))
     (begin
         (asserts! (is-ok (recover-pubkey signature message-hash)) (err u9))
         (print "mint-token pubkey recovered")
@@ -409,7 +400,7 @@ export default {
     )
 )
 
-(define-public (collection-mint-token (signature (buff 65)) (message-hash (buff 32)) (asset-hash (buff 32)) (metaDataUrl (buff 200)) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint))
+(define-public (collection-mint-token (signature (buff 65)) (message-hash (buff 32)) (asset-hash (buff 32)) (metaDataUrl (string-ascii 256)) (maxEditions uint) (editionCost uint) (clientMintPrice uint) (buyNowPrice uint))
     (begin
         (asserts! (is-ok (recover-pubkey signature message-hash)) (err u9))
         (if (< (len metaDataUrl) u10) (ok (var-get mint-counter))
@@ -466,9 +457,9 @@ export default {
       ;; (hash (sha256 message))
       (pubkey (try! (secp256k1-recover? hash-of-message signature)))
     )
-    ;;(print {evt: "verify-sig1", pubkey: pubkey, signer: (var-get signer), message: hash-of-message, signature: signature})
+    ;; (print {evt: "verify-sig1", pubkey: pubkey, signer: (var-get signer), message: hash-of-message, signature: signature})
     (asserts! (is-eq pubkey (var-get signer)) (err u5))
-    (print {evt: "verify-sig", pubkey: pubkey, signer: (var-get signer)})
+    ;; (print {evt: "verify-sig", pubkey: pubkey, signer: (var-get signer)})
     (if (is-eq pubkey (var-get signer)) (ok true) (err u1))
   )
 )
@@ -536,7 +527,7 @@ export default {
             (edition         (unwrap! (get edition (map-get? nft-data {nft-index: nftIndex})) not-allowed))
             (seriesOriginal  (unwrap! (get series-original (map-get? nft-data {nft-index: nftIndex})) not-allowed))
         )
-        (asserts! (is-owner nftIndex contract-caller) nft-not-owned-err)
+        (asserts! (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err)) nft-not-owned-err)
         (asserts! (is-eq nftIndex seriesOriginal) not-originale)
         (ok (map-set nft-data {nft-index: nftIndex} {asset-hash: ahash, meta-data-url: metaDataUrl, max-editions: maxEditions, edition: edition, edition-cost: editionCost, series-original: seriesOriginal}))
     )
@@ -559,7 +550,7 @@ export default {
         ;; u2 means bidding is in progress and the sale data can't be changed.
         (asserts! (not (and (> currentAmount u0) (is-eq saleType u2))) bidding-error)
         ;; owner or approval can do this.
-        (asserts! (or (is-approval nftIndex contract-caller) (is-owner nftIndex contract-caller)) not-allowed)
+        (asserts! (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err)) not-allowed)
         ;; Note - don't override the sale cyle index here as this is a public method and can be called ad hoc. Sale cycle is update at end of sale!
         (asserts! (map-set nft-sale-data {nft-index: nftIndex} {sale-cycle-index: saleCycleIndex, sale-type: sale-type, increment-stx: increment-stx, reserve-stx: reserve-stx, amount-stx: amount-stx, bidding-end-time: bidding-end-time}) not-allowed)
         (print {evt: "set-sale-data", nftIndex: nftIndex, saleType: sale-type, increment: increment-stx, reserve: reserve-stx, amount: amount-stx, biddingEndTime: bidding-end-time})
@@ -573,7 +564,7 @@ export default {
         (
             (saleCycleIndex (unwrap! (get sale-cycle-index (map-get? nft-sale-data {nft-index: nftIndex})) amount-not-set))
         )
-        (asserts! (or (is-approval nftIndex contract-caller) (is-owner nftIndex contract-caller)) not-allowed)
+        (asserts! (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err)) not-allowed)
         ;; Note - don't override the sale cyle index here as this is a public method and can be called ad hoc. Sale cycle is update at end of sale!
         (asserts! (map-set nft-sale-data {nft-index: nftIndex} {sale-cycle-index: saleCycleIndex, sale-type: u0, increment-stx: u0, reserve-stx: u0, amount-stx: u0, bidding-end-time: u0}) not-allowed)
         (print {evt: "unlist-item", nftIndex: nftIndex})
@@ -587,7 +578,8 @@ export default {
         (
             (saleCycleIndex (unwrap! (get sale-cycle-index (map-get? nft-sale-data {nft-index: nftIndex})) amount-not-set))
         )
-        (asserts! (or (is-approval nftIndex contract-caller) (is-owner nftIndex contract-caller)) not-allowed)
+        (asserts! (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err)) not-allowed)
+        ;; (map-set approvals {owner: tx-sender, operator: operator, nft-index: token-id} true)
         ;; Note - don't override the sale cyle index here as this is a public method and can be called ad hoc. Sale cycle is update at end of sale!
         (asserts! (map-set nft-sale-data {nft-index: nftIndex} {sale-cycle-index: saleCycleIndex, sale-type: u1, increment-stx: u0, reserve-stx: u0, amount-stx: amount, bidding-end-time: u0}) not-allowed)
         (print {evt: "list-item", nftIndex: nftIndex, amount: amount})
@@ -614,7 +606,6 @@ export default {
         (map-set nft-sale-data { nft-index: nftIndex } { sale-cycle-index: (+ saleCycleIndex u1), sale-type: u0, increment-stx: u0, reserve-stx: u0, amount-stx: u0, bidding-end-time: u0})
         ;; finally transfer ownership to the buyer (note: via the buyers transaction!)
         (print {evt: "buy-now", nftIndex: nftIndex, owner: owner, recipient: recipient, amount: amount})
-        (reset-approval-for nftIndex)
         (nft-transfer? loopbomb nftIndex owner recipient)
     )
 )
@@ -753,7 +744,7 @@ export default {
         )
         (asserts! (or (is-eq closeType u1) (is-eq closeType u2)) failed-to-close-1)
         ;; only the owner or administrator can call close
-        (asserts! (or (is-owner nftIndex contract-caller) (unwrap! (is-administrator) not-allowed)) not-allowed)
+        (asserts! (or (is-approved nftIndex (unwrap! (nft-get-owner? loopbomb nftIndex) nft-not-owned-err)) (unwrap! (is-administrator) not-allowed)) not-allowed)
         ;; only the administrator can call close BEFORE the end time - note we use the less accurate
         ;; but fool proof block time here to prevent owner/client code jerry mandering the close function
         (asserts! (or (> block-time bidding-end-time) (unwrap! (is-administrator) failed-to-close-3)) failed-to-close-3)
@@ -789,9 +780,6 @@ export default {
 
 (define-read-only (is-administrator)
     (ok (is-eq (var-get administrator) tx-sender)))
-
-(define-read-only (get-base-token-uri)
-    (var-get base-token-uri))
 
 (define-read-only (get-mint-counter)
   (ok (var-get mint-counter))
@@ -856,14 +844,12 @@ export default {
         (
             (the-administrator  (var-get administrator))
             (the-mint-price  (var-get mint-price))
-            (the-base-token-uri  (var-get base-token-uri))
             (the-mint-counter  (var-get mint-counter))
             (the-token-name  token-name)
             (the-token-symbol  token-symbol)
         )
         (ok (tuple  (administrator the-administrator)
                     (mintPrice the-mint-price)
-                    (baseTokenUri the-base-token-uri)
                     (mintCounter the-mint-counter)
                     (tokenName the-token-name)
                     (tokenSymbol the-token-symbol)))
@@ -944,7 +930,7 @@ export default {
         (+ split (unwrap! (pay-royalty payer myMintPrice (unwrap! (element-at mintAddresses u1) payment-address-error) (unwrap! (element-at mintShares u1) payment-share-error)) payment-share-error))
         (+ split (unwrap! (pay-royalty payer myMintPrice (unwrap! (element-at mintAddresses u2) payment-address-error) (unwrap! (element-at mintShares u2) payment-share-error)) payment-share-error))
         (+ split (unwrap! (pay-royalty payer myMintPrice (unwrap! (element-at mintAddresses u3) payment-address-error) (unwrap! (element-at mintShares u3) payment-share-error)) payment-share-error))
-        (print {evt: "paymint-split", nftIndex: nftIndex, payer: payer, mintPrice: myMintPrice, txSender: tx-sender})
+        ;; (print {evt: "paymint-split", nftIndex: nftIndex, payer: payer, mintPrice: myMintPrice, txSender: tx-sender})
         (ok split)
     )
 )
@@ -997,7 +983,7 @@ export default {
         (+ split (unwrap! (pay-royalty payer saleAmount (unwrap! (element-at addresses u7) payment-address-error) (unwrap! (if (is-eq saleCycle u1) (element-at shares u7) (element-at secondaries u7)) payment-share-error)) payment-share-error))
         (+ split (unwrap! (pay-royalty payer saleAmount (unwrap! (element-at addresses u8) payment-address-error) (unwrap! (if (is-eq saleCycle u1) (element-at shares u8) (element-at secondaries u8)) payment-share-error)) payment-share-error))
         (+ split (unwrap! (pay-royalty payer saleAmount (unwrap! (element-at addresses u9) payment-address-error) (unwrap! (if (is-eq saleCycle u1) (element-at shares u9) (element-at secondaries u9)) payment-share-error)) payment-share-error))
-        (print {evt: "payment-split", nftIndex: nftIndex, saleCycle: saleCycle, payer: payer, saleAmount: saleAmount, txSender: tx-sender})
+        ;; (print {evt: "payment-split", nftIndex: nftIndex, saleCycle: saleCycle, payer: payer, saleAmount: saleAmount, txSender: tx-sender})
         (ok split)
     )
 )
@@ -1022,10 +1008,6 @@ export default {
         (ok u0)
     )
 )
-
-(define-private (reset-approval-for (nftIndex uint))
-    (map-delete nft-approvals {nft-index: nftIndex})
-)
 `
     }
   },
@@ -1045,6 +1027,8 @@ export default {
     } else {
       throw new Error('unknown collection type.')
     }
+    this.source = this.source.replaceAll('params.nfttrait', process.env.VUE_APP_STACKS_NFT_TRAIT_ADDRESS) // utils.stringToHex(this.project.callBack))
+    this.source = this.source.replaceAll('params.approvabletrait', process.env.VUE_APP_STACKS_APPROVABLE_TRAIT_ADDRESS) // utils.stringToHex(this.project.callBack))
     this.source = this.source.replaceAll('params.collectionLimit', this.project.collectionLimit) // utils.stringToHex(this.project.callBack))
     this.source = this.source.replaceAll('params.callBack', '"' + this.project.callBack + '"') // utils.stringToHex(this.project.callBack))
   },
@@ -1125,18 +1109,31 @@ export default {
     },
     contractSourceDisplay () {
       const cleanTokenName = this.getCleanTokenName()
+
       let rep1 = '<span class="text-danger bg-white">' + this.project.owner + '</span>'
       let contractSourceDisplay = this.contractSource.replaceAll('params.administrator', rep1)
+
+      rep1 = '<span class="text-danger bg-white">' + process.env.VUE_APP_STACKS_NFT_TRAIT_ADDRESS + '</span>'
+      contractSourceDisplay = contractSourceDisplay.replaceAll('params.nfttrait', rep1)
+
+      rep1 = '<span class="text-danger bg-white">' + process.env.VUE_APP_STACKS_APPROVABLE_TRAIT_ADDRESS + '</span>'
+      contractSourceDisplay = contractSourceDisplay.replaceAll('params.approvabletrait', rep1)
+
       rep1 = '<span class="text-danger bg-white">' + cleanTokenName + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.tokenName', rep1)
+
       rep1 = '<span class="text-danger bg-white">' + cleanTokenName + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('loopbomb', rep1)
+
       rep1 = '<span class="text-danger bg-white">' + this.project.symbol + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.tokenSymbol', rep1)
+
       rep1 = '<span class="text-danger bg-white">' + this.project.mintPrice + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.mintPrice', rep1)
+
       rep1 = '<span class="text-danger bg-white">' + this.project.collectionLimit + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.collectionLimit', rep1)
+
       rep1 = '<span class="text-danger bg-white">' + this.project.platformAddress + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.platformAddress', rep1)
       if (this.project.type === 'punks') {
