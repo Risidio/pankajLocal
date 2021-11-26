@@ -31,8 +31,8 @@ export default {
     return {
       waitingImage: 'https://images.prismic.io/radsoc/f60d92d0-f733-46e2-9cb7-c59e33a15fc1_download.jpeg?auto=compress,format',
       dims: { width: 360, height: 360 },
-      likeIconTurquoise: require('@/assets/img/Favorite_button_turquoise_empty.png'),
-      likeIconPurple: require('@/assets/img/Favorite_button_purple_empty.png')
+      // likeIconTurquoise: require('@/assets/img/Favorite_button_turquoise_empty.png'),
+      // likeIconPurple: require('@/assets/img/Favorite_button_purple_empty.png')
     }
   },
   methods: {

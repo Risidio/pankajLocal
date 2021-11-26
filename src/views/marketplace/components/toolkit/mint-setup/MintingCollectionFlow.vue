@@ -11,7 +11,7 @@
           </b-col>
           <b-col cols="8" class="px-5">
             <div class="bg-dark mt-0">
-              <RoyaltyScreen :hidePrimaries="true" :mintButtonText="mintButtonText()" :errorMessage="errorMessage" :item="null" @mintToken="beginMintProcess" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
+              <RoyaltyScreen :hidePrimaries="true" :mintButtonText="mintButtonText()" :errorMessage="errorMessage" :item="null" @mintToken="beginMintProcess" :loopRun="loopRun" v-if="displayCard !== 102"/>
             </div>
           </b-col>
         </b-row>
@@ -179,11 +179,11 @@ export default {
         image: this.loopRun.mintImage3,
         name: index
       }
-      myAsset.currentRunKey = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
+      myAsset.attributes.collection = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
       myAsset.projectId = this.loopRun.contractId
       let assetPath = myAsset.assetHash + '.json'
-      if (myAsset.currentRunKey) {
-        assetPath = myAsset.currentRunKey + '/' + index + '.json'
+      if (myAsset.attributes.collection) {
+        assetPath = myAsset.attributes.collection + '/' + index + '.json'
       }
       if (!this.profile.gaiaHubConfig) {
         location.reload()
