@@ -3,20 +3,26 @@
     <div class="profileContainer">
         <div class="profile">
           <div class="profileItems">
-          <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1634907084/RisidioMarketplace/depositphotos_247076982-stock-photo-face-laughing-young-casual-man_xzzoay.jpg" alt="">
+          <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
           <span title='edit your profile' class="pencil">&#9998;</span></div>
+          <div class="usernameEdit"><input type="text" placeholder="Username"><span title='edit your profile' class="">&#9998;</span></div>
         </div>
         <div class="walletDetails">
           <h1>Your Wallet Information:</h1>
+          <h2>John Doe</h2>
           <h2>Wallet: {{username}}</h2>
           <p>Balance: {{profile.accountInfo.balance}} stx</p>
           <br/>
-          <router-link class="mintBtn" to="/create">Mint an NFT</router-link>
-          <div class="profileBtn">Disconnect</div>
+          <div class="profileBtns">
+            <router-link  to="/create"><button class="button">Mint an NFT</button></router-link >
+            <router-link  to="/"><button class="button">Disconnect</button></router-link >
+            <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
+            <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
+          </div>
         </div>
     </div>
     <div>
-      <!-- <div>
+      <div>
       <b-nav class="galleryNav" >
         <div class="galleryNavContainer" >
         <b-nav-item class="galleryNavItem">NFTs
@@ -26,7 +32,7 @@
         <b-nav-item class="galleryNavItem">Your NFT's</b-nav-item>
         </div>
       </b-nav>
-    </div> -->
+    </div>
         <b-container class="filesContainer galleryNav" v-if="loaded">
           <!-- <h1>My Library</h1> -->
           <b-tabs justified content-class="filesSubContainer">
@@ -283,25 +289,50 @@ export default {
 }
 
 .pencil{
-  background: rgb(240, 240, 240);
+  background: rgb(243, 243, 243);
+  color: lightseagreen;
   position: relative;
-  width: 3rem;
-  height: 3rem;
+  width: 5rem;
+  height: 5rem;
   top: -200px;
   left: 160px;
+  padding: 10px;
   border-radius: 50%;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   font-size: 2rem;
   cursor: pointer;
 }
-
+.usernameEdit{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  background: rgb(243, 243, 243);
+  border-radius: 20px;
+  }
+  .usernameEdit > input {
+  background: rgb(243, 243, 243);
+        border-radius: 20px;
+      border: solid 1px rgb(235, 235, 235);
+      width: 90%;
+      padding: 5px;
+      padding-left: 15px;
+      outline: none;
+      font-weight: 200;
+  }
+.usernameEdit > span {
+  width: 10%;
+    padding: 5px;
+    color: lightseagreen;
+}
 .walletDetails{
   text-align: center;
-  padding: 20px;
-  max-width: 60rem;
-  height: 30rem;
-  background: #c5c5c518;
+  padding: 30px;
+  max-width: 100%;
+  height: auto;
+  // background: #c5c5c518;
+  background: rgb(255,255,255);
+background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   margin: auto;
@@ -314,28 +345,32 @@ export default {
     font-size: 1.2rem;
     font-weight: 600;
   }
-  & > .mintBtn{
+  .profileBtns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
     margin: auto;
-    margin-top: 5rem;
-    background: #80576315;
-    border-radius: 20px;
-    width: 14rem;
-    padding: 10px;
-    color: #50B1B5;
-    cursor: pointer;
   }
-  & > .profileBtn{
-    margin: auto;
-    margin-top: 2rem;
-    background: #80576315;
-    border-radius: 20px;
-    width: 13rem;
-    padding: 10px;
-    color: orange;
-      cursor: default;
-  }
-
+  .button{
+  margin: 10px;
+  width: 15rem;
+  height: 60px;
+  border-radius: 100px;
+  border: none;
+  background-color: rgba(0, 162, 184, 0.1);
+  font-size: 14px;
+  font-weight:700;
+  color: rgb(0, 177, 201);
+  /* margin-bottom: 50px; */
+  /* padding-bottom: 50px; */
 }
+.button:hover{
+  color: black;
+    color: rgb(0, 143, 162);
+}
+}
+
 @media only screen and (max-width: 1250px){
   .profileItems, .profileImg{
     margin: auto;
