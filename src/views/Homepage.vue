@@ -1,6 +1,6 @@
 <template>
     <section class="homepage">
-      <HomeBanner v-bind:profile='profile'/>
+      <HomeBanner v-bind:profile='profile' :content="content"/>
       <HomeMarket v-bind:profile='profile'/>
       <HomeInfo v-bind:profile='profile'/>
       <HomeSeeAlso v-bind:profile='profile'/>

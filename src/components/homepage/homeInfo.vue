@@ -50,41 +50,55 @@
         <div v-else>
             <div class="homeInfoContainer">
                 <div>
-                    <img src='https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png'/>
-                    <p style="font-size: 16px; font-weight: 700;"> Connect your wallet <br/><br/></p>
-                    <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                    deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                    nemo ipsum corporis molestias.</p>
-                    <button class='button'> Something </button>
-                </div>
-                <div>
-                    <img src='https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png'/>
-                    <p style="font-size: 16px; font-weight: 700;"> Upload and mint your NFT <br/><br/></p>
-                    <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                    deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                    nemo ipsum corporis molestias.</p>
-                    <div class='buttonCon'><button class='button'> Something </button></div>
-                </div>
-                <div>
-                    <img src='https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png'/>
-                    <p style="font-size: 16px; font-weight: 700;"> Sell your work <br/><br/></p>
-                    <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                    deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                    nemo ipsum corporis molestias.</p>
-                    <div class='buttonCon'><button class='button'> Something </button></div>
-                </div>
-                <div>
                     <div>
-                        <img src='https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png'/>
-                        <p style="font-size: 16px; font-weight: 700;"> Buy and trade NFTs <br/><br/></p>
+                    <div class="textCon">
+                        <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
+                        <p style="font-size: 16px; font-weight: 700;"> Connect your wallet <br/><br/></p>
                         <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                         Molestiae iure a culpa sed quidem totam reiciendis deleniti
                         deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                        nemo ipsum corporis molestias  quidem totam reiciendis d  quidem totam reiciendis d.</p>
-                        <div class='buttonCon'><button class='button'> Something </button></div>
+                        nemo ipsum corporis molestias.</p>
+                    </div>
+                        <div class='buttonCon'><button class='button'> Gallery </button></div>
+                </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="textCon">
+                            <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
+                            <p style="font-size: 16px; font-weight: 700;"> Upload and mint your NFT <br/><br/></p>
+                            <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
+                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
+                            nemo ipsum corporis molestias.</p>
+                        </div>
+                        <div class='buttonCon'><button class='button'> Upload </button></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="textCon">
+                            <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
+                            <p style="font-size: 16px; font-weight: 700;"> Sell your work <br/><br/></p>
+                            <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
+                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
+                            nemo ipsum corporis molestias.</p>
+                        </div>
+                        <div class='buttonCon'><button class='button'> My NFTs </button></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="textCon">
+                        <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
+                            <p style="font-size: 16px; font-weight: 700;"> Buy and trade NFTs <br/><br/></p>
+                            <p style="font-weight: 200;"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
+                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
+                            nemo ipsum corporis molestias  quidem totam reiciendis d  quidem totam reiciendis d.</p></div>
+                        </div>
+                        <div class='buttonCon'><button class='button'> Connect </button>
                     </div>
                 </div>
             </div>
@@ -140,10 +154,11 @@ export default {
         max-width: 420px;
     }
 }
+
 .buttonCon{
-    height: 70px;
     display: block;
-    margin-top: auto auto 0 auto;
+    height: 70px;
+    margin: auto auto 0 auto;
 }
 .button{
   display: flex;

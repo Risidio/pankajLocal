@@ -3,7 +3,7 @@
   <b-card bg-variant="black" class="bg-black mt-0 py-2 text-white">
     <div class="px-2">
       <div class="text-left">
-        <p style="height: 2rem;" class="overflow-hidden text-bold">{{mintedMessage}}</p>
+        <p class="text-bold">{{mintedMessage}}</p>
         <div class="text-small d-flex justify-content-between">
           <div class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
           <div class="text-right">{{created()}}</div>
@@ -12,10 +12,10 @@
     </div>
     <b-card-text class="">
       <b-link class="text-xsmall text-info" :to="nextUrl">
-        <div style="min-height: 100px;" @contextmenu="handler($event)" class="d-flex justify-content-center p-2">
+        <div @contextmenu="handler($event)" class="d-flex justify-content-center p-2">
             <img
               ref="itemImage"
-              :width="newWidth"
+              :width="'100%'"
               :height="newHeight"
               :src="image" @error="imageError()"/>
         </div>
@@ -28,7 +28,7 @@
         <span v-if="contractAsset">{{contractAsset.owner}}</span>
         <span v-else>'ownership in progress'</span>
       </div>
-      <div class="mb-4 d-flex justify-content-center" v-if="marketplace || myNfts">
+      <div class="d-flex justify-content-center" v-if="marketplace || myNfts">
         <b-button :to="nextUrl" :variant="variant">{{sellingMessage}}</b-button>
       </div>
       <div class="d-flex justify-content-center" v-else-if="nftPage">
@@ -38,13 +38,13 @@
           <div><a v-b-tooltip.bottom title="Download NFT" class="text-info text-light ml-3" href="#" @click.prevent="download"><b-icon class="text-info arrow-repeat" font-scale="1" icon="arrow-down-circle"></b-icon></a></div>
         </div>
         <div v-else-if="myNfts">
-          <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nft-preview/' + asset.contractAsset.contractId + '/' + asset.contractAsset.nftIndex">manage</b-link>
+          <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nft-preview/' + asset.contractAsset.contractId + '/' + asset.contractAsset.nftIndex">manage item</b-link>
           <b-link v-else class="text-small text-warning" :to="'/item-preview/' + asset.assetHash + '/1'">mint now</b-link>
         </div>
         <div v-if="iAmOwner">
         </div>
         <div class="text-info" v-if="!marketplace && !nftPage">
-          <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nfts/' + contractAsset.contractId + '/' + contractAsset.nftIndex">marketplace</b-link>
+          <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nfts/' + contractAsset.contractId + '/' + contractAsset.nftIndex">show in marketplace</b-link>
         </div>
       </div>
     </b-card-text>
@@ -59,15 +59,14 @@ import PunkConnect from './PunkConnect'
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'MySingleItem',
+  name: 'MyWalletNft',
   components: {
     PunkConnect
   },
-  props: ['asset', 'loopRun', 'parent'],
+  props: ['asset', 'loopRun'],
   data () {
     return {
       image: null,
-      newWidth: '100%',
       newHeight: null
     }
   },
@@ -75,31 +74,15 @@ export default {
     this.image = this.$store.getters[APP_CONSTANTS.KEY_ASSET_IMAGE_URL](this.asset)
     const $self = this
     const $ele = this.$refs.itemImage
-    if (this.isLoopbomb()) {
-      this.newHeight = '100%'
-    }
     this.$nextTick(() => {
       if (!$ele) {
         return
       }
-      if ($self.isLoopbomb()) {
-        $self.newHeight = $ele.clientWidth * 1 // 1024 / 716
-        $self.newWidth = ($self.newHeight * 716) / 1024
-        $ele.style.width = (Math.floor($self.newWidth)).toString() + 'px'
-      } else {
-        $self.newHeight = $ele.clientWidth * 1 // 1024 / 716
-        $ele.style.height = (Math.floor($self.newHeight)).toString() + 'px'
-      }
+      $self.newHeight = $ele.clientWidth * 1 // 1024 / 716
+      $ele.style.height = (Math.floor($self.newHeight)).toString() + 'px'
     })
   },
   methods: {
-    isLoopbomb () {
-      try {
-        return ((this.contractAsset.tokenInfo.metaDataUrl.indexOf('loopbomb') > -1) || (this.loopRun && this.loopRun.currentRunKey.indexOf('loop') > -1))
-      } catch (e) {
-        return false
-      }
-    },
     updateImage (item) {
       this.asset.image = item.image
       this.image = item.image
@@ -108,7 +91,7 @@ export default {
       e.preventDefault()
     },
     imageError () {
-      this.image = this.asset.attributes.artworkFile.fileUrl
+      this.image = this.asset.image
     },
     created () {
       if (this.asset && this.asset.mintInfo && this.asset.mintInfo.timestamp) {
@@ -118,35 +101,10 @@ export default {
       }
       return ''
     }
-    /**
-    download () {
-      const extUrl = this.asset.attributes.artworkFile.fileUrl
-      imageDataURI.encodeFromURL(extUrl).then(dataUrl => {
-        // RETURNS image data URI :: 'data:image/pngbase64,PNGDATAURI/'
-        const image = dataUrl.replace('image/png', 'image/octet-stream')
-        const link = document.createElement('a')
-        link.download = this.asset.name + '.png'
-        link.href = image
-        link.click()
-      }).catch(() => {
-        imageDataURI.encodeFromURL(extUrl).then(dataUrl => {
-          // RETURNS image data URI :: 'data:image/pngbase64,PNGDATAURI/'
-          const image = dataUrl.replace('image/png', 'image/octet-stream')
-          const link = document.createElement('a')
-          link.download = this.asset.name + '.png'
-          link.href = image
-          link.click()
-        })
-      })
-    }
-    **/
   },
   computed: {
     contractAsset () {
-      if (this.asset.contractAsset) return this.asset.contractAsset
-      const data = { assetHash: this.asset.assetHash, edition: 1 }
-      const gaiaAsset = this.$store.getters['rpayStacksContractStore/getAssetByHashAndEdition'](data)
-      return (gaiaAsset) ? gaiaAsset.contractAsset : null
+      return this.asset.contractAsset
     },
     variant () {
       if (this.contractAsset) {
@@ -190,9 +148,6 @@ export default {
         return this.loopRun.currentRun + ' #' + this.contractAsset.nftIndex
       }
       if (this.contractAsset) {
-        if (this.contractAsset.assetName === 'crashpunks') {
-          return 'Crash Punks #' + this.contractAsset.nftIndex
-        }
         return '#' + this.contractAsset.nftIndex + ' ' + this.asset.name
       }
       return this.asset.name

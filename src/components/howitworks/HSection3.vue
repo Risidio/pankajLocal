@@ -1,7 +1,13 @@
 <template>
   <div id="frame">
     <div class = "hS3_container">
-      <vueper-slides fixed-height="true">
+      <vueper-slides fixed-height="true" :infinite="false">
+        <template #arrow-left>
+          <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
+        </template>
+        <template #arrow-right>
+          <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="wallet" class="arrow"/>
+        </template>
         <vueper-slide
           v-for="(slide) in slide"
           :key="slide.id"
@@ -127,6 +133,11 @@ p{
   margin:auto;
   margin-top: 5vw;
 }
+.arrow{
+  width: 50px;
+  height: 50px;
+  margin: auto;
+}
 .button{
   margin: 0 auto;
   display: block;
@@ -143,8 +154,8 @@ p{
  @media only screen and (max-width: 770px)  {
   .vueperslides--fixed-height {height: 80vh;}
 }
-/*
+
 @media only screen and (max-width: 500px)  {
   .vueperslides--fixed-height {height: 120vh;}
-} */
+}
 </style>

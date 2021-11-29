@@ -1,5 +1,5 @@
 <template>
-<section :key="componentKey" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-white">
+<section id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-white">
   <b-container class="center-section" style="min-height: 50vh;">
     <b-row align-h="center" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="7" sm="10" class="mb-5">
@@ -22,10 +22,17 @@
               </div>
             </div>
           </b-col>
-          <b-col md="12" align-self="end">
+          <b-col md="12" align-self="end" :key="componentKey">
             <div class="w-100">
-              <h1 class="text-white">{{gaiaAsset.name}}</h1>
-              <h2>{{gaiaAsset.artist}}</h2>
+              <h1 class="text-white">{{mintedMessage}}</h1>
+              <div>
+                <div class="d-flex justify-content-between">
+                  <div>by <span class="text-warning">{{loopRun.makerName}}</span> <span v-if="loopRun.type !== 'punks'">from collection <span class="text-warning">{{loopRun.currentRun}}</span></span> {{editionMessage}}</div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <div>{{created()}}</div>
+              </div>
               <div v-if="gaiaAsset.description" class="w-100 text-white" v-html="preserveWhiteSpace(gaiaAsset.description)">
               </div>
               <div class="w-25">
@@ -51,7 +58,9 @@
                   </b-col>
                 </b-row>
               </div>
-              <NftHistory class="text-small mt-5" v-if="nftIndex > -1" @setPending="setPending" :nftIndex="nftIndex" :loopRun="loopRun"/>
+              <div v-if="nftIndex > -1">
+                <NftHistory class="text-small mt-5" @setPending="setPending" :nftIndex="nftIndex" :loopRun="loopRun"/>
+              </div>
               <b-row class="my-4" v-else>
                 <b-col md="6" sm="12" class="mb-3">
                   <div class="more-link m-0" v-scroll-to="{ element: '#artist-section', duration: 1000 }"><b-link class="text-white">Find out more</b-link></div>
@@ -134,7 +143,7 @@ export default {
       forceOfferFlow: false,
       // grid: require('@/assets/img/navbar-footer/grid.svg'),
       // cross: require('@/assets/img/navbar-footer/cross.svg'),
-      hammer: require('@/assets/img/auction.svg'),
+      // hammer: require('@/assets/img/auction.svg'),
       showRpay: 0,
       nftIndex: -1,
       pending: null,
@@ -161,12 +170,13 @@ export default {
     if (window.eventBus && window.eventBus.$on) {
       window.eventBus.$on('rpayEvent', function (data) {
         if ($self.$route.name.indexOf('asset-by-') === -1) return
+        $self.componentKey++
         $self.$bvModal.hide('asset-offer-modal')
         $self.$bvModal.hide('result-modal')
         $self.txData = data
         if (data.opcode.indexOf('stx-transaction-sent') > -1) {
           if (data.txStatus === 'pending') {
-            $self.$bvModal.show('result-modal')
+            // $self.$bvModal.show('result-modal')
           }
           $self.update()
         }
@@ -178,6 +188,18 @@ export default {
     }, this)
   },
   methods: {
+    created () {
+      if (this.gaiaAsset && this.gaiaAsset.mintInfo && this.gaiaAsset.mintInfo.timestamp) {
+        return DateTime.fromMillis(this.gaiaAsset.mintInfo.timestamp).toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      } else if (this.gaiaAsset && this.gaiaAsset.updated) {
+        return DateTime.fromMillis(this.gaiaAsset.updated).toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      }
+      return ''
+    },
+    mintedEvent (data) {
+      this.$bvModal.hide('edition-modal')
+      this.$emit('mintedEvent', data)
+    },
     setPending (result) {
       if (this.pending) {
         if (!result || !result.txStatus || result.txStatus === 'pending') {
@@ -343,6 +365,21 @@ export default {
     }
   },
   computed: {
+    mintedMessage () {
+      if (this.gaiaAsset.contractAsset && this.loopRun && this.loopRun.type === 'punks') {
+        return this.loopRun.currentRun + ' #' + this.gaiaAsset.contractAsset.nftIndex
+      }
+      if (this.gaiaAsset.contractAsset) {
+        return '#' + this.gaiaAsset.contractAsset.nftIndex + ' ' + this.gaiaAsset.name
+      }
+      return this.gaiaAsset.name
+    },
+    editionMessage () {
+      if (this.gaiaAsset.contractAsset && this.gaiaAsset.contractAsset.tokenInfo.maxEditions > 1) {
+        return '(' + this.gaiaAsset.contractAsset.tokenInfo.edition + ' of ' + this.gaiaAsset.contractAsset.tokenInfo.maxEditions + ')'
+      }
+      return null
+    },
     transactionUrl: function () {
       if (!this.gaiaAsset.mintInfo || !this.gaiaAsset.mintInfo.txId) return '#'
       const stacksApiUrl = process.env.VUE_APP_STACKS_EXPLORER

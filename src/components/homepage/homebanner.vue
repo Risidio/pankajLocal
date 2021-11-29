@@ -3,9 +3,9 @@
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
     <div v-if="profile.loggedIn" class="if">
         <div class="loggedBanner">
-            <div class="vueSlideContainer">
+            <div class="vueSlideContainer galleryContainer">
               <vueper-slides
-              :infinite="true"
+              :infinite="false"
               fixed-height="true"
               class="no-shadow"
               arrows-outside
@@ -21,14 +21,14 @@
                 <vueper-slide
                 v-for="(slide) in slide"
                 :key="slide.id"
-                :title="slide.title">
+                >
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
 
                             </div>
                             <div class="slideText">
-                              <h2>Collection</h2>
+                              <h2>{{slide.text}}</h2>
                               <p> lorem ipsum dolor sit amet<br>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.
                               Dolor animi natus officiis sint, neque nisi consequuntur,
@@ -42,7 +42,7 @@
 
                             </div>
                             <div class="slideText">
-                              <h2>Collection</h2>
+                              <h2>{{slide.text}}</h2>
                               <p> lorem ipsum dolor sit amet<br>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.
                               Dolor animi natus officiis sint, neque nisi consequuntur,
@@ -56,7 +56,7 @@
 
                             </div>
                             <div class="slideText">
-                              <h2>Collection</h2>
+                              <h2>{{slide.text}}</h2>
                               <p> lorem ipsum dolor sit amet<br>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.
                               Dolor animi natus officiis sint, neque nisi consequuntur,
@@ -74,8 +74,8 @@
     <div v-else>
         <div class="container section1">
             <div class="market_introduction_text">
-                <p class="market_intro_Ex">Explore the New Era of Digital Art</p>
-                <h1 class="market_intro_h1"> Risidio Marketplace</h1>
+            <h1 class="market_intro_h1"> {{content.heroarea[0].herotitle[0].text}}</h1>
+            <p class="market_intro">{{content.heroarea[0].herotext[0].text}}</p>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@ import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: 'Homebanner',
-  props: ['profile'],
+  props: ['profile', 'content'],
 
   components: {
     VueperSlides,
@@ -98,15 +98,15 @@ export default {
     slide: [
       {
         id: '1',
-        text: 'Upload Your Item'
+        text: 'Collection'
       },
       {
         id: '2',
-        text: 'Mint the Bitcoin'
+        text: 'Collection'
       },
       {
         id: '3',
-        text: 'Set Your Royalties'
+        text: 'Collection'
       }
     ],
     return: {
@@ -114,6 +114,7 @@ export default {
       loaded: false
     }
   })
+
 }
 </script>
 
@@ -126,6 +127,32 @@ h2{
   letter-spacing: 1px;
   font-size: 40px;
   font-weight: 400;
+}
+.market_introduction_text{
+  margin: auto;
+  max-width: 1600px;
+  text-align: center;
+  color: white;
+  margin: auto;
+}
+
+.market_intro_h1{
+  margin-bottom: 25px;
+  color: white;
+  font-weight: 200;
+  font-size: clamp(2rem, 5rem, 7rem);
+  word-wrap: break-word;
+}
+.market_intro{
+  font-size: 0.7em;
+  font-weight: 300;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  color: white;
+}
+.market_intro_Ex{
+  font-size: 1.2em;
 }
 .banner{
   position: absolute;
