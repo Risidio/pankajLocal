@@ -44,15 +44,15 @@ export default {
     return {
       placeHolderItems: [],
       breakpoints: {
-        1400: {
+        1600: {
           visibleSlides: 3,
           slideRatio: 1 / 2.5
         },
-        900: {
+        1200: {
           visibleSlides: 2,
           slideRatio: 1 / 1.5
         },
-        600: {
+        800: {
           visibleSlides: 1.1,
           slideRatio: 1,
           arrows: false
@@ -84,7 +84,7 @@ export default {
 <style lang="scss" scoped>
 .seeAlso{
     min-height: 60vh;
-    margin: 0 3%;
+    margin: 0 7%;
     h2{
         font-size: 40px;
         margin: 100px 20px 50px 20px;
@@ -92,7 +92,7 @@ export default {
     }
 }
 .seeAlsoContainer{
-  max-width: 1600px;
+  max-width: 1500px;
   margin: auto;
 }
 .vueperslides{

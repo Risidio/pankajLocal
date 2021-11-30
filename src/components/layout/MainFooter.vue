@@ -6,7 +6,9 @@
       <div class="row m-0 d-flex">
         <div class="col-lg-5 col-12 d-flex flex-column justify-content-center align-items-lg-start align-items-center">
           <router-link to="/" class="navbar-brand text-white"><img :src="logo" alt="risidio-logo" class="footer-logo"/></router-link>
-          <p class="footer__pitch">Risidio Auctions is a marketplace for digital assets registered via the Bitcoin blockchain using Clarity Contracts and the Stacks 2.0 network. We are looking for partners and clients to help get the platform to the next level and make it a production ready viable alternative to similar projects like Open Sea on Ethereum.</p>
+          <p class="footer__pitch">Risidio Auctions is a marketplace for digital assets registered via the Bitcoin blockchain using Clarity Contracts and the Stacks 2.0 network.
+            We are looking for partners and clients to help get the platform to the next level and make it a production ready viable alternative to similar projects like Open Sea
+            on Ethereum.</p>
         </div>
         <div class="col-lg-7 col-12 d-flex columns3-content__container">
             <div class="footer__column-content ml-lg-auto">
@@ -114,9 +116,7 @@ export default {
 </script>
 <style>
 /* FOOTER STYLE */
-
 footer {
-  margin-top: -16vh;
   background-color: #5154A1;
 }
 
