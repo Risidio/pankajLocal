@@ -19,29 +19,29 @@
     </main>
     <router-view v-else style="min-height: 99vh;" />
     <router-view name="footer"/>
-    <notifications :duration="10000" classes="r-notifs" position="bottom left" width="50%"/>
-    <WaitingModal/>
+    <!-- <notifications :duration="10000" classes="r-notifs" position="bottom left" width="50%"/> -->
+    <!-- <WaitingModal/>
     <SuccessModal/>
-    <MessageTicker :tickerId="tickerId + '-inner'"/>
+    <MessageTicker :tickerId="tickerId + '-inner'"/> -->
   </div>
-  {{sig}}
+  <!-- {{sig}} -->
 </div>
 </template>
 <script>
-import SuccessModal from '@/components/utils/SuccessModal'
-import WaitingModal from '@/components/utils/WaitingModal'
+// import SuccessModal from '@/components/utils/SuccessModal'
+// import WaitingModal from '@/components/utils/WaitingModal'
 // import RisidioPay from 'risidio-pay'
 import { APP_CONSTANTS } from '@/app-constants'
-import MessageTicker from '@/views/marketplace/components/gallery/common/MessageTicker'
+// import MessageTicker from '@/views/marketplace/components/gallery/common/MessageTicker'
 
 const RisidioPay = () => import('risidio-pay')
 
 export default {
   name: 'App',
   components: {
-    MessageTicker,
-    SuccessModal,
-    WaitingModal,
+    // MessageTicker,
+    // SuccessModal,
+    // WaitingModal,
     RisidioPay
   },
   data () {
