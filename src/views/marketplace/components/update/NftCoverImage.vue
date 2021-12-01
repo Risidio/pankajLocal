@@ -1,12 +1,12 @@
 <template>
 <div>
-  <div class="bg-black text-white" style="width:100%;" v-if="displayHeader">
+  <div class="bg-black text-white" style="width:300px" v-if="displayHeader">
     <h1>NFT File Saved</h1>
     <p class="text-small"><a class="text-secondary pointer" style="font-size: 1.2rem;" @click="useNftFileAsCover">click here to use the NFT file as the cover image!</a> ...or</p>
   </div>
-  <div class="bg-black text-white" style="width:100%;">
+  <div class="coverImg">
     <!-- <MediaItem v-if="hasFile()" :videoOptions="videoOptions" :attributes="item.attributes" :targetItem="'coverImage'" v-on="$listeners"/> -->
-    <MediaItemGeneral v-if="hasFile()" :classes="'item-image-preview'" :options="videoOptions" :mediaItem="getMediaItem().coverImage" v-on="$listeners"/>
+    <MediaItemGeneral v-if="hasFile()" :classes="'nFTCoverImg'" :options="videoOptions" :mediaItem="getMediaItem().coverImage" v-on="$listeners"/>
     <MediaUpload v-else class="text-center" :myUploadId="'coverImage'" :dims="dims" :contentModel="contentModel" :mediaFiles="mediaFilesImage()" :limit="1" :sizeLimit="2" :mediaTypes="'image'" @updateMedia="updateMedia($event)"/>
   </div>
 </div>
@@ -129,4 +129,8 @@ export default {
 </script>
 
 <style scoped>
+.coverImg{
+  max-width: 100%;
+  /* overflow: hidden; */
+}
 </style>

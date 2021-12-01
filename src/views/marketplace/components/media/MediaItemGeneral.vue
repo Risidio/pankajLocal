@@ -1,5 +1,5 @@
 <template>
-<div>
+<div className="mediaItemContainer">
   <div v-if="contentType === 'threed'" id="video-demo-container">
     <img :class="classes" v-on="$listeners" :src="mediaItem.fileUrl" @error="setAltImg" :alt="mediaItem.name">
   </div>
