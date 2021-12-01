@@ -1,9 +1,9 @@
 <template>
 <div v-if="item && item.contractAsset && item.attributes" class="mt-1">
   <b-link :to="assetUrl">
-    <MediaItemGeneral :classes="'item-image text-center'" class="p-0 m-0" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
+    <MediaItemGeneral :classes="'nftGalleryView'" class="p-0 m-0" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
   </b-link>
-  <div class="mt-3 text-white">
+  <div class="mt-3 text-black">
     <div class="mt-2 mb-2">
       <div v-if="item.contractAsset">
         #{{item.contractAsset.nftIndex}} {{item.name}}
@@ -14,7 +14,7 @@
         </div>
         <div>
           <div v-if="webWalletNeeded" md="6" sm="12" class="mb-3">
-            <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-white" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
+            <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-black" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
           </div>
           <div md="6" sm="6" class="mb-3 text-center" v-else-if="getSaleType() === 0">
             NOT SELLING
@@ -59,7 +59,7 @@ export default {
       return this.item.contractAsset.saleData.saleType
     },
     mintedEvent (data) {
-      this.$store.commit('setModalMessage', 'Transaction sent.<br/>You can find your NFTs here by clicking on My NFTs in the account section.<br/><a class="text-white" href="' + this.explorer + data.txId + '?chain=mainnet" target="_blank">Track your transaction here</a>')
+      this.$store.commit('setModalMessage', 'Transaction sent.<br/>You can find your NFTs here by clicking on My NFTs in the account section.<br/><a class="text-black" href="' + this.explorer + data.txId + '?chain=mainnet" target="_blank">Track your transaction here</a>')
       this.$root.$emit('bv::show::modal', 'waiting-modal')
     }
   },
