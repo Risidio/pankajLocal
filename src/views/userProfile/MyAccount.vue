@@ -9,12 +9,26 @@
         </div>
         <div class="walletDetails">
           <h1>Your Wallet Information:</h1>
-          <h2>John Doe</h2>
           <h2>Wallet: {{username}}</h2>
-          <p>Balance: {{profile.accountInfo.balance}} stx</p>
+          <!-- <h2>John Doe</h2> -->
           <br/>
+          <div class="walletCurrency">
+            <div>
+              <p>Credit Remaining:</p>
+              <p> {{profile.accountInfo.balance}} stx</p>
+            </div>
+            <div>
+                <p>{{currency}} {{yourSTX}}</p>
+                <select id="currency" name="currency" class="form-control" @change="currencyChange($event.target.value)">
+                   <option value="USD">USD</option>
+                   <option value="GBP">GBP</option>
+                   <option value="EUR">EUR</option>
+                   <option value="NOK">NOK</option>
+                </select>
+            </div>
+          </div>
           <div class="profileBtns">
-            <router-link  to="/create"><button class="button">Mint an NFT</button></router-link >
+            <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
             <router-link  to="/"><button class="button">Disconnect</button></router-link >
             <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
             <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
@@ -23,18 +37,28 @@
     </div>
     <div>
       <div>
-      <b-nav class="galleryNav" >
-        <div class="galleryNavContainer" >
-        <b-nav-item class="galleryNavItem">NFTs
-        </b-nav-item>
-        <b-nav-item class="galleryNavItem">Popular</b-nav-item>
-        <b-nav-item class="galleryNavItem">Collections</b-nav-item>
-        <b-nav-item class="galleryNavItem">Your NFT's</b-nav-item>
+        <b-nav class="galleryNav" >
+          <div class="galleryNavContainer" >
+            <b-nav-item class="galleryNavItem">Your NFTs</b-nav-item>
+            <b-nav-item class="galleryNavItem">Your NFTS on sale</b-nav-item>
+            <b-nav-item class="galleryNavItem">Favourite NFTs</b-nav-item>
+          </div>
+        </b-nav>
+      </div>
+      <div v-if="hasNfts">
+        <p> YOU HAVE NFTS!!!</p>
+      </div>
+      <div v-else>
+        <div class="noNFT">
+        <h3> You do not own any Items yet</h3>
+          <div class="profileBtns">
+            <router-link class="btn button" to="/">Gallery</router-link>
+            <router-link class="btn button" to="/create">Mint Your Item</router-link>
+          </div>
         </div>
-      </b-nav>
-    </div>
-        <b-container class="filesContainer galleryNav" v-if="loaded">
-          <!-- <h1>My Library</h1> -->
+      </div>
+        <!-- <b-container class="filesContainer galleryNav" v-if="loaded">
+           <h1>My Library</h1>
           <b-tabs justified content-class="filesSubContainer">
             <b-tab :title="'NFTs (' + hasNfts + ')'" active>
               <p class="filesSubSubContainer">NFTs you currently own - these may be files you
@@ -88,7 +112,7 @@
             <h1>No NFTs</h1>
             <p>Upload a file and mint it to create your first NFT</p>
           </b-container>
-        </div>
+        </div>-->
 
     </div>
   </div>
@@ -104,24 +128,29 @@ const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 export default {
   name: 'MyAccount',
   components: {
-    MySingleNft
+    // MySingleNft
   },
   data () {
     return {
       loaded: false,
       myNfts: [],
-      myMintingNfts: []
+      myMintingNfts: [],
+      yourSTX: null,
+      currency: '',
+      profileInfo: {}
     }
   },
-  mounted () {
-    this.data = { stxAddress: this.profile.stxAddress, mine: true }
-    const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
-    for (let i = 0; i < myContractAssets.length; i++) {
-      const ga = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH](myContractAssets[i].tokenInfo.assetHash)
-      ga.contractAsset = Object.assign({}, myContractAssets[i])
-      this.myNfts.push(ga)
+  mounted: {
+    mount () {
+      this.data = { stxAddress: this.profile.stxAddress, mine: true }
+      const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
+      for (let i = 0; i < myContractAssets.length; i++) {
+        const ga = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH](myContractAssets[i].tokenInfo.assetHash)
+        ga.contractAsset = Object.assign({}, myContractAssets[i])
+        this.myNfts.push(ga)
+      }
+      this.loaded = true
     }
-    this.loaded = true
   },
   methods: {
     canUpload () {
@@ -144,6 +173,16 @@ export default {
         //   }
         // }
       })
+    },
+    currencyChange (currency) {
+      this.yourSTX = this.profile.accountInfo.balance
+      this.currency = currency
+      if (this.currency === 'EUR') {
+        this.yourSTX = this.yourSTX * 2.5
+      }
+      console.log(this.currency)
+      console.log(this.yourSTX)
+      // e.current.value
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
@@ -211,7 +250,7 @@ export default {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
       return myContractAssets && myContractAssets.length
     },
-    haspProfile () {
+    hasProfile () {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       return profile
     },
@@ -230,7 +269,20 @@ export default {
   font-size: 1.5rem;
   font-weight: 500;
 }
-
+.profileItems{
+  width: 20rem;
+  height: 20rem;
+}
+.walletCurrency{
+  display: flex;
+  flex-wrap: wrap;
+  & > div:nth-child(1){
+    border-right: solid rgb(209, 209, 209) 2px;
+  }
+}
+.walletCurrency >*{
+  flex: 1 1 120px;
+}
 .filesContainer{
   min-width: 100%;
   margin: 50px auto;
@@ -256,12 +308,14 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
 .galleryNavItem{
   width: fit-content;
   padding: 10px;
   margin: auto;
   border: solid rgba(255, 255, 255, 0)  2px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 10px;
 }
 
 .galleryNavItem:hover{
@@ -289,13 +343,13 @@ export default {
 }
 
 .pencil{
-  background: rgb(243, 243, 243);
+  background: white;
   color: lightseagreen;
   position: relative;
   width: 5rem;
   height: 5rem;
-  top: -200px;
-  left: 160px;
+  top: -185px;
+  left: 150px;
   padding: 10px;
   border-radius: 50%;
   text-align: center;
@@ -303,39 +357,74 @@ export default {
   font-size: 2rem;
   cursor: pointer;
 }
+.form-control{
+  max-width: 100px;
+  margin: auto;
+}
 .usernameEdit{
-  width: 50%;
+  max-width: 500px;
   display: flex;
   flex-direction: row;
   background: rgb(243, 243, 243);
   border-radius: 20px;
+  margin: 30px 0;
   }
   .usernameEdit > input {
-  background: rgb(243, 243, 243);
-        border-radius: 20px;
-      border: solid 1px rgb(235, 235, 235);
-      width: 90%;
-      padding: 5px;
-      padding-left: 15px;
-      outline: none;
-      font-weight: 200;
+    background: rgb(243, 243, 243);
+    border-radius: 20px;
+    border: solid 1px rgb(235, 235, 235);
+    width: 90%;
+    padding: 5px;
+    padding-left: 15px;
+    outline: none;
+    font-weight: 200;
+    font-size: 1.2rem;
   }
 .usernameEdit > span {
   width: 10%;
     padding: 5px;
     color: lightseagreen;
 }
+.noNFT{
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  text-align: center;
+  &>:nth-child(1){
+    margin: 50px 0;
+    font-size: 40px;
+    font-weight: 300;
+  }
+  .button{
+  padding: 15px 30px;
+  margin: 0 10px;
+  min-width: 150px;
+  border-radius: 100px;
+  border: none;
+  font-size: 14px;
+  font-weight:500;
+}
+.profileBtns >:nth-child(1){
+  background:#50B1B5;
+  color: white;
+}
+.profileBtns >:nth-child(2){
+  background:#50b2b523;
+  color: #50B1B5;
+}
+}
+
 .walletDetails{
+  max-width: 600px;
   text-align: center;
   padding: 30px;
-  max-width: 100%;
   height: auto;
-  // background: #c5c5c518;
-  background: rgb(255,255,255);
-background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
+  background: #afafaf18;
+  // background: rgb(255,255,255);
+  // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
   border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   margin: auto;
+  min-height: 400px;
   & > h1 {
     margin: 20px auto;
   }
@@ -350,34 +439,29 @@ background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 
     flex-direction: row;
     justify-content: center;
     width: auto;
-    margin: auto;
+    margin: 40px auto auto auto;
   }
   .button{
   margin: 10px;
-  width: 15rem;
-  height: 60px;
+  padding: 15px 50px;
   border-radius: 100px;
   border: none;
-  background-color: rgba(0, 162, 184, 0.1);
+  background-color: rgb(235,231,232);
   font-size: 14px;
   font-weight:700;
-  color: rgb(0, 177, 201);
+  color: rgb(222,146,123);
   /* margin-bottom: 50px; */
   /* padding-bottom: 50px; */
 }
 .button:hover{
-  color: black;
-    color: rgb(0, 143, 162);
+  color: rgb(235,231,232);
+  background-color: rgb(222,146,123);
 }
 }
 
 @media only screen and (max-width: 1250px){
   .profileItems, .profileImg{
     margin: auto;
-  }
-  .pencil{
-    top: -200px;
-    left: 50vw;
   }
 }
 </style>
