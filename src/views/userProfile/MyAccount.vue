@@ -140,17 +140,15 @@ export default {
       profileInfo: {}
     }
   },
-  mounted: {
-    mount () {
-      this.data = { stxAddress: this.profile.stxAddress, mine: true }
-      const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
-      for (let i = 0; i < myContractAssets.length; i++) {
-        const ga = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH](myContractAssets[i].tokenInfo.assetHash)
-        ga.contractAsset = Object.assign({}, myContractAssets[i])
-        this.myNfts.push(ga)
-      }
-      this.loaded = true
+  mounted () {
+    this.data = { stxAddress: this.profile.stxAddress, mine: true }
+    const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
+    for (let i = 0; i < myContractAssets.length; i++) {
+      const ga = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH](myContractAssets[i].tokenInfo.assetHash)
+      ga.contractAsset = Object.assign({}, myContractAssets[i])
+      this.myNfts.push(ga)
     }
+    this.loaded = true
   },
   methods: {
     canUpload () {
