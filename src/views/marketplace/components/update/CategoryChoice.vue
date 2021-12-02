@@ -4,17 +4,18 @@
     <div class="mb-3" :key="componentKey" v-if="showCats">
       <label for="categories">Main category :</label>
       <br/>
-      <b-badge id="categories" @click="setCategory(kw)" class="pointer mr-3 mb-3 py-2 pt-3 px-5" v-for="(kw, index) in categories" :key="index" pill :variant="(item.attributes.category && item.attributes.category.name === kw.name) ? 'secondary' : 'warning'">{{kw.displayName}}</b-badge>
+      <b-badge id="categories" @click="setCategory(kw)" class="pointer mr-3 mb-3 py-2 pt-3 px-5" v-for="(kw, index) in categories" :key="index" pill :variant="(item.attributes.category && item.attributes.category.name === kw.name) ? 'warning' : 'secondary'">{{kw.displayName}}</b-badge>
     </div>
-    <label for="item-keywords">Keywords (comma separated) :</label>
+    <!-- <label for="item-keywords">Keywords (comma separated) :</label> -->
     <b-form-input
       id="item-keywords"
       @blur="changeKeywords"
       v-model="keywords"
       :state="itemKeywordsState"
       aria-describedby="item-keywords-help item-keywords-feedback"
-      placeholder="Enter keywords"
+      placeholder="Enter keywords. (comma separated)"
       trim
+      class="inputArea"
     ></b-form-input>
     <b-form-invalid-feedback id="item-keywords-feedback">
       A top level category is required
@@ -89,4 +90,12 @@ export default {
 </script>
 
 <style scoped>
+.inputArea{
+  width: 100%;
+  border: none;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-weight: 200;
+  font-size: 0.8em;
+  padding: 15px;
+}
 </style>

@@ -1,9 +1,17 @@
 <template>
-<section id="section-upload">
-  <b-container v-if="item" class="mt-5 pt-5 text-white">
-    <b-row v-if="hasFile('coverImage')">
+<section id="section-upload" class="section-upload">
+  <div v-if="item" class="updateItemContainer">
+    <div v-if="hasFile('coverImage')" class="updateItem">
       <b-col class="" md="8" sm="12" align-self="start">
-        <h2 class="mb-4"><span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
+        <div class="bckButton">
+          <div v-if="this.continue">
+            <router-link to="/my-account"><img src="https://res.cloudinary.com/risidio/image/upload/v1633609154/RisidioMarketplace/Component_14_6_yes92k.svg"/></router-link>
+          </div>
+          <div v-else>
+            <img v-on:click="nextPage()" src="https://res.cloudinary.com/risidio/image/upload/v1633609154/RisidioMarketplace/Component_14_6_yes92k.svg"/>
+          </div>
+          <h2 class="mb-4"><span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
+        </div>
         <div class="my-4 bg-danger p-3" v-if="invalidItems.length > 0 && showErrors">
           <div>Required fields:</div>
           <div class="mr-1" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
@@ -11,26 +19,38 @@
         <div>
           <ChooseCollection :type="'traditional'" :runKey="runKey" @updateCollection="updateCollection"/>
         </div>
-        <div>
+        <div v-if="this.continue">
           <ItemFormPart1 v-if="uploadState > 2" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
-          <ItemFormPart2 v-if="uploadState > 3" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
-        </div>
+          </div>
+          <div v-else >
+            <ItemFormPart2 v-if="uploadState > 3" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
+          </div>
+
         <div class="my-4 bg-danger p-3" v-if="invalidItems.length > 0 && showErrors">
           <div>Required fields:</div>
           <div class="mr-1 text-white" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
-        <div class="my-4 text-right"><b-button class="" variant="warning" @click.prevent="uploadItem()">Continue</b-button></div>
       </b-col>
-      <b-col md="4" sm="12" >
-        <NftCoverImage :item="item" :displayHeader="false"/>
-      </b-col>
-    </b-row>
+      <div md="4" sm="12" >
+        <div class="nFTImageContainer">
+          <h3> Preview </h3>
+          <NftCoverImage :item="item" :displayHeader="false"/>
+          <p> by: {{item.uploader}}</p>
+          <div v-if="!this.continue">
+            <button class="btn nextButton" @click.prevent="uploadItem()">Upload</button>
+          </div>
+          <div v-else>
+            <button class="btn nextButton" v-on:click="nextPage()"> Next </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <b-row v-else>
       <b-col md="6" offset-md="3" sm="12" align-self="start" class="text-center">
         <NftCoverImage :item="item" :displayHeader="true" />
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </section>
 </template>
 
@@ -52,6 +72,7 @@ export default {
   },
   data () {
     return {
+      continue: true,
       showAFUpload: false,
       requireClip: false,
       formSubmitted: false,
@@ -109,6 +130,9 @@ export default {
     })
   },
   methods: {
+    nextPage () {
+      this.continue = !this.continue
+    },
     updateCollection (data) {
       this.loopRun = data.loopRun
     },
@@ -276,5 +300,62 @@ export default {
 #upload-item .badge {
   cursor: pointer;
   padding: 5px !important;
+}
+.section-upload{
+  min-height: 100vh !important
+}
+.updateItemContainer{
+  margin-left: 6%;
+  margin-right: 6%;
+  margin-top: 100px;
+}
+.updateItem{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%;
+}
+.updateItem >*:nth-child(1){
+  flex: 1 1 60%;
+  max-width: 800px
+}
+.updateItem >*:nth-child(2){
+  flex: 1 1 35%;
+  min-width: 450px;
+}
+.nextButton{
+  margin-top: 30px;
+  padding: 15px 100px;
+  border-radius: 100px;
+  background:#50B1B5;
+  color: white;
+  font-size: 0.7em;
+}
+.nFTImageContainer{
+  display: block;
+  max-width: 400px;
+  max-height: 400px;
+  margin: auto;
+  text-align: center;
+  h3{
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+  p{
+    padding: 50px 10px;
+    background: rgb(235, 235, 235);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+.bckButton{
+  display: flex;
+  flex-direction: row;
+  & > *{
+    margin-right: 20px;
+  }
+  img{
+    cursor: pointer;
+  }
 }
 </style>
