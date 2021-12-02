@@ -388,7 +388,35 @@ select {
   max-height: 300px;
   object-fit: contain;
   border-radius: 20px;
-  border: 1px grey solid;
+  // border: 1px grey solid;
+  }
+  .nftMarketplaceViewLink{
+    background: lightgrey;
+    display: flex;
+    flex-direction: column;
+    min-height: 25rem;
+    width: auto;
+    max-width: 25rem;
+    max-height: 25rem;
+    object-fit: contain;
+    border-radius: 20px;
+    // padding: 1rem;
+    object-fit: cover;
+    margin: auto;
+  }
+.nftMarketplaceViewNFT{
+  // background: lightgrey;
+  display: flex;
+  margin: auto;
+  min-height: 25rem;
+  width: 25rem;
+  max-width: 25rem;
+  max-height: 25rem;
+  object-fit: contain;
+  border-radius: 20px;
+  padding: 1rem;
+  object-fit:cover;
+  // border: 1px grey solid;
   }
 // .item-image {
 //   height: auto;
