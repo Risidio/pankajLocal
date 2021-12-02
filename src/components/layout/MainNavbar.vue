@@ -12,7 +12,7 @@
         </a>
         <div v-if="profile.loggedIn" class="navbar_links">
             <router-link class="nav-items" to="/gallery">Gallery</router-link>
-        <b-dropdown id="dropdown-1" text="Collections" class="m-md-2">
+        <b-dropdown id="dropdown-1" text="Collections" class="m-md-2 nav-items" variant="transparrent" toggle-class="text-white text-large" font-scale="1">
           <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index"><span v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)">{{loopRun.currentRun}}</span></b-dropdown-item>
         </b-dropdown>
             <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
