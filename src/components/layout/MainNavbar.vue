@@ -10,9 +10,11 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </a>
-        <div v-if=" profile.loggedIn" class="navbar_links">
+        <div v-if="profile.loggedIn" class="navbar_links">
             <router-link class="nav-items" to="/gallery">Gallery</router-link>
-            <router-link class="nav-items" to="/nft-marketplace/:maker/:collection">Collections</router-link>
+        <b-dropdown id="dropdown-1" text="Collections" class="m-md-2">
+          <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index"><span v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)">{{loopRun.currentRun}}</span></b-dropdown-item>
+        </b-dropdown>
             <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
             <div class="nav-items text-white" v-on:click="aboutRisidio()">About Risidio </div>
             <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
@@ -29,6 +31,7 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
+import utils from '@/services/utils'
 export default {
   name: 'MainNavbar',
   components: {
@@ -38,10 +41,15 @@ export default {
       query: null,
       banner: 'https://images.prismic.io/digirad/6e5bb3a5-21b7-4bcb-b5a7-85128b6e6e8a_Rumba_bg_small.png?auto=compress,format',
       logo: 'https://res.cloudinary.com/risidio/image/upload/v1636649879/RisidioMarketplace/Groupe_15980_s92src.svg',
-      isHidden: false
+      isHidden: false,
+      loopRuns: [],
+      showColls: false
     }
   },
   methods: {
+    isSelected (runKey) {
+      return (this.$route.path.indexOf('/' + runKey) > -1) ? 'text-warning' : ''
+    },
     logout () {
       // this.$emit('updateEventCode', { eventCode: 'connect-logout' })
       this.$store.dispatch('rpayAuthStore/startLogout').then(() => {
@@ -53,9 +61,6 @@ export default {
         console.log(err)
         this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
       })
-    },
-    events () {
-      console.log('clicked')
     },
     startLogin () {
       // this.$emit('updateEventCode', { eventCode: 'connect-login' })
@@ -95,6 +100,10 @@ export default {
     }
   },
   computed: {
+    allLoopRuns () {
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      return loopRuns
+    },
     projects () {
       const appmap = this.$store.getters[APP_CONSTANTS.KEY_REGISTRY]
       if (appmap) return appmap.apps

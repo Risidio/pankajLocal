@@ -20,20 +20,20 @@
       </b-col>
       <b-col md="9" sm="12" v-else>
         <h1 class="mb-4 border-bottom">Collections</h1>
-        <b-row >
-          <b-col class="mt-5" md="4" sm="6" xs="12" v-for="(loopRun, index) in loopRuns" :key="index">
+        <b-row class="h-auto">
+          <b-col class="mt-5 w-100"  v-for="(loopRun, index) in loopRuns" :key="index">
             <div>
-              <b-link class="text-warning" :to="collectionUrl(loopRun)">
-                <img width="100%" :src="getImageUrl(loopRun)"  v-b-tooltip.hover="{ variant: 'warning' }" :title="'Collection\n' + loopRun.currentRun"/>
+              <b-link class="nftMarketplaceViewLink" :to="collectionUrl(loopRun)">
+                <img class="nftMarketplaceViewNFT" :src="getImageUrl(loopRun)"  v-b-tooltip.hover="{ variant: 'light' }" :title="'Collection\n' + loopRun.currentRun"/>
+                  <div class=""><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
               </b-link>
             </div>
-            <div class="py-3 border">
-              <div class="text-center text-small"><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
+            <!-- <div class="py-3 border"> -->
               <!--
               <div class="text-small"><b-link class="text-warning" :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey"><span class="text-warning" v-b-tooltip.hover="{ variant: 'warning' }" :title="'View collection in marketplace.'">{{loopRun.tokenCount}} / {{loopRun.versionLimit}}</span></b-link></div>
               <div class="text-small">by: <b-link class="text-warning" :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey"><span class="text-warning" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Mint new pieces in this collection.'">{{loopRun.makerName}}</span></b-link></div>
               -->
-            </div>
+            <!-- </div> -->
           </b-col>
         </b-row>
       </b-col>
@@ -151,3 +151,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  *{color: black}
+</style>
