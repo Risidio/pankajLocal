@@ -9,7 +9,7 @@
   </div>
   -->
   <div class="mb-3" role="group">
-    <label for="item-name">Title :</label>
+    <label for="item-name" class="label">Title :</label>
     <b-form-input
       id="item-name"
       v-model="item.name"
@@ -17,35 +17,26 @@
       aria-describedby="item-name-help item-name-feedback"
       placeholder="Enter name of NFT"
       trim
-    ></b-form-input>
+      class="inputArea"
+      minlength="3"
+      required
+    />
     <b-form-invalid-feedback id="item-name-feedback">
       Enter at least 3 letters
     </b-form-invalid-feedback>
   </div>
-  <div class="mb-3" role="group">
-    <label for="item-name">Artist / Maker / Creator</label>
-    <b-form-input
-      id="artist-name"
-      v-model="item.artist"
-      :state="itemArtistState"
-      aria-describedby="item-artist-help item-artist-feedback"
-      placeholder="Enter artist name"
-      trim
-    ></b-form-input>
-    <b-form-invalid-feedback id="item-artist-feedback">
-      Enter the name of the artist
-    </b-form-invalid-feedback>
-  </div>
   <div class="mb-4" role="group">
-    <label for="item-name">Description :</label>
+    <label for="item-name" class="label">Description :</label>
     <b-form-textarea
       ref="description"
       v-model="item.description"
       rows="5"
-      style="padding: 20px 20px;"
-      ></b-form-textarea>
+      class="inputArea"
+      minlength="3"
+      placeholder="Add a short description for better search results"
+      />
   </div>
-  <CategoryChoice :item="item" />
+    <CategoryChoice :item="item" />
 </div>
 </template>
 
@@ -97,5 +88,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.inputArea{
+  width: 100%;
+  border: none;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-weight: 200;
+  font-size: 0.8em;
+  padding: 15px;
+}
+.label{
+  font-weight: 500;
+  font-size: 0.8em;
+}
+textArea{
+  min-height: 200px;
+}
 </style>
