@@ -1,6 +1,6 @@
 <template>
 <div v-if="loopRun && loopRun.status !== 'disabled'">
-  <b-container :key="componentKey" fluid id="my-nft-tabs" class="px-5 text-white mt-5">
+  <b-container :key="componentKey" fluid id="my-nft-tabs" class="px-5 mt-5">
     <b-row id="video-column">
       <b-col md="3" sm="12">
         <h1 class="border-bottom mb-5">All Collections</h1>
@@ -151,3 +151,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  *{color: black}
+</style>
