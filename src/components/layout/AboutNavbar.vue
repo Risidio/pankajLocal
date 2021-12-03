@@ -3,10 +3,10 @@
     <b-navbar toggleable="true" class="p-4" :fixed="getFixed()" type="dark" :variant="bgVariant()">
       <b-navbar-brand href="#"><b-link to="/"><img height="30px" :src="logo" /></b-link></b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse" class="text-white">
+      <b-navbar-toggle target="nav-collapse" class="text-black">
         <template #default="{ expanded }">
-          <img width="60px" height="30px" class="text-white" v-if="expanded" :src="cross">
-          <!-- <img width="60px" height="30px" class="text-white" v-else :src="grid"> -->
+          <img width="60px" height="30px" class="text-black" v-if="expanded" :src="cross">
+          <!-- <img width="60px" height="30px" class="text-black" v-else :src="grid"> -->
         </template>
       </b-navbar-toggle>
 
@@ -14,16 +14,16 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="wtf-menu mx-auto" v-if="showAbout()">
-          <b-nav-item href="#"><a class="text-nowrap text-white mx-md-5 mx-sm-3" v-scroll-to="{ offset: -60, element: '#thisisone', duration: 1000 }" href="#thisisone">This Is #1</a></b-nav-item>
-          <b-nav-item href="#"><a class="text-nowrap text-white mx-md-5 mx-sm-3" v-scroll-to="{ offset: -60, element: '#chemicalx', duration: 1000 }" href="#chemicalx">Chemical X</a></b-nav-item>
-          <b-nav-item href="#"><a class="text-nowrap text-white mx-md-5 mx-sm-3" v-scroll-to="{ offset: -80, element: '#charity-grid', duration: 1000 }" href="#charity">Charity</a></b-nav-item>
-          <b-nav-item href="#"><a class="text-nowrap text-white mx-md-5 mx-sm-3" v-scroll-to="{ offset: -60, element: '#about-section5', duration: 1000 }" href="#about-section5">Environment</a></b-nav-item>
-          <b-nav-item href="#"><a class="text-nowrap text-white mx-md-5 mx-sm-3" v-scroll-to="{ offset: 50, element: '#collaborate', duration: 1000 }" href="#collaborate">Collaborate</a></b-nav-item>
+          <b-nav-item href="#"><a class="text-nowrap text-black mx-md-5 mx-sm-3" v-scroll-to="{ offset: -60, element: '#thisisone', duration: 1000 }" href="#thisisone">This Is #1</a></b-nav-item>
+          <b-nav-item href="#"><a class="text-nowrap text-black mx-md-5 mx-sm-3" v-scroll-to="{ offset: -60, element: '#chemicalx', duration: 1000 }" href="#chemicalx">Chemical X</a></b-nav-item>
+          <b-nav-item href="#"><a class="text-nowrap text-black mx-md-5 mx-sm-3" v-scroll-to="{ offset: -80, element: '#charity-grid', duration: 1000 }" href="#charity">Charity</a></b-nav-item>
+          <b-nav-item href="#"><a class="text-nowrap text-black mx-md-5 mx-sm-3" v-scroll-to="{ offset: -60, element: '#about-section5', duration: 1000 }" href="#about-section5">Environment</a></b-nav-item>
+          <b-nav-item href="#"><a class="text-nowrap text-black mx-md-5 mx-sm-3" v-scroll-to="{ offset: 50, element: '#collaborate', duration: 1000 }" href="#collaborate">Collaborate</a></b-nav-item>
           <b-nav-item class="mt-5" href="#"><b-link to="/">Home</b-link></b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="wtf-menu mx-auto" v-else>
-          <b-nav-item class="text-white top-content" to="/about"><img height="30px" :src="wtf" alt="about link"/></b-nav-item>
-          <div v-if="profile.loggedIn" class="mt-5 my-4 text-white text-center">
+          <b-nav-item class="text-black top-content" to="/about"><img height="30px" :src="wtf" alt="about link"/></b-nav-item>
+          <div v-if="profile.loggedIn" class="mt-5 my-4 text-black text-center">
             <div>
               <span class="mr-3">Welcome</span>
               <span class="mr-3 stx-username">{{profile.username}}</span>
@@ -32,20 +32,20 @@
               <span class="text-warning">{{profile.stxAddress}}</span>
             </div>
             <div v-if="profile.accountInfo" class="text-small">
-              <span class="mr-5"><a style="font-size: 1.2rem;" :href="getStacksMateUrl" v-b-tooltip.hover="{ variant: 'light' }" :title="'Top up your Stacks at Stacks Mate'" class="text-white text-small ml-3" target="_blank">Balance:</a> <span class="text-warning">{{profile.accountInfo.balance}}</span> STX</span>
+              <span class="mr-5"><a style="font-size: 1.2rem;" :href="getStacksMateUrl" v-b-tooltip.hover="{ variant: 'light' }" :title="'Top up your Stacks at Stacks Mate'" class="text-black text-small ml-3" target="_blank">Balance:</a> <span class="text-warning">{{profile.accountInfo.balance}}</span> STX</span>
             </div>
           </div>
-          <b-nav-item class="text-white" to="/nft-gallery">Gallery</b-nav-item>
-          <!-- <b-nav-item class="text-white" to="/nft-marketplace"><span class="text-danger">New</span> Marketplace</b-nav-item> -->
+          <b-nav-item class="text-black" to="/nft-gallery">Gallery</b-nav-item>
+          <!-- <b-nav-item class="text-black" to="/nft-marketplace"><span class="text-danger">New</span> Marketplace</b-nav-item> -->
           <b-nav-item v-if="!canUpload()">
             <b-link v-if="profile.loggedIn" to="/exhibit-here">Apply to Exhibit</b-link>
             <b-link v-else to="/login?redirect=%2Fexhibit-here">Exhibit Here?</b-link>
           </b-nav-item>
-          <b-nav-item class="text-white" v-if="canUpload()" to="/upload-item">Create NFT</b-nav-item>
-          <b-nav-item class="text-white" v-if="profile.loggedIn" to="/profile">My Profile</b-nav-item>
-          <b-nav-item class="text-white mt-5 pt-5 border-top" v-if="profile.loggedIn" to="/my-nfts">My NFTs</b-nav-item>
-          <b-nav-item class="text-white" v-if="profile.superAdmin"><b-link to="/mgmnt/registry">Admin</b-link></b-nav-item>
-          <b-nav-item class="text-white" v-if="!profile.loggedIn && webWalletNeeded">
+          <b-nav-item class="text-black" v-if="canUpload()" to="/upload-item">Create NFT</b-nav-item>
+          <b-nav-item class="text-black" v-if="profile.loggedIn" to="/profile">My Profile</b-nav-item>
+          <b-nav-item class="text-black mt-5 pt-5 border-top" v-if="profile.loggedIn" to="/my-nfts">My NFTs</b-nav-item>
+          <b-nav-item class="text-black" v-if="profile.superAdmin"><b-link to="/mgmnt/registry">Admin</b-link></b-nav-item>
+          <b-nav-item class="text-black" v-if="!profile.loggedIn && webWalletNeeded">
             <h1><a :href="webWalletLink" target="_blank">Get a Stacks Web Wallet <b-icon class="ml-3 mb-3" icon="arrow-up-right-square-fill"/></a></h1>
           </b-nav-item>
           <b-nav-item v-if="profile.loggedIn"><b-link @click.prevent="logout()">Logout</b-link></b-nav-item>

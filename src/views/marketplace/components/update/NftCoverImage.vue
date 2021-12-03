@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="bg-black text-white" style="width:300px" v-if="displayHeader">
+  <div class="bg-black text-black" style="width:300px" v-if="displayHeader">
     <h1>NFT File Saved</h1>
     <p class="text-small"><a class="text-secondary pointer" style="font-size: 1.2rem;" @click="useNftFileAsCover">click here to use the NFT file as the cover image!</a> ...or</p>
   </div>

@@ -1,5 +1,5 @@
 <template>
-<b-container fluid id="my-nft-tabs" class="px-5 text-white mt-5" v-if="!loading">
+<b-container fluid id="my-nft-tabs" class="px-5 text-black mt-5" v-if="!loading">
   <b-row>
     <b-col md="3" sm="12">
       <h1 class="border-bottom mb-5">My NFTs</h1>

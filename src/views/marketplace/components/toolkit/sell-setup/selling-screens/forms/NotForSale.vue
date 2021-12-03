@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-  <div class="col-12 text-white">
+  <div class="col-12 text-black">
   </div>
 </div>
 </template>

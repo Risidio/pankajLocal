@@ -2,7 +2,7 @@
 <div v-if="!loading" class="bg-dark d-flex justify-content-center">
   <div class="mx-auto">
     <b-card-group>
-      <b-card bg-variant="dark" class="text-white" header-tag="header" footer-tag="footer">
+      <b-card bg-variant="dark" class="text-black" header-tag="header" footer-tag="footer">
         <b-row class="">
           <b-col cols="4" class="px-5">
             <ItemDisplay :item="null" :loopRun="loopRun"/>

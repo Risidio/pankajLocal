@@ -7,7 +7,7 @@
       </div>
     </b-col>
     <b-col lg="4" sm="10" align-self="center" :key="componentKey">
-      <b-row align-h="center" id="one-box" class="text-white bg-black" :style="bannerImage()">
+      <b-row align-h="center" id="one-box" class="text-black bg-black" :style="bannerImage()">
         <b-col align-self="center" cols="12" class="p-0">
           <prismic-items v-if="content && !artistId" class="mx-5 text-center" :prismicItems="content.splashtext"></prismic-items>
           <div v-else>
@@ -15,7 +15,7 @@
               <img width="100%" height="100%" :src="bannerImage1(artistId)"/>
             </div>
             <div style="position: relative; left: -10px;">
-              <div v-if="asset" class="text-white p-5" style="position: absolute; bottom: 0;">
+              <div v-if="asset" class="text-black p-5" style="position: absolute; bottom: 0;">
                 <p class="my-0 text-artist">{{asset.artist}}</p>
                 <p class="mb-2 text-artwork">{{asset.name}}</p>
               </div>

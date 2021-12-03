@@ -13,7 +13,7 @@
       </div>
     </div>
     <div id="my-nft-tabs" v-else class="mt-5">
-      <b-tabs justified content-class="bg-black text-white p-4 border mt-3">
+      <b-tabs justified content-class="bg-black text-black p-4 border mt-3">
         <b-tab active title="Sell">
           <div>
             <div class="mb-3">{{saleDataText}}</div>
@@ -27,7 +27,7 @@
             </div>
             <div class="col-12 mb-4">
               <div>
-                <a class="text-white" :href="items[0].contractAsset.tokenInfo.metaDataUrl" v-b-tooltip.hover="{ variant: 'light' }" :title="'Meta Data URL: ' + items[0].contractAsset.tokenInfo.metaDataUrl" target="_blank"><b-icon class="mr-1" icon="arrow-up-right-circle"/>Meta Data URL</a>
+                <a class="text-black" :href="items[0].contractAsset.tokenInfo.metaDataUrl" v-b-tooltip.hover="{ variant: 'light' }" :title="'Meta Data URL: ' + items[0].contractAsset.tokenInfo.metaDataUrl" target="_blank"><b-icon class="mr-1" icon="arrow-up-right-circle"/>Meta Data URL</a>
               </div>
             </div>
           </div>

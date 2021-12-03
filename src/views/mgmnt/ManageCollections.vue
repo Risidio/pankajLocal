@@ -1,6 +1,6 @@
 <template>
-<b-container class="text-white" v-if="loopRuns">
-  <h1 class="text-white">NFT Collections</h1>
+<b-container class="text-black" v-if="loopRuns">
+  <h1 class="text-black">NFT Collections</h1>
   <div class="text-right">
     <span class="pointer text-warning pr-3 mr-3 border-right" @click="updateTable">show disabled</span>
     <b-link class="text-warning" to="/mgmnt/manage-collection">new collection</b-link>

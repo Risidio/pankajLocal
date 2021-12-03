@@ -4,7 +4,7 @@
   <network-options :allowEdit="allowEdit"/>
   <div v-if="errorMessage" class="text-danger mb-3 text-bold">{{errorMessage}}</div>
   <div v-else-if="mintedMessage" class="text-info mb-3 text-bold">{{mintedMessage}}</div>
-  <div v-else class="text-white mb-3 text-bold">. &nbsp;</div>
+  <div v-else class="text-black mb-3 text-bold">. &nbsp;</div>
 </b-card-text>
 </template>
 

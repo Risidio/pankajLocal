@@ -41,7 +41,7 @@
     <div class="col-2">Info</div><div class="col-10">{{sellingInfo(gaiaAsset.contractAsset)}}</div>
     <div class="col-2"></div>
     <div class="col-10 my-2">
-      <div class="row bg-dark text-white p-2 mr-3" v-for="(bid, index1) in gaiaAsset.contractAsset.bidHistory" :key="index1">
+      <div class="row bg-dark text-black p-2 mr-3" v-for="(bid, index1) in gaiaAsset.contractAsset.bidHistory" :key="index1">
         <div class="col-2">Amount</div><div class="col-10">{{bid.amount}}</div>
         <div class="col-2">Bidder</div><div class="col-10">{{bid.bidder}}</div>
         <div class="col-2">Placed</div><div class="col-10">{{formatDate(bid.whenBid)}}</div>

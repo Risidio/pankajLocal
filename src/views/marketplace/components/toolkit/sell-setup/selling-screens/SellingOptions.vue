@@ -16,7 +16,7 @@
         <AuctionTradeInfo :contractAsset="contractAsset" v-else-if="contractAsset.saleData.saleType === 2" v-on="$listeners"/>
         <OfferTradeInfo :contractAsset="contractAsset" v-else-if="contractAsset.saleData.saleType === 3" v-on="$listeners"/>
       </div>
-      <div class="text-center mt-5 text-white">
+      <div class="text-center mt-5 text-black">
         Save to update your Marketplace data
       </div>
     </div>

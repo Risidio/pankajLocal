@@ -1,6 +1,6 @@
 <template>
-<div class="text-white">
-  <h1 class="mb-4 text-white">Manage Artwork Requests</h1>
+<div class="text-black">
+  <h1 class="mb-4 text-black">Manage Artwork Requests</h1>
   <ExhibitRequests />
 </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-<b-container class="text-white my-5 p-4">
+<b-container class="text-black my-5 p-4">
   <h1 class="mb-5">Application Administration</h1>
     <b-tabs left content-class="mt-3 text-small">
       <b-tab title="Cache" active>

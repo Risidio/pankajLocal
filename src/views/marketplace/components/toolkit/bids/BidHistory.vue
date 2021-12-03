@@ -10,8 +10,8 @@
   </div>
   <div class="row text-small text-right">
     <div class="col-12">
-      <a class="text-white mr-5" href="#" @click.prevent="closeBidding(1)">Transfer & Close</a>
-      <a class="text-white" href="#" @click.prevent="closeBidding(2)">Refund & Close</a>
+      <a class="text-black mr-5" href="#" @click.prevent="closeBidding(1)">Transfer & Close</a>
+      <a class="text-black" href="#" @click.prevent="closeBidding(2)">Refund & Close</a>
     </div>
   </div>
   <div class=" text-small">

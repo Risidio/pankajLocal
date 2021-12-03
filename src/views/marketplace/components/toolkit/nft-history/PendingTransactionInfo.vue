@@ -1,6 +1,6 @@
 <template>
 <div v-if="pending">
-  <b-alert class="text-small text-white" style="background: #529e72;" show>
+  <b-alert class="text-small text-black" style="background: #529e72;" show>
     {{txMessage()}}
   </b-alert>
   <b-alert class="text-small" variant="light" show>

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="text-white" v-if="item && item.contractAsset">
+  <div class="text-black" v-if="item && item.contractAsset">
     <b-alert class="text-small" show :variant="variant()">
       <b-row class="text-small">
         <b-col cols="12">

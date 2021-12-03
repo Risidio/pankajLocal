@@ -3,7 +3,7 @@
   <b-container v-if="item">
     <b-row v-if="hasFile('coverImage')">
       <b-col class="" md="8" sm="12" align-self="start">
-        <h2 class="mb-4"><b-link to="/"><b-icon class="p-2 mr-5 bg-secondary text-white" style="width: 50px; height: 50px; font-size: 1.8rem; font-weight: 900; border-radius: 50%;" icon="chevron-left"/></b-link> <span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
+        <h2 class="mb-4"><b-link to="/"><b-icon class="p-2 mr-5 bg-secondary text-black" style="width: 50px; height: 50px; font-size: 1.8rem; font-weight: 900; border-radius: 50%;" icon="chevron-left"/></b-link> <span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
         <div class="my-4 bg-danger p-3" v-if="invalidItems.length > 0 && showErrors">
           <div>Required fields:</div>
           <div class="mr-1" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
@@ -14,7 +14,7 @@
         </div>
         <div class="my-4 bg-danger p-3" v-if="invalidItems.length > 0 && showErrors">
           <div>Required fields:</div>
-          <div class="mr-1 text-white" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
+          <div class="mr-1 text-black" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
         <div class="my-4 text-right"><b-button class="" variant="warning" @click.prevent="uploadItem()">Continue</b-button></div>
       </b-col>

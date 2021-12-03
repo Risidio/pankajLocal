@@ -4,9 +4,9 @@
     <AssetDetailsSectionV1 :gaiaAsset="gaiaAsset" :loopRun="loopRun"/>
     <ArtistSection id="artist-section" :parentPage="'about'" :artistId="getArtistPrismicId()" />
     <CharitySection :showButton="false" id="charity-section" :artistId="getArtistPrismicId()" />
-    <section id="number-one-section" class="">
+    <!-- <section id="number-one-section" class="">
       <NumberOneSection />
-    </section>
+    </section> -->
   </div>
 </div>
 </template>
@@ -15,7 +15,7 @@
 import AssetDetailsSectionV1 from '@/views/marketplace/components/gallery/AssetDetailsSectionV1'
 import ArtistSection from '@/components/asset-details/ArtistSection'
 import CharitySection from '@/components/asset-details/CharitySection'
-import NumberOneSection from '@/components/asset-details/NumberOneSection'
+// import NumberOneSection from '@/components/asset-details/NumberOneSection'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
@@ -23,8 +23,9 @@ export default {
   components: {
     AssetDetailsSectionV1,
     CharitySection,
-    ArtistSection,
-    NumberOneSection
+    ArtistSection
+    // ,
+    // NumberOneSection
   },
   data: function () {
     return {
@@ -82,4 +83,5 @@ export default {
 </script>
 
 <style scoped>
+*{ color: black}
 </style>

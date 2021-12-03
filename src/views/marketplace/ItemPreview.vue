@@ -11,7 +11,7 @@
           <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
         </div>
       </b-col>
-      <b-col md="8" sm="12" align-self="start" class="mb-4 text-white">
+      <b-col md="8" sm="12" align-self="start" class="mb-4 text-black">
         <div>
           <div class="mb-2 d-flex justify-content-between">
             <h2 class="d-block border-bottom mb-5">{{mintedMessage}}</h2>

@@ -10,7 +10,7 @@
           </span>
         </template>
       </b-table>
-      <div class="text-white col-lg-4 col-md-6 col-sm-6 col-xs-12 mx-0 p-1" v-for="(asset, index) of resultSet" :key="index">
+      <div class="text-black col-lg-4 col-md-6 col-sm-6 col-xs-12 mx-0 p-1" v-for="(asset, index) of resultSet" :key="index">
       </div>
     </div>
     <div class="d-flex justify-content-start my-3 mx-4" v-else>

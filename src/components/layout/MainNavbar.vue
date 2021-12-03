@@ -12,18 +12,18 @@
         </a>
         <div v-if="profile.loggedIn" class="navbar_links">
             <router-link class="nav-items" to="/gallery">Gallery</router-link>
-        <b-dropdown id="dropdown-1" text="Collections" class="m-md-2 nav-items" variant="transparrent" toggle-class="text-white text-large" font-scale="1">
+        <b-dropdown id="dropdown-1" text="Collections" class="m-md-2 nav-items" variant="transparrent" toggle-class="text-black text-large" font-scale="1">
           <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index"><span v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)">{{loopRun.currentRun}}</span></b-dropdown-item>
         </b-dropdown>
-            <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
-            <div class="nav-items text-white" v-on:click="aboutRisidio()">About Risidio </div>
+            <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
+            <div class="nav-items text-black" v-on:click="aboutRisidio()">About Risidio </div>
             <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
-            <router-link class="nav-items text-white" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
-            <router-link class="nav-items text-white" to="/about">About Risidio </router-link>
-            <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-white">Login</div>
-            <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-white" id="register" v-on:click="startRegister()"> Register <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div>
+            <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
+            <router-link class="nav-items text-black" to="/about">About Risidio </router-link>
+            <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div>
+            <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Register <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div>
         </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
 <div>
 <div v-if="registry">
   <div class="col-12"><h1>Contract Data</h1></div>
-  <div class="upload-preview bg-black text-white">
+  <div class="upload-preview bg-black text-black">
     <div class="mb-5 row border-bottom mb-3 pb-2">
       <div class="col-2">Contract Id</div><div class="col-10 text-bold ">{{registry.adminContractAddress + '.' + registry.adminContractName}}</div>
       <div class="col-2">Administrator</div><div class="col-10">{{registry.administrator}}</div>

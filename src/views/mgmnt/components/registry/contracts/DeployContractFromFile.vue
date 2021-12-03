@@ -34,7 +34,7 @@
                 ></b-textarea>
               </div>
               <div class="mt-3 d-flex justify-content-start">
-                <b-button variant="info" class="mr-3 text-white" @click="deployContract()">Deploy</b-button>
+                <b-button variant="info" class="mr-3 text-black" @click="deployContract()">Deploy</b-button>
                 <b-button variant="outline-dark" class="text-dark " @click="cancelUpload()">Cancel</b-button>
               </div>
             </div>

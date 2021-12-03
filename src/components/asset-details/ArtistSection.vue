@@ -5,7 +5,7 @@
       <b-col align-self="end" md="6" sm="10" xs="8" class="mb-4 d-flex justify-content-end">
         <img style="width: 100%; max-width: 450px; height: 100% !important;" :src="content.data.image.url"/>
       </b-col>
-      <b-col md="6" sm="10" xs="8" align-self="end" class="text-left text-white pr-5" style="position: relative; top: 5px;">
+      <b-col md="6" sm="10" xs="8" align-self="end" class="text-left text-black pr-5" style="position: relative; top: 5px;">
         <prismic-items :prismicItems="content.data.description"></prismic-items>
         <div class="mt-5" :class="[ content.data['social_links'].length <= 2 ? 'w-25' : 'w-50' ]"><social-links :themeClass="getArtistText1()" :socialLinks="content.data['social_links']" /></div>
       </b-col>
@@ -33,7 +33,7 @@ export default {
   methods: {
     getArtistTheme: function () {
       if (this.parentPage) {
-        return 'bg-black text-white text-white'
+        return 'bg-black text-black text-black'
       }
       try {
         const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_ARTIST_BY_ID](this.artistId)

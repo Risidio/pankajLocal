@@ -1,14 +1,14 @@
 <template>
-<b-container class="text-white" v-if="loopRun">
+<b-container class="text-black" v-if="loopRun">
   <div class="text-right">
     <span class="text-info mt-3" @click="resetRoyalties()"><b-icon icon="chevron-left"/> Reset</span>
     <b-link class="text-info mt-3" to="/mgmnt/manage-collections"><b-icon icon="chevron-left"/> Back</b-link>
   </div>
   <div>
-    <h1 class="text-white">Manage Royalties for Collection</h1>
+    <h1 class="text-black">Manage Royalties for Collection</h1>
     <b-tabs
       active-nav-item-class="font-weight-bold text-uppercase text-danger"
-      active-tab-class="font-weight-bold text-white"
+      active-tab-class="font-weight-bold text-black"
       content-class="mt-3"
       justified bg-variant="warning" v-model="tabIndex" small card left>
       <b-tab title="Minting" active lazy>

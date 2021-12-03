@@ -27,17 +27,17 @@
     the contract represents the state of the project in the marketplace; enabled, disabled
     or detached.
   </p>
-  <div class="upload-preview text-white my-5 p-4" v-if="registry" >
+  <div class="upload-preview text-black my-5 p-4" v-if="registry" >
     <div class="mb-5 row">
       <div class="col-12"></div>
       <div class="col-2">Registry</div><div class="col-10">{{registry.adminContractAddress}}.{{registry.adminContractName}}</div>
       <div class="col-2">Apps</div><div class="col-10">{{registry.appCounter}}</div>
       <!-- <div class="col-2">Logged in as</div><div class="col-10">{{profile.stxAddress}}</div> -->
-      <div v-if="!hasRegistry" class="col-12"><a class="pointer text-white" @click.prevent="showRegistryDeploy = !showRegistryDeploy">deploy registry</a></div>
+      <div v-if="!hasRegistry" class="col-12"><a class="pointer text-black" @click.prevent="showRegistryDeploy = !showRegistryDeploy">deploy registry</a></div>
     </div>
     <b-tabs
       active-nav-item-class="font-weight-bold text-uppercase text-danger"
-      active-tab-class="font-weight-bold text-white"
+      active-tab-class="font-weight-bold text-black"
       content-class="mt-3"
       justified bg-variant="warning" v-model="tabIndex" small card left>
       <b-tab title="Projects" active lazy>
