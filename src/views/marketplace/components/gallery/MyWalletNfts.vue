@@ -1,16 +1,16 @@
 <template>
   <div v-if="!loading">
-    <div class="border-bottom mb-4 mt-5 d-flex justify-content-between">
-      <h1 class="pointer" @click="showMinted = !showMinted"><b-icon font-scale="0.6" v-if="showMinted" icon="chevron-down"/><b-icon font-scale="0.6" v-else icon="chevron-right"/> NFT Balance ({{tokenCount}})</h1>
+    <!-- <div class="border-bottom mb-4 mt-5 d-flex justify-content-between">
+        <h1 class="pointer" @click="showMinted = !showMinted"><b-icon font-scale="0.6" v-if="showMinted" icon="chevron-down"/><b-icon font-scale="0.6" v-else icon="chevron-right"/> NFT Balance ({{tokenCount}})</h1>
       <div class="d-flex justify-content-between">
         <SearchBar class="w-50" :displayClass="'text-small text-end'" @updateResults="updateResults" :mode="'wallet'"/>
         <span class="text-warning pointer" @click.prevent="cacheWalletNfts" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Refresh your NFT wallet information'"><b-icon icon="arrow-clockwise" font-scale="1"/></span>
       </div>
-    </div>
+    </div> -->
     <div class="mb-4" v-if="showMinted">
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="tokenCount" v-if="numberOfItems < tokenCount"/>
       <div class="row" v-if="resultSet && resultSet.length > 0">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(asset, index) of resultSet" :key="index">
+        <div class="" v-for="(asset, index) of resultSet" :key="index">
           <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey"/>
         </div>
       </div>
@@ -32,7 +32,7 @@ import SearchBar from '@/views/marketplace/components/gallery/SearchBar'
 export default {
   name: 'MyWalletNfts',
   components: {
-    SearchBar,
+    // SearchBar,
     Pagination,
     MySingleItem
   },

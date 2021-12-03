@@ -46,17 +46,20 @@
           </div>
         </b-nav>
       </div>
-      <div v-if="hasNfts && tab === 'NFT'">
-        <p> YOU HAVE NFTS!!!</p>
+      <div v-if="tab === 'NFT'">
+        <MyPageableItems :loopRun="loopRun"/>
       </div>
-      <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryContainer">
+      <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
           <div>
-            <router-link class="btn button" v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-            <p style="font-size: 1.5em;"> {{item.artist}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-            <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+            <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
+            <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+            <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
           </div>
         </div>
+      </div>
+      <div v-if="tab === 'Fav'">
+
       </div>
       <div v-else>
         <div class="noNFT">
@@ -131,14 +134,20 @@
 <script>
 // import GalleryNft from '@/components/marketplace/GalleryNft'
 import MySingleNft from '@/components/singleNFTMinting/MySingleNft'
+import MyWalletNfts from '@/views/marketplace/components/gallery/MyWalletNfts'
+import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
+import MySingleItem from '@/views/marketplace/components/gallery/MySingleItem'
 const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 
 export default {
   name: 'MyAccount',
   components: {
-    // MySingleNft
+    // MySingleNft,
+    // MyWalletNfts
+    // MySingleItem
+    MyPageableItems
   },
   data () {
     return {
@@ -148,10 +157,23 @@ export default {
       yourSTX: null,
       currency: '',
       profileInfo: {},
-      tab: 'Item'
+      tab: 'Item',
+      pageSize: 20,
+      loopRun: null
     }
   },
   mounted () {
+    this.findAssets()
+    let currentRunKey = this.$route.params.collection
+    if (!currentRunKey) {
+      this.showWalletNfts = true
+      this.loading = false
+      currentRunKey = process.env.VUE_APP_DEFAULT_LOOP_RUN
+      this.fetchLoopRun()
+      // if (this.$route.path !== '/my-nfts/' + currentRunKey) this.$router.push('/my-nfts/' + currentRunKey)
+    } else {
+      this.fetchLoopRun()
+    }
     this.data = { stxAddress: this.profile.stxAddress, mine: true }
     const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
     for (let i = 0; i < myContractAssets.length; i++) {
@@ -161,15 +183,47 @@ export default {
     }
     this.loaded = true
   },
+  watch: {
+    '$route' () {
+      this.loading = true
+      this.fetchLoopRun()
+    }
+  },
   methods: {
+    fetchLoopRun () {
+      let currentRunKey = this.$route.params.collection
+      if (!currentRunKey) {
+        currentRunKey = process.env.VUE_APP_DEFAULT_LOOP_RUN
+      }
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', currentRunKey).then((loopRun) => {
+        this.loopRun = loopRun
+        this.fetchAllocations()
+        this.loading = false
+      })
+    },
+    fetchAllocations () {
+      if (!this.loopRun) return
+      const params = { stxAddress: this.profile.stxAddress, contractId: this.loopRun.contractId }
+      this.$store.dispatch('rpayTransactionStore/fetchByContractIdAndFrom', params).then((results) => {
+        this.allocations = results || []
+      })
+    },
     canUpload () {
       const hasUploadPriv = this.$store.getters[APP_CONSTANTS.KEY_HAS_PRIVILEGE]('can-upload')
       return hasUploadPriv
     },
     findAssets () {
-      // const pid = STX_CONTRACT_NAME.split('-')[0]
-      this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
-        this.resultSet = results
+      const data = {
+        // stxAddress: (NETWORK === 'local') ? 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG' : this.profile.stxAddress
+        stxAddress: this.profile.stxAddress,
+        page: 0,
+        pageSize: this.pageSize,
+        query: '?' + this.defQuery
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchWalletNftsByFilters', data).then((results) => {
+        console.log(results)
+      }).catch((error) => {
+        console.log('error ' + error)
       })
     },
     currencyChange (currency) {
@@ -310,18 +364,6 @@ export default {
   display: flex;
   flex-direction: row;
 }
-.itemImg{
-  display: block;
-  width: 100%;
-  height:250px;
-  margin:auto;
-  border-radius:25px;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
-  border-radius: 5px;
-  &:hover{
-    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
-  }
-}
 
 .galleryNavItem{
   width: fit-content;
@@ -337,23 +379,11 @@ export default {
     border-bottom: 2px solid #50B1B5;
 }
 }
-.galleryContainer{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.galleryItem{
-  display: flex;
-  margin: 0 10px;
-  border-radius: 25px;
-  background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat padding-box;
-  margin-bottom: 40px;
-}
 .galleryItem > *{
   flex: 1 1 300px;
   padding: 30px;
-  width: 350px;
-  height: 400px;
+  min-width: 300px;
+  max-height: 400px;
 }
 .profileContainer{
   display: flex;
