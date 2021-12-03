@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="galleryContainer" v-if="loaded === true && tab === 'Collections'">
+        <div class="galleryContainer" v-if="tab === 'Collections'">
           <b-col md="9" sm="12">
             <h1 class="">Collections</h1>
             <b-row class="h-auto">
@@ -37,9 +37,6 @@
               </b-col>
             </b-row>
           </b-col>
-        </div>
-        <div v-else>
-          Collections loading
         </div>
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Your NFT'">
