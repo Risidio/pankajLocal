@@ -4,23 +4,35 @@
       <b-nav class="galleryNav" >
         <div class="galleryNavContainer" >
           <b-nav-item class="galleryNavItem" @click="tabChange('Discover')">Discover</b-nav-item>
-          <!-- <b-nav-item class="galleryNavItem" @click="tabChange('NFT')">Popular</b-nav-item> -->
           <b-nav-item class="galleryNavItem" @click="tabChange('Collections')">Collections</b-nav-item>
           <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item>
         </div>
       </b-nav>
     </div>
     <div class="homeMarketItems">
-      <div class="galleryContainer" v-if="gaiaAssets && gaiaAssets.length > 0">
-          <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
-              <div class="NFTbackgroundColour">
-                 <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
-                <!-- <img :src="item.attributes.artworkFile" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/> -->
-                 <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-                <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
-              </div>
-          </div>
-      </div>
+
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Discover'">
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+                <div class="NFTbackgroundColour">
+                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
+                  <!-- <img :src="item.attributes.artworkFile" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/> -->
+                  <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                  <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Collections'">
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+               hello
+            </div>
+        </div>
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Your NFT'">
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+               Bye
+            </div>
+        </div>
+
             <button class="button"><router-link to="/gallery">See More Collectables</router-link></button>
     </div>
     </section>
@@ -38,7 +50,8 @@ export default {
     return {
       resultSet: [],
       loaded: false,
-      placeHolderItems: []
+      placeHolderItems: [],
+      tab: 'Discover'
     }
   },
   mounted () {
@@ -133,7 +146,7 @@ p{padding:0; margin:0;}
   margin: 4rem;
   border-radius: 25px;
   padding: 4rem;
-    margin: auto;
+  margin: auto;
 }
 .galleryItem > *{
   flex: 1 1 300px;
