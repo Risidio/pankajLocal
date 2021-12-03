@@ -2,7 +2,7 @@
     <section class="homeBottomBanner">
         <div class="homeBottomContainer">
             <h2>Start Trading Collectables</h2>
-            <h3>Create an acount and join our marketplace.<br/><br/>
+            <h3>Create an account and join our marketplace.<br/><br/>
             It's quick, Safe and Free</h3>
             <div class="buttonCont">
                 <button class="button buttonLeft"> Create An Account</button>

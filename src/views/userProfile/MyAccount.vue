@@ -39,14 +39,24 @@
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
-            <b-nav-item class="galleryNavItem">Your NFTs</b-nav-item>
-            <b-nav-item class="galleryNavItem">Your NFTS on sale</b-nav-item>
-            <b-nav-item class="galleryNavItem">Favourite NFTs</b-nav-item>
+            <b-nav-item class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
+            <b-nav-item class="galleryNavItem" @click="tabChange('Item')">Your Items</b-nav-item>
+            <b-nav-item class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
+            <b-nav-item class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item>
           </div>
         </b-nav>
       </div>
-      <div v-if="hasNfts">
+      <div v-if="hasNfts && tab === 'NFT'">
         <p> YOU HAVE NFTS!!!</p>
+      </div>
+      <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryContainer">
+        <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+          <div>
+            <router-link class="btn button" v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
+            <p style="font-size: 1.5em;"> {{item.artist}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+            <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+          </div>
+        </div>
       </div>
       <div v-else>
         <div class="noNFT">
@@ -137,7 +147,8 @@ export default {
       myMintingNfts: [],
       yourSTX: null,
       currency: '',
-      profileInfo: {}
+      profileInfo: {},
+      tab: 'Item'
     }
   },
   mounted () {
@@ -158,18 +169,7 @@ export default {
     findAssets () {
       // const pid = STX_CONTRACT_NAME.split('-')[0]
       this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
-        // console.log(results)
-        do {
-          this.resultSet = results
-        } while (!results.attributes.coverImage.size === null)
-        // for (let i = 0; i < results.length; i++) {
-        //   console.log(results[i])
-        //   if (results[i].attributes.coverImage.size !== null) {
-        //     this.resultSet = results
-        //   } else {
-        //     return
-        //   }
-        // }
+        this.resultSet = results
       })
     },
     currencyChange (currency) {
@@ -181,6 +181,10 @@ export default {
       console.log(this.currency)
       console.log(this.yourSTX)
       // e.current.value
+    },
+    tabChange (tab) {
+      this.tab = tab
+      console.log(this.tab)
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
@@ -306,6 +310,19 @@ export default {
   display: flex;
   flex-direction: row;
 }
+.itemImg{
+  display: block;
+  width: 100%;
+  height:250px;
+  margin:auto;
+  border-radius:25px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
+  border-radius: 5px;
+  &:hover{
+    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+  }
+}
+
 .galleryNavItem{
   width: fit-content;
   padding: 10px;
@@ -320,7 +337,24 @@ export default {
     border-bottom: 2px solid #50B1B5;
 }
 }
-
+.galleryContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.galleryItem{
+  display: flex;
+  margin: 0 10px;
+  border-radius: 25px;
+  background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat padding-box;
+  margin-bottom: 40px;
+}
+.galleryItem > *{
+  flex: 1 1 300px;
+  padding: 30px;
+  width: 350px;
+  height: 400px;
+}
 .profileContainer{
   display: flex;
   justify-content: space-between;
@@ -328,7 +362,7 @@ export default {
   flex-wrap: wrap;
 }
 .profileContainer > *{
-    flex: 1  1 500px;
+  flex: 1  1 500px;
 }
 .profileImg{
   width: 20rem;
