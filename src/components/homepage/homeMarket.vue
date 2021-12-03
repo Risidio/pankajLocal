@@ -12,7 +12,7 @@
     <div class="homeMarketItems">
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Discover'">
-            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="homeNFTView" >
                 <div class="NFTbackgroundColour">
                   <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/> -->
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes.artworkFile"/>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Your NFT'">
-            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="homeNFTView" >
                Items
             </div>
         </div>
@@ -191,14 +191,14 @@ p{padding:0; margin:0;}
   flex-wrap: wrap;
   margin: auto;
 }
-.galleryItem{
+.homeNFTView{
   display: flex;
   margin: 4rem;
   border-radius: 25px;
   padding: 4rem;
   margin: auto;
 }
-.galleryItem > *{
+.homeNFTView > *{
   flex: 1 1 300px;
   padding: 30px;
   min-width: 300px;
