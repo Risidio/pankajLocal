@@ -47,15 +47,13 @@
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                    <div class="container" v-if="loaded">
-                            <div class="">
+                    <div style="width: 100%" v-if="loaded">
                                 <!-- <h1 class="text-black">NFT Gallery</h1> -->
-                                <div class="row mb-4">
-                                <div v-for="(item, index) in gaiaAssets" :key="index">
-                                    <GalleryNft :item="item"/>
+                                <div style=" display: flex; width: 95%; margin:auto;" class="row mb-4">
+                                    <div style="display: flex;" v-for="(item, index) in gaiaAssets" :key="index">
+                                        <GalleryNft :item="item"/>
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
                         </div>
                       <div class="container" style="min-height: 85vh;" v-else>
                             <b-container class="text-black mt-5">

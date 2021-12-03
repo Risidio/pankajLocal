@@ -1,8 +1,7 @@
 <template>
-<div v-if="item && item.contractAsset && item.attributes" class="mt-1">
-  <b-link class="nftGalleryView" :to="assetUrl">
+  <b-link class="galleryNFTContainer" :to="assetUrl" v-if="item && item.contractAsset && item.attributes">
     <MediaItemGeneral :classes="'nftGalleryView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
-    <div class="nftGalleryViewText">
+    <div class="nftGalleryViewText itemHover">
       <h4>{{item.contractAsset.nftIndex}} {{item.name}}</h4>
       <p class="text-warning">by {{item.artist}}</p>
       <p>{{salesButtonLabel}}</p>
@@ -34,7 +33,6 @@
       </div>
     </div>
   </div> -->
-</div>
 </template>
 
 <script>
@@ -123,4 +121,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+ .galleryNFTContainer:hover{
+    .itemHover{
+        display:block;
+    }
+}
+.itemHover{
+    position: absolute;
+    // width: 15vw;
+    margin-top: -13.5rem;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.845);
+    display: none;
+    padding: 1.5rem;
+    // margin-left: 1rem;
+}
 </style>

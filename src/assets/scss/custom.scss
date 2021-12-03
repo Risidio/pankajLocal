@@ -381,56 +381,24 @@ select {
 #asset-details .hash1-image {
   border: none;
 }
+
 .nftGalleryView{
-  min-height: 20rem;
-  max-width: 20rem;
-  max-height: 20rem;
-  border-radius: 2rem;
+  width: 27rem;
+  height: 27rem;
+  border-radius: 40px;
   object-fit: cover;
-  margin: 0px 1rem;
+  padding: 1vw;
   z-index: 1;
+  margin: 1rem;
   }
   .nftGalleryViewText{
     position: absolute;
     font-size: 1rem;
     background: rgba(255, 255, 255, 0.838);
-    height: 10rem;
+    height: 12rem;
+    width: 25rem;
     z-index: 10;
-    width: 20rem;
-    margin: auto 1rem;
-    margin-top: -10rem;
-    padding: 1rem;
-  }
-  .nftMarketplaceViewLink{
-    background: rgb(240, 240, 240);
-    display: flex;
-    flex-direction: column;
-    justify-items: start;
-    min-height: 25rem;
-    width: auto;
-    max-width: 25rem;
-    height: 30rem;
-    max-height: 50rem;
-    object-fit: contain;
-    border-radius: 20px;
-    padding: 1rem;
-    // object-fit: cover;
-    margin: 0px auto;
-  }
-.nftMarketplaceViewNFT{
-  // background: lightgrey;
-  display: flex;
-  margin: auto;
-  min-height: 20rem;
-  width: 25rem;
-  max-width: 20rem;
-  height: 20rem;
-  max-height: 20rem;
-  object-fit: contain;
-  border-radius: 10px;
-  margin: 1rem auto;
-  object-fit: cover;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    margin-left: 2.2rem;
   }
 .item-image {
   height: auto;
