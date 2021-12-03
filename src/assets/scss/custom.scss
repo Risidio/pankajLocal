@@ -93,17 +93,17 @@ select {
   font-weight: 700;
   font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
-// .navbar-dark .navbar-nav .nav-link {
-//   color: #fff !important;
-// }
-// .no-scroll {
-//   overflow: hidden;
-// }
-// @media only screen and (max-width: 475px) {
-//   .no-scroll {
-//     position: fixed;
-//   }
-// }
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff !important;
+}
+.no-scroll {
+  overflow: hidden;
+}
+@media only screen and (max-width: 475px) {
+  .no-scroll {
+    position: fixed;
+  }
+}
 
 // .btn {
 //   font-size: 1.7rem;
@@ -123,272 +123,283 @@ select {
 //   margin: 0;
 //   font-size: 1.5rem;
 // }
-// .form-control {
-//   width: 100%;
-//   height: 4.0rem;
-//   padding: 5px;
-//   margin-top: 0px;
-//   margin-bottom: 15px;
-//   background: #fefefe;
-//   border: 0pt solid #000;
-//   box-shadow: 0px 6px 9px #00000029;
-//   border-radius: 0px;
-//   box-shadow: 5px 5px 5px #00000029;
-//   font-size: 1.8rem;
-//   font-weight: 300;
-// }
-// .input-group-append {
-//   text-align: center;
-// }
-// .input-group-append .input-group-text {
-//   width: 60px;
-//   color: #000;
-//   background: #fff;
-//   box-shadow: 0px 6px 9px #00000029;
-//   border-radius: 0px;
-//   border: 0pt solid #000;
-// }
-// .input-group-prepend .input-group-text {
-//   width: 60px;
-//   color: #000;
-//   background: #fff;
-//   font-size: 1.4rem;
-//   box-shadow: 0px 6px 9px #00000029;
-//   border-radius: 0px;
-//   border: 0pt solid #000;
-// }
+.form-control {
+  width: 100%;
+  height: 4.0rem;
+  padding: 5px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  background: #fefefe;
+  border: 0pt solid #000;
+  box-shadow: 0px 6px 9px #00000029;
+  border-radius: 0px;
+  box-shadow: 5px 5px 5px #00000029;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+.input-group-append {
+  text-align: center;
+}
+.input-group-append .input-group-text {
+  width: 60px;
+  color: #000;
+  background: #fff;
+  box-shadow: 0px 6px 9px #00000029;
+  border-radius: 0px;
+  border: 0pt solid #000;
+}
+.input-group-prepend .input-group-text {
+  width: 60px;
+  color: #000;
+  background: #fff;
+  font-size: 1.4rem;
+  box-shadow: 0px 6px 9px #00000029;
+  border-radius: 0px;
+  border: 0pt solid #000;
+}
 
-// .modal-dialog {
-//   min-width: 60vw;
-//   padding: 50px auto;
-//   margin: 5vh auto;
-// }
-// .modal-content {
-//   border: none !important;
-//   border-radius: 0px !important;
-//   min-height: 200px;
-//   color: rgb(7, 0, 0);
-//   padding: 50px;
-// }
-// .modal-header {
-//   text-align: right;
-//   border: none !important;
-//   border-radius: 0px !important;
-//   color: #000;
-// }
-// .modal-footer {
-//   border: none !important;
-// }
-// .footer-text {
-//   font-size: 2rem;
-//   font-weight: 500;
-// }
-// .btn:focus {
-//   box-shadow: none !important;
-// }
+.modal-dialog {
+  min-width: 60vw;
+  padding: 50px auto;
+  margin: 5vh auto;
+}
+.modal-content {
+  border: none !important;
+  border-radius: 0px !important;
+  min-height: 200px;
+  color: rgb(7, 0, 0);
+  padding: 50px;
+}
+.modal-header {
+  text-align: right;
+  border: none !important;
+  border-radius: 0px !important;
+  color: #000;
+}
+.modal-footer {
+  border: none !important;
+}
+.footer-text {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.btn:focus {
+  box-shadow: none !important;
+}
 // .btn {
 //   width: 150px;
 //   white-space: 'nowrap';
 // }
-// .btn-action {
-//   width: auto;
-//   border-radius: 0px;
-//   padding: 4px 10px;
-//   white-space: nowrap;
-// }
-// .bg-black {
-//   background-color: #000;
-// }
-// .text-xsmall {
-//   font-size: 0.9rem;
-// }
-// .text-big {
-//   font-size: 2.5rem;
-// }
-// .text-xxsmall {
-//   font-size: 0.75rem;
-// }
-// .text-preview {
-//   font-size: 1.2rem;
-//   font-weight: 500;
-// }
-// .text-bold {
-//   font-size: 1.3rem;
-//   font-weight: 600;
-// }
-// .text-underline {
-//   text-decoration: underline;
-// }
-// .text-small {
-//   font-size: 1.2rem;
-//   font-weight: 300;
-// }
-// .tooltip-inner {
-//   font-size: 1.4rem;
-//   font-weight: 300;
-// }
-// .cover-image {
-//   min-height: 300px;
-//   height: auto;
-//   width: '100%';
-//   background-repeat: 'no-repeat';
-//   background-position: 'center center';
-//   -webkit-background-size: 'contain';
-//   -moz-background-size: 'contain';
-//   -o-background-size: 'contain';
-//   background-size: 'contain';
-//   opacity: 1;
-//   text-align: center;
-// }
-// .dashed-line {
-//   border: 1pt dashed rgb(146, 146, 38);
-// }
-// .upload-preview {
-//   padding: 10px;
-//   height: auto;
-//   border: 0pt dashed rgb(146, 146, 38);
-//   background-color: #FCFCFC 0% 0% no-repeat padding-box;
-//   box-shadow: 0px 6px 9px #00000029;
-//   border-radius: 0px;
-// }
-// .hundred-vh {
-//   min-height: 100vh !important;
-// }
-// .center {
-//   margin: auto;
-//   width: 70%;
-//   border: 0px solid green;
-//   padding: 10px;
-// }
-// @media only screen and (max-width: 900px) {
-//   .center {
-//     width: 85%;
-//   }
-// }
-// .center-section {
-//   margin: auto;
-//   width: 90%;
-//   border: 0px solid green;
-//   padding: 50px 10px;
-// }
-// @media only screen and (max-width: 900px) {
-//   .center-section {
-//     width: 85%;
-//   }
-// }
-// .filter-black {
-//   filter: invert(100%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
-// }
-// .text-description {
-//   font-size: 1.4rem;
-//   font-family: 'Baloo Bhaina 2';
-// }
-// .text-bio {
-//   font-size: 1.4rem;
-//   font-family: 'Baloo Bhaina 2';
-// }
-// .text-artist {
-//   font-size: 1.2rem;
-//   font-weight: 300;
-// }
-// .text-action {
-//   font-size: 1.4rem;
-//   font-weight: 500;
-// }
-// .text-artwork {
-//   font-size: 1.6rem;
-//   font-weight: 500;
-// }
-// .text-address {
-//   font-size: 1.2rem;
-//   font-weight: 300;
-// }
-// .text-splash {
-//   font-size: 1.2rem;
-//   font-weight: 300;
-// }
-// .text-translucent {
-//   opacity: 0.3;
-// }
-// .vjs-big-play-button {
-//   width: 50px !important;
-//   height: 50px !important;
-//   border-radius: 0 !important;
-//   background-color: #222 !important;
-//   opacity: 0.7;
-// }
-// .inline-link {
-//   color: #2255A4;
-//   text-decoration: underline;
-// }
-// .tabs {
-//   border-radius: 0 !important;
-// }
-// .nav-tabs .nav-link {
-//   border-radius: 0 !important;
-// }
-// .tab {
-//   border-radius: 0 !important;
-// }
-// .alert {
-//   border-radius: 0 !important;
-// }
-// .badge {
-//   border-radius: 0 !important;
-// }
-// .vue-notification-template {
-//   background: none;
-// }
-// .r-notifs {
-//   padding: 5px !important;
-//   margin: 5px !important;
-//   font-size: 1.6rem !important;
-//   background: $success !important;
-//   color: #000 !important;
-// }
-// .success {
-//   background: $success !important;
-//   color: #000 !important;
-// }
-// .error {
-//   background: $danger !important;
-//   color: #fff !important;
-// }
-// .danger {
-//   background: $danger !important;
-//   color: #fff !important;
-// }
-// .warning {
-//   background: $warning !important;
-// }
-// .center {
-//   margin: auto;
-//   width: 70%;
-//   border: 0px solid green;
-//   padding: 10px;
-// }
-// .pointer {
-//   cursor: pointer;
-// }
-// .avatar-image {
-//   max-width: 100%;
-//   border-radius: 0%;
-// }
-// .hash1-image {
-//   width: 100%;
-//   border-radius: 0%;
-// }
-// #asset-details .hash1-image {
-//   border: none;
-// }
-.nftGalleryView{
-  min-height: 300px;
+.btn-action {
   width: auto;
+  border-radius: 0px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.bg-black {
+  background-color: #000;
+}
+.text-xsmall {
+  font-size: 0.9rem;
+}
+.text-big {
+  font-size: 2.5rem;
+}
+.text-xxsmall {
+  font-size: 0.75rem;
+}
+.text-preview {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.text-bold {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.text-underline {
+  text-decoration: underline;
+}
+.text-small {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.tooltip-inner {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+.cover-image {
+  min-height: 300px;
+  height: auto;
+  width: '100%';
+  background-repeat: 'no-repeat';
+  background-position: 'center center';
+  -webkit-background-size: 'contain';
+  -moz-background-size: 'contain';
+  -o-background-size: 'contain';
+  background-size: 'contain';
+  opacity: 1;
+  text-align: center;
+}
+.dashed-line {
+  border: 1pt dashed rgb(146, 146, 38);
+}
+.upload-preview {
+  padding: 10px;
+  height: auto;
+  border: 0pt dashed rgb(146, 146, 38);
+  background-color: #FCFCFC 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 9px #00000029;
+  border-radius: 0px;
+}
+.hundred-vh {
+  min-height: 100vh !important;
+}
+.center {
+  margin: auto;
+  width: 70%;
+  border: 0px solid green;
+  padding: 10px;
+}
+@media only screen and (max-width: 900px) {
+  .center {
+    width: 85%;
+  }
+}
+.center-section {
+  margin: auto;
+  width: 90%;
+  border: 0px solid green;
+  padding: 50px 10px;
+}
+@media only screen and (max-width: 900px) {
+  .center-section {
+    width: 85%;
+  }
+}
+.filter-black {
+  filter: invert(100%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+.text-description {
+  font-size: 1.4rem;
+  font-family: 'Baloo Bhaina 2';
+}
+.text-bio {
+  font-size: 1.4rem;
+  font-family: 'Baloo Bhaina 2';
+}
+.text-artist {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.text-action {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.text-artwork {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.text-address {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.text-splash {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.text-translucent {
+  opacity: 0.3;
+}
+.vjs-big-play-button {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 0 !important;
+  background-color: #222 !important;
+  opacity: 0.7;
+}
+.inline-link {
+  color: #2255A4;
+  text-decoration: underline;
+}
+.tabs {
+  border-radius: 0 !important;
+}
+.nav-tabs .nav-link {
+  border-radius: 0 !important;
+}
+.tab {
+  border-radius: 0 !important;
+}
+.alert {
+  border-radius: 0 !important;
+}
+.badge {
+  border-radius: 0 !important;
+}
+.vue-notification-template {
+  background: none;
+}
+.r-notifs {
+  padding: 5px !important;
+  margin: 5px !important;
+  font-size: 1.6rem !important;
+  background: $success !important;
+  color: #000 !important;
+}
+.success {
+  background: $success !important;
+  color: #000 !important;
+}
+.error {
+  background: $danger !important;
+  color: #fff !important;
+}
+.danger {
+  background: $danger !important;
+  color: #fff !important;
+}
+.warning {
+  background: $warning !important;
+}
+.center {
+  margin: auto;
+  width: 70%;
+  border: 0px solid green;
+  padding: 10px;
+}
+.pointer {
+  cursor: pointer;
+}
+.avatar-image {
   max-width: 100%;
-  max-height: 300px;
-  object-fit: contain;
-  border-radius: 20px;
-  // border: 1px grey solid;
+  border-radius: 0%;
+}
+.hash1-image {
+  width: 100%;
+  border-radius: 0%;
+}
+#asset-details .hash1-image {
+  border: none;
+}
+.nftGalleryView{
+  min-height: 20rem;
+  max-width: 20rem;
+  max-height: 20rem;
+  border-radius: 2rem;
+  object-fit: cover;
+  margin: 0px 1rem;
+  z-index: 1;
+  }
+  .nftGalleryViewText{
+    position: absolute;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.838);
+    height: 10rem;
+    z-index: 10;
+    width: 20rem;
+    margin: auto 1rem;
+    margin-top: -10rem;
+    padding: 1rem;
   }
   .nftMarketplaceViewLink{
     background: rgb(240, 240, 240);
@@ -421,49 +432,49 @@ select {
   object-fit: cover;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   }
-// .item-image {
-//   height: auto;
-//   width: 100%;
-//   border: 0pt solid $danger;
-//   align-items: center;
-// }
-// .item-image-preview {
-//   height: auto;
-//   width: 100%;
-//   border: 0pt solid $danger;
-//   align-items: center;
-// }
+.item-image {
+  height: auto;
+  width: 100%;
+  border: 0pt solid $danger;
+  align-items: center;
+}
+.item-image-preview {
+  height: auto;
+  width: 100%;
+  border: 0pt solid $danger;
+  align-items: center;
+}
 .nFTCoverImg{
   height: auto;
   width: 100%;
 }
-// .nft-display-image {
-//   width: 100%;
-// }
-// .item-action-menu {
-//   background-color: transparent;
-//   position: absolute;
-//   right: 0;
-//   top: 30px;
-//   margin: 0;
-//   padding: 0px 5px;
-// }
-// .item-action-menu .btn {
-//   margin: 0;
-//   padding: 0px 5px;
-//   padding-bottom: 7px;
-//   width: 40px;
-//   background-color: rgb(94, 90, 90);
-//   text-align: center;
-//   border-radius: 0px;
-//   color: #fff;
-// }
-// .prismic-image {
-//   max-width: 550px;
-// }
-// #my-nft-tabs >>> .nav-link.active {
-//   color: #000 !important;
-// }
-// #my-nft-tabs >>> .nav-link {
-//   color: #fff !important;
-// }
+.nft-display-image {
+  width: 100%;
+}
+.item-action-menu {
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  margin: 0;
+  padding: 0px 5px;
+}
+.item-action-menu .btn {
+  margin: 0;
+  padding: 0px 5px;
+  padding-bottom: 7px;
+  width: 40px;
+  background-color: rgb(94, 90, 90);
+  text-align: center;
+  border-radius: 0px;
+  color: #fff;
+}
+.prismic-image {
+  max-width: 550px;
+}
+#my-nft-tabs >>> .nav-link.active {
+  color: #000 !important;
+}
+#my-nft-tabs >>> .nav-link {
+  color: #fff !important;
+}

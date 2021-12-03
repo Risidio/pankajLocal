@@ -47,23 +47,23 @@
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                      <!-- <div class="container" v-if="loaded">
-                            <div class="my-5">
-                                <h1 class="text-white">#1 NFT Gallery</h1>
+                    <div class="container" v-if="loaded">
+                            <div class="">
+                                <!-- <h1 class="text-black">NFT Gallery</h1> -->
                                 <div class="row mb-4">
-                                <div v-for="(item, index) in gaiaAssets" :key="index" class="mt-5 col-md-4 col-sm-4 col-6">
+                                <div v-for="(item, index) in gaiaAssets" :key="index">
                                     <GalleryNft :item="item"/>
                                 </div>
                                 </div>
                             </div>
-                        </div> -->
-                            <!-- <div class="container" style="min-height: 85vh;" v-else>
+                        </div>
+                      <div class="container" style="min-height: 85vh;" v-else>
                             <b-container class="text-white mt-5">
                                 <h1>No Gallery NFTs</h1>
                                 <p>Our Gallery is coming online soon - please come back soon...</p>
                             </b-container>
-                        </div> -->
-                <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
+                        </div>
+                <!-- <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
                     <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
                         <div>
                             <img :src="item.coverImage" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -85,7 +85,7 @@ import GalleryNft from '@/views/marketplace/components/gallery/GalleryNft'
 export default {
   name: 'Gallery',
   components: {
-    // GalleryNft
+    GalleryNft
   },
   data () {
     return {

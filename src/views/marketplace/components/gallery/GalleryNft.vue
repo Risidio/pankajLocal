@@ -1,9 +1,14 @@
 <template>
 <div v-if="item && item.contractAsset && item.attributes" class="mt-1">
-  <b-link :to="assetUrl">
-    <MediaItemGeneral :classes="'nftGalleryView'" class="p-0 m-0" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
+  <b-link class="nftGalleryView" :to="assetUrl">
+    <MediaItemGeneral :classes="'nftGalleryView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
+    <div class="nftGalleryViewText">
+      <h4>{{item.contractAsset.nftIndex}} {{item.name}}</h4>
+      <p class="text-warning">by {{item.artist}}</p>
+      <p>{{salesButtonLabel}}</p>
+    </div>
   </b-link>
-  <div class="mt-3 text-black">
+  <!-- <div class="">
     <div class="mt-2 mb-2">
       <div v-if="item.contractAsset">
         #{{item.contractAsset.nftIndex}} {{item.name}}
@@ -28,7 +33,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 </template>
 
