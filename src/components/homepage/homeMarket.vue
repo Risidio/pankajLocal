@@ -17,15 +17,15 @@
                   <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/> -->
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes.artworkFile"/>
                   <!-- <img :src="item.attributes.artworkFile" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/> -->
-                  <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-                  <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                  <p style="font-size: 1em;"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                  <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.price}} STX</span></p>
                 </div>
             </div>
         </div>
 
         <div class="galleryContainer" v-if="tab === 'Collections'">
-          <b-col md="9" sm="12">
-            <h1 class="">Collections</h1>
+          <b-col style="margin: auto" md="9" sm="12">
+            <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
             <b-row class="h-auto">
               <b-col class="mt-5 w-100"  v-for="(loopRun, index) in loopRuns" :key="index" >
                 <div>
