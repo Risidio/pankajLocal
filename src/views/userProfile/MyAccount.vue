@@ -51,7 +51,7 @@
       </div>
       <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
-          <div>
+          <div class="yourItems">
             <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
             <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
             <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
@@ -379,11 +379,9 @@ export default {
     border-bottom: 2px solid #50B1B5;
 }
 }
-.galleryItem > *{
-  flex: 1 1 300px;
-  padding: 30px;
-  min-width: 300px;
-  max-height: 400px;
+.yourItems{
+  display: block;
+  margin: 25px auto;
 }
 .profileContainer{
   display: flex;
