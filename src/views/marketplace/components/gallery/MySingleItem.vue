@@ -1,6 +1,6 @@
 <template>
 <div class="" v-if="asset">
-  <b-card bg-variant="black" class="bg-black mt-0 py-2 text-black">
+  <b-card bg-variant="black" class="galleryItem">
     <div class="px-2">
       <div class="text-left">
         <p style="height: 2rem;" class="overflow-hidden text-bold">{{mintedMessage}}</p>
@@ -12,11 +12,10 @@
     </div>
     <b-card-text class="">
       <b-link class="text-xsmall text-info" :to="nextUrl">
-        <div style="min-height: 100px;" @contextmenu="handler($event)" class="d-flex justify-content-center p-2">
+        <div @contextmenu="handler($event)" class="">
             <img
               ref="itemImage"
-              :width="newWidth"
-              :height="newHeight"
+              class="itemImg"
               :src="image" @error="imageError()"/>
         </div>
       </b-link>
@@ -243,31 +242,5 @@ export default {
 
 .btn {
   width: inherit;
-}
-.card {
-  background-color: #212529;
-  padding: 0;
-  margin: 15px 5px;
-  border: none;
-}
-.card-text img {
-  border-radius: 0px;
-  min-width: 10rem;
-  max-width: 40rem;
-}
-.card-header {
-    padding: 1rem 1.5rem 0 1.5rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0);
-    font-size: 2.50rem;
-}
-.card-body {
-    padding: 0 0.5rem;
-}
-.card-text-body {
-    padding: 0 1.25rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-bottom: 0px solid rgba(0, 0, 0, 0.125);
 }
 </style>
