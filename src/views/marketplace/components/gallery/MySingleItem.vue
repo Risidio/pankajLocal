@@ -3,7 +3,7 @@
   <b-card bg-variant="black" class="galleryItem">
     <div class="px-2">
       <div class="text-left">
-        <p style="height: 2rem;" class="overflow-hidden text-bold">{{mintedMessage}}</p>
+
         <div class="text-small d-flex justify-content-between">
           <div class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
           <div class="text-right">{{created()}}</div>
@@ -19,14 +19,16 @@
               :src="image" @error="imageError()"/>
         </div>
       </b-link>
+      <p style="font-size: 1.5em; font-weight:500; margin: 15px 0 0 0; padding: 0;" class="overflow-hidden text-bold">{{mintedMessage}}</p>
+      <p style="margin: 0; padding: 0;"> By: <span style="font-weight: 500">{{asset.artist}}</span></p>
     </b-card-text>
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->
       <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/> <!-- v-on="$listeners"/> -->
-      <div class="text-xsmall text-center mb-3">
+      <!-- <div class="text-xsmall text-center mb-3">
         <span v-if="contractAsset">{{contractAsset.owner}}</span>
         <span v-else>'ownership in progress'</span>
-      </div>
+      </div> -->
       <div class="mb-4 d-flex justify-content-center" v-if="marketplace || myNfts">
         <b-button :to="nextUrl" :variant="variant">{{sellingMessage}}</b-button>
       </div>
@@ -42,9 +44,9 @@
         </div>
         <div v-if="iAmOwner">
         </div>
-        <div class="text-info" v-if="!marketplace && !nftPage">
+        <!-- <div class="text-info" v-if="!marketplace && !nftPage">
           <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nfts/' + contractAsset.contractId + '/' + contractAsset.nftIndex">marketplace</b-link>
-        </div>
+        </div> -->
       </div>
     </b-card-text>
   </b-card>
