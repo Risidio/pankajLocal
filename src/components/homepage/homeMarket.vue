@@ -3,43 +3,100 @@
     <div>
       <b-nav class="galleryNav" >
         <div class="galleryNavContainer" >
-          <b-nav-item class="galleryNavItem">Discover</b-nav-item>
-          <b-nav-item class="galleryNavItem">Popular</b-nav-item>
-          <b-nav-item class="galleryNavItem">Collections</b-nav-item>
-          <b-nav-item class="galleryNavItem">Your NFT's</b-nav-item>
+          <b-nav-item class="galleryNavItem" @click="tabChange('Discover')">Discover</b-nav-item>
+          <b-nav-item class="galleryNavItem" @click="tabChange('Collections')">Collections</b-nav-item>
+          <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item>
         </div>
       </b-nav>
     </div>
     <div class="homeMarketItems">
-      <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
-          <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
-              <div>
-                <img :src="item.coverImage" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/>
-                <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-                <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
-              </div>
-          </div>
-      </div>
+
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Discover'">
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+                <div class="NFTbackgroundColour">
+                  <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/> -->
+                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes.artworkFile"/>
+                  <!-- <img :src="item.attributes.artworkFile" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/> -->
+                  <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                  <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="galleryContainer" v-if="loaded === true && tab === 'Collections'">
+          <b-col md="9" sm="12">
+            <h1 class="">Collections</h1>
+            <b-row class="h-auto">
+              <b-col class="mt-5 w-100"  v-for="(loopRun, index) in loopRuns" :key="index" >
+                <div>
+                  <b-link :to="collectionUrl(loopRun)">
+                    <img style="width: 100%; height: 100%;" :src="getImageUrl(loopRun)"  v-b-tooltip.hover="{ variant: 'light' }" :title="'Collection\n' + loopRun.currentRun"/>
+                      <div class=""><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
+                  </b-link>
+                </div>
+              </b-col>
+            </b-row>
+          </b-col>
+        </div>
+        <div v-else>
+          Collections loading
+        </div>
+
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Your NFT'">
+            <div  v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+               Items
+            </div>
+        </div>
+
             <button class="button"><router-link to="/gallery">See More Collectables</router-link></button>
     </div>
     </section>
 </template>
 
 <script>
-
+import { APP_CONSTANTS } from '@/app-constants'
+import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
+import utils from '@/services/utils'
 export default {
-  name: 'homeMarket',
+  name: 'Gallery',
+  components: {
+    MediaItemGeneral
+  },
   data () {
     return {
       resultSet: [],
       loaded: false,
-      placeHolderItems: []
+      placeHolderItems: [],
+      tab: 'Discover',
+      loopRuns: []
     }
   },
   mounted () {
     this.generateData()
+    this.findAssets()
   },
   methods: {
+    tabChange (tab) {
+      this.tab = tab
+      console.log(this.tab)
+    },
+    showCollections () {
+      const collection = document.getElementsByClassName('collectionsMenu')[0]
+      const arrow = document.getElementsByClassName('arrow1')[0]
+      collection.classList.toggle('active')
+      arrow.classList.toggle('active')
+    },
+    showCategories () {
+      const categories = document.getElementsByClassName('galleryCategories')[0]
+      const arrow = document.getElementsByClassName('arrow2')[0]
+      categories.classList.toggle('active')
+      arrow.classList.toggle('active')
+    },
+    findAssets () {
+      this.$store.dispatch('rpayStacksContractStore/fetchContractDataFirstEditions').then(() => {
+        this.loaded = true
+      })
+    },
     generateData () {
       const array = {
         name: 'item1',
@@ -51,7 +108,46 @@ export default {
       for (let i = 0; i < 20; ++i) {
         this.placeHolderItems.push(array)
       }
+    },
+    fetchFullRegistry () {
+      const $self = this
+      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', 'active').then((projects) => {
+        $self.projects = utils.sortResults(projects)
+        $self.loopRuns = this.allLoopRuns
+        $self.loaded = true
+      })
     }
+  },
+  computed: {
+    gaiaAssets () {
+      const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
+      return (assets) ? assets.reverse() : []
+    }
+    // videoOptions () {
+    //   let file = this.item.attributes.artworkFile
+    //   if (!file) {
+    //     file = this.item.attributes.artworkClip
+    //   }
+    //   if (!file) return {}
+    //   const videoOptions = {
+    //     emitOnHover: true,
+    //     playOnHover: false,
+    //     bigPlayer: true,
+    //     assetHash: this.item.assetHash,
+    //     autoplay: false,
+    //     muted: false,
+    //     controls: true,
+    //     showMeta: false,
+    //     dimensions: 'max-width: 100%; max-height: auto;',
+    //     aspectRatio: '1:1',
+    //     poster: (this.item.attributes.coverImage) ? this.item.attributes.coverImage.fileUrl : null,
+    //     sources: [
+    //       { src: this.item.attributes.artworkFile.fileUrl, type: this.item.attributes.artworkFile.type }
+    //     ],
+    //     fluid: false
+    //   }
+    //   return videoOptions
+    // }
   }
 }
 
@@ -93,13 +189,14 @@ p{padding:0; margin:0;}
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: auto;
 }
 .galleryItem{
   display: flex;
-  margin: 0 auto;
+  margin: 4rem;
   border-radius: 25px;
-  background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat padding-box;
-  margin-bottom: 40px;
+  padding: 4rem;
+  margin: auto;
 }
 .galleryItem > *{
   flex: 1 1 300px;

@@ -19,8 +19,7 @@
     <img :class="classes" v-on="$listeners" :src="mediaItem.fileUrl" @error="setAltImg" :alt="mediaItem.name">
   </div>
 
-  <div v-if="options.showMeta" class="py-0" style="font-size: 1.2rem;">
-    <!--
+  <!-- <div v-if="options.showMeta" class="py-0" style="font-size: 1.2rem;">
     <div class="p-2 d-flex justify-content-start">
       <div class="mr-3 text-small">NFT File:</div>
       <div>{{mediaItem.name}}</div>
@@ -33,12 +32,11 @@
       <div class="text-small">Cover File:</div>
       <div>{{mediaItem.name}}</div>
     </div>
-    -->
     </div>
     <div class="p-0 d-flex justify-content-end text-bold" v-if="mediaItem">
-      <!-- <div>{{mediaItem.type || 'image'}}  ({{getCoverImageSizeMeg()}})</div> -->
+      <div>{{mediaItem.type || 'image'}}  ({{getCoverImageSizeMeg()}})</div>
       <div v-if="deleteAllowed()"><a v-b-tooltip.hover="{ variant: 'light' }" :title="'Replace this image?'" href="#" @click.prevent="$emit('deleteMediaItem', mediaItem.id)" class="text-small">change</a></div>
-    </div>
+    </div> -->
 </div>
 </template>
 

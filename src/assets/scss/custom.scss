@@ -382,6 +382,26 @@ select {
 #asset-details .hash1-image {
   border: none;
 }
+
+.NFTbackgroundColour{
+  background: rgba(129, 129, 129, 0.12);
+  border-radius: 30px;
+}
+
+.nftGeneralView{
+  width: 27rem;
+  height: 27rem;
+  border-radius: 15px;
+  object-fit: cover;
+  // padding: 1vw;
+  // z-index: 1;
+  margin-bottom: 1rem;
+
+  }
+  .nftGeneralView:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
 .yourNFTsView{
   max-width: 10px;
   max-height: 10px;
@@ -412,6 +432,7 @@ select {
     box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
   }
 }
+
 .nftGalleryView{
   width: 27rem;
   height: 27rem;

@@ -20,7 +20,7 @@
         <div v-else-if="contentType === 'image'" class="singleNFTGalleryItem">
             <img :class="classes" class="singleNFTGalleryItem" v-on="$listeners" :src="mediaItem.fileUrl" @error="setAltImg()" :alt="mediaItem.name">
         </div>
-        <div v-if="options.showMeta" class="py-0" style="font-size: 1.2rem;">
+        <!-- <div v-if="options.showMeta" class="py-0" style="font-size: 1.2rem;"> -->
             <!--
             <div class="p-2 d-flex justify-content-start">
           <div class="mr-3 text-small">NFT File:</div>
@@ -39,7 +39,7 @@
           <!-- <div>{{mediaItem.type || 'image'}}  ({{getCoverImageSizeMeg()}})</div> -->
           <!-- <div v-if="deleteAllowed()"><a v-b-tooltip.hover="{ variant: 'light' }" :title="'Replace this image?'" href="#" @click.prevent="$emit('deleteMediaItem', mediaItem.id)" class="text-small">change</a>
           </div> -->
-        </div>
+        <!-- </div> -->
       </div>
 
     </div>
