@@ -1,5 +1,5 @@
 <template>
-<b-container class="text-white" v-if="loopRun">
+<b-container class="text-black" v-if="loopRun">
   <div class="d-flex justify-content-start my-3 mx-4">
     <div class="mt-5">
       <h1>Allocation vs Minted NFT</h1>
@@ -23,7 +23,7 @@
     <PageableAllocation :loopRun="loopRun" :pageSize="pageSize"/>
   </b-row>
   <div v-if="showForm">
-  <h1 class="text-white">NFT Allocations</h1>
+  <h1 class="text-black">NFT Allocations</h1>
   <div class="mb-3" role="group">
     <label for="punkIndexes">Clear allocations for {{loopRun.currentRunKey}}..</label>
     <b-form-input

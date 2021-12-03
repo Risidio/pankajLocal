@@ -1,6 +1,6 @@
 <template>
 <div v-if="loopRun">
-  <b-container fluid id="my-nft-tabs" class="px-5 text-white mt-5">
+  <b-container fluid id="my-nft-tabs" class="px-5 text-black mt-5">
     <b-row>
       <b-col md="3" sm="12">
         <h1 class="border-bottom mb-5">{{loopRun.currentRun}}</h1>
@@ -39,7 +39,7 @@
                           <b-form-select style="text-align: center; font-size: 2rem; font-weight: 700; height: 4rem;" v-if="loopRun.batchSize > 1" id="batchOption" v-model="batchOption" :options="batchOptions()"></b-form-select>
                         </b-col>
                         <b-col cols="6" class="px-0 pl-1 pr-4 mx-0">
-                          <b-button class="w-100 text-white" variant="warning" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 0"> {{batchOption}}</span></b-button>
+                          <b-button class="w-100 text-black" variant="warning" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 0"> {{batchOption}}</span></b-button>
                         </b-col>
                       </b-row>
                     </div>

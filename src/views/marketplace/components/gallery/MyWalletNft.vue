@@ -1,6 +1,6 @@
 <template>
 <div class="" v-if="asset">
-  <b-card bg-variant="black" class="bg-black mt-0 py-2 text-white">
+  <b-card bg-variant="black" class="bg-black mt-0 py-2 text-black">
     <div class="px-2">
       <div class="text-left">
         <p class="text-bold">{{mintedMessage}}</p>

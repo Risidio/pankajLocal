@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     getClass (key) {
-      return (this.$route.params.section === key) ? 'text-info' : 'text-white'
+      return (this.$route.params.section === key) ? 'text-info' : 'text-black'
     }
   },
   computed: {

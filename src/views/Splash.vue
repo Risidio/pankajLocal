@@ -1,5 +1,5 @@
 <template>
-<section id="splash-section" style="height: 100vh;" class="d-flex flex-column justify-content-center align-items-center text-white" v-if="content">
+<section id="splash-section" style="height: 100vh;" class="d-flex flex-column justify-content-center align-items-center text-black" v-if="content">
   <b-row class="mt-auto w-100">
     <b-col cols="12" class="text-center">
       <div><router-link to="/home" class="navbar-brand"><img height="36px" :src="logo" alt="logo"/></router-link></div>

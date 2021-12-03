@@ -58,7 +58,7 @@
                             </div>
                         </div>
                       <div class="container" style="min-height: 85vh;" v-else>
-                            <b-container class="text-white mt-5">
+                            <b-container class="text-black mt-5">
                                 <h1>No Gallery NFTs</h1>
                                 <p>Our Gallery is coming online soon - please come back soon...</p>
                             </b-container>

@@ -6,7 +6,7 @@
         <MediaItemGeneral v-if="userProfile.avatar" :classes="'avatar-image'" :options="options" :mediaItem="userProfile.avatar"/>
         <b-avatar v-else square variant="light" size="600px"></b-avatar>
       </b-col>
-      <b-col v-if="stage === 0" md="6" sm="10" xs="8" align-self="start" class="text-left text-white pr-5" style="position: relative; top: 5px;">
+      <b-col v-if="stage === 0" md="6" sm="10" xs="8" align-self="start" class="text-left text-black pr-5" style="position: relative; top: 5px;">
         <b-row>
           <b-col>
             <ProfileDisplay class="p-5" :referer="referer" :userProfile="userProfile" @updateProfile="updateProfile" @openEdit="stage = 1" />

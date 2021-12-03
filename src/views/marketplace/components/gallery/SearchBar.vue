@@ -53,7 +53,7 @@
           unchecked-value="one"
           @change="toggleSearching"
           >
-          <div class="text-white pointer"><b>All Collections</b></div>
+          <div class="text-black pointer"><b>All Collections</b></div>
         </b-form-checkbox>
       </div>
     </b-form>

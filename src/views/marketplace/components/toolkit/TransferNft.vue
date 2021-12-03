@@ -18,7 +18,7 @@
         <p class="my-3 text-danger" v-html="errorMessage">Enter the recipients {{network}} stacks address</p>
       </div>
       <div class="col-12 text-right" v-if="showTransferButton">
-        <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'danger' }" :title="'Transfer this NFT to another address - can\'t be undone!'" class="text-white mr-3" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
+        <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'danger' }" :title="'Transfer this NFT to another address - can\'t be undone!'" class="text-black mr-3" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
         <b-button variant="outline-warning" style="width: 170px;" @click="transferNft()">Transfer NFT</b-button>
       </div>
     </div>

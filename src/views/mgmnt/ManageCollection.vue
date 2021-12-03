@@ -1,8 +1,8 @@
 <template>
 
-<b-container class="text-white" v-if="loaded">
+<b-container class="text-black" v-if="loaded">
   <div>
-    <h1 class="text-white">Manage NFT Collection</h1>
+    <h1 class="text-black">Manage NFT Collection</h1>
     <b-form class="needs-validation form-transparent" novalidate @submit="checkForm" id="contact-form">
 
     <div class="w-100 mb-3" role="group">
@@ -238,7 +238,7 @@
       value="true"
       unchecked-value="false"
       >
-      <div class="text-white pointer"><b>Batch Mode</b></div>
+      <div class="text-black pointer"><b>Batch Mode</b></div>
       </b-form-checkbox>
 
     <div class="w-100 mb-3" role="group">

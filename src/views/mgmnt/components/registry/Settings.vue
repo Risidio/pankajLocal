@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="bg-black text-white  mb-5 p-4">
+  <div class="bg-black text-black  mb-5 p-4">
     <div class="row mb-5 pb-2">
       <div class="col-12"><h3>Environment Variables</h3></div>
       <div class="col-2">RISIDIO_API</div><div class="col-10">{{RISIDIO_API}}</div>

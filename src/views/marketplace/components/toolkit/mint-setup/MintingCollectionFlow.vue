@@ -2,7 +2,7 @@
 <div v-if="!loading" class="bg-dark d-flex justify-content-center">
   <div class="mx-auto">
     <b-card-group>
-      <b-card bg-variant="dark" class="border-white text-white" header-tag="header" footer-tag="footer">
+      <b-card bg-variant="dark" class="border-white text-black" header-tag="header" footer-tag="footer">
         <template #header>
         </template>
         <b-row class="">

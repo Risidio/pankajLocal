@@ -1,5 +1,5 @@
 <template>
-<section class="text-white my-5" id="homeSection" style="min-height: 85vh;">
+<section class="text-black my-5" id="homeSection" style="min-height: 85vh;">
   <b-container fluid v-if="loaded && content">
     <ExhibitRequestPending :content="content" v-if="exhibitRequest.status === 1"/>
     <ExhibitRequestAllSet   :content="content" v-else-if="exhibitRequest.status === 2"/>

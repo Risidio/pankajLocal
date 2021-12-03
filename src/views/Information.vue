@@ -1,5 +1,5 @@
 <template>
-  <section class="my-5 container text-white" v-if="content">
+  <section class="my-5 container text-black" v-if="content">
     <h1 class="pt-5">{{ this.$route.params.infoId }}</h1>
     <div class="row">
       <div class="col-12">
@@ -7,7 +7,7 @@
       </div>
     </div>
   </section>
-  <section class="my-5 container text-white" v-else>
+  <section class="my-5 container text-black" v-else>
     <div class="row">
       <div class="col-12">
         Content missing for key {{getKey()}}

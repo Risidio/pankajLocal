@@ -15,9 +15,9 @@
     </div>
     <div class="text-warning p-3">
       <div>Thresholds</div>
-      <div class="text-white"> &lt; {{mempoolSettings.threshold2}} = Mint Away</div>
-      <div class="text-white"> &lt; {{mempoolSettings.threshold3}} = Mint with caution</div>
-      <div class="text-white"> &gt; {{mempoolSettings.threshold3}} = Minting paused due to high loads</div>
+      <div class="text-black"> &lt; {{mempoolSettings.threshold2}} = Mint Away</div>
+      <div class="text-black"> &lt; {{mempoolSettings.threshold3}} = Mint with caution</div>
+      <div class="text-black"> &gt; {{mempoolSettings.threshold3}} = Minting paused due to high loads</div>
     </div>
   </b-dropdown-item>
 </b-nav-item-dropdown>

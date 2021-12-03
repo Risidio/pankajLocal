@@ -1,7 +1,7 @@
 <template>
 <div class="text-dark">
   <div class="text-right text-small"><b-link @click="$emit('cancel')" class="pt-1 px-3 text-danger"><b-icon icon="chevron-left"/> Back</b-link></div>
-  <div class="text-white"><h3>About You</h3></div>
+  <div class="text-black"><h3>About You</h3></div>
   <div class="text-danger">
     <MediaItemGeneral v-if="userProfile.avatar" :classes="'avatar-image'" :options="options" @deleteMediaItem="deleteMediaItem" :mediaItem="userProfile.avatar"/>
     <MyAvatar v-else @updateProfile="updateProfile" :avatar="userProfile.avatar"/>
@@ -40,7 +40,7 @@
       ></b-form-textarea>
   </b-card>
 
-  <div class="text-white mt-5"><h3>Social Links</h3></div>
+  <div class="text-black mt-5"><h3>Social Links</h3></div>
   <b-card class="mt-1" role="group">
     <label for="email">Email<span class="text-danger">*</span></label>
     <b-form-input
@@ -90,7 +90,7 @@
     </b-form-invalid-feedback>
   </b-card>
 
-  <div class="text-white mt-5"><h3>Agreements</h3></div>
+  <div class="text-black mt-5"><h3>Agreements</h3></div>
   <b-card role="group">
     <div class="mb-4"><PrismicItems :prismicItems="content.termsofuse"/></div>
     <b-form-checkbox

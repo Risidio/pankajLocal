@@ -1,6 +1,6 @@
 <template>
 <div v-if="loaded">
-  <h1 class="text-white">Roles and Privileges</h1>
+  <h1 class="text-black">Roles and Privileges</h1>
   <div class="" v-for="(auth, index) in authorisations" :key="index">
     <div class="d-flex justify-content-between">
       <div><b-link :to="'/mgmnt/manage-privileges?stxAddress=' + auth.stxAddress">{{auth.stxAddress}}</b-link></div>

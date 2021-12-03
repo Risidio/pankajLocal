@@ -1,5 +1,5 @@
 <template>
-<section id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-white">
+<section id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <b-container class="center-section" style="min-height: 50vh;">
     <b-row align-h="center" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="7" sm="10" class="mb-5">
@@ -12,10 +12,10 @@
         <b-row align-v="stretch" :style="'height: ' + videoHeight - 100 + 'px'">
           <b-col cols="12" class="">
             <div class="d-flex justify-content-between mb-5">
-              <div><router-link class="text-white" to="/nft-marketplace"><b-icon icon="chevron-left" shift-h="-4" variant="white"></b-icon> Back</router-link></div>
+              <div><router-link class="text-black" to="/nft-marketplace"><b-icon icon="chevron-left" shift-h="-4" variant="white"></b-icon> Back</router-link></div>
               <div class="d-flex justify-content-between">
-                <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="ttOnAuction" class="text-white" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
-                <div class="text-center on-auction-text ml-3 py-3 px-4 bg-warning text-white">
+                <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="ttOnAuction" class="text-black" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
+                <div class="text-center on-auction-text ml-3 py-3 px-4 bg-warning text-black">
                   <div>{{salesBadgeLabel}}</div>
                   <div v-if="showEndTime()">{{biddingEndTime()}}</div>
                 </div>
@@ -24,7 +24,7 @@
           </b-col>
           <b-col md="12" align-self="end" :key="componentKey">
             <div class="w-100">
-              <h1 class="text-white">{{mintedMessage}}</h1>
+              <h1 class="text-black">{{mintedMessage}}</h1>
               <div>
                 <div class="d-flex justify-content-between">
                   <div>by <span class="text-warning">{{loopRun.makerName}}</span> <span v-if="loopRun.type !== 'punks'">from collection <span class="text-warning">{{loopRun.currentRun}}</span></span> {{editionMessage}}</div>
@@ -33,7 +33,7 @@
               <div class="d-flex justify-content-end">
                 <div>{{created()}}</div>
               </div>
-              <div v-if="gaiaAsset.description" class="w-100 text-white" v-html="preserveWhiteSpace(gaiaAsset.description)">
+              <div v-if="gaiaAsset.description" class="w-100 text-black" v-html="preserveWhiteSpace(gaiaAsset.description)">
               </div>
               <div class="w-25">
                 <ShareLinks class="mt-4" :socialLinks="getSocialLinks()" :gaiaAsset="gaiaAsset" />
@@ -51,7 +51,7 @@
                 </b-row>
                 <b-row v-else>
                   <b-col v-if="webWalletNeeded" md="6" sm="12" class="mb-3">
-                      <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-white" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
+                      <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-black" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
                   </b-col>
                   <b-col md="6" sm="6" class="mb-3 text-center" v-else-if="getSaleType() > 0 && getSaleType() < 3">
                     <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()" :theme="'light'" :label1="salesButtonLabel" :svgImage="hammer" :text-warning="true"/>
@@ -63,10 +63,10 @@
               </div>
               <b-row class="my-4" v-else>
                 <b-col md="6" sm="12" class="mb-3">
-                  <div class="more-link m-0" v-scroll-to="{ element: '#artist-section', duration: 1000 }"><b-link class="text-white">Find out more</b-link></div>
+                  <div class="more-link m-0" v-scroll-to="{ element: '#artist-section', duration: 1000 }"><b-link class="text-black">Find out more</b-link></div>
                 </b-col>
                 <b-col md="6" sm="12" class="">
-                  <div class="more-link m-0" v-scroll-to="{ element: '#charity-section', duration: 1000 }"><b-link class="text-white">Charity</b-link></div>
+                  <div class="more-link m-0" v-scroll-to="{ element: '#charity-section', duration: 1000 }"><b-link class="text-black">Charity</b-link></div>
                 </b-col>
               </b-row>
             </div>

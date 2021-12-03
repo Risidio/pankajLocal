@@ -8,7 +8,7 @@
             <img style="min-width: 250px; height: 250px;" :src="charity.data.image.url"/>
           </div>
           <p class="my-1 py-0 text-center text-small" style="font-size: 1.4rem">{{charity.data.charityname[0].text}}</p>
-          <p class="my-0 py-0 text-center  text-small text-white" style="font-size: 1.4rem">{{charity.data.charityartist[0].text}}</p>
+          <p class="my-0 py-0 text-center  text-small text-black" style="font-size: 1.4rem">{{charity.data.charityartist[0].text}}</p>
         </div>
         <div v-if="index === 3" class="w-100"></div>
       </b-col>

@@ -1,6 +1,6 @@
 <template>
 <div v-if="events">
-  <h6 class="text-white">NFT History</h6>
+  <h6 class="text-black">NFT History</h6>
   <b-row class="text-xsmall">
     <b-col md="12" sm="12">
       <b-table striped hover :items="values()" :fields="fields()" class="bg-light text-dark">

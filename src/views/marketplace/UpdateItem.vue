@@ -28,7 +28,7 @@
 
         <div class="my-4 bg-danger p-3" v-if="invalidItems.length > 0 && showErrors">
           <div>Required fields:</div>
-          <div class="mr-1 text-white" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
+          <div class="mr-1 text-black" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
       </b-col>
       <div md="4" sm="12" >

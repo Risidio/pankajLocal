@@ -15,11 +15,11 @@
 
   <div class="d-flex justify-content-center">
     <input class="fake-input" id="copy-amount" readonly v-model="paymentAmount"/>
-    <a href="#" class="pointer" @click.prevent="copyAmount()"><b-icon class="text-white ml-2"  icon="file-earmark"/></a>
+    <a href="#" class="pointer" @click.prevent="copyAmount()"><b-icon class="text-black ml-2"  icon="file-earmark"/></a>
   </div>
   <div class="d-flex justify-content-center">
     <input class="fake-input" id="copy-address" readonly v-model="paymentAddress"/>
-    <a href="#" class="pointer" @click.prevent="copyAddress()"><b-icon class="text-white ml-2"  icon="file-earmark"/></a>
+    <a href="#" class="pointer" @click.prevent="copyAddress()"><b-icon class="text-black ml-2"  icon="file-earmark"/></a>
   </div>
 </div>
 </template>

@@ -8,7 +8,7 @@
       :quote="'Stacks Network - the user owned Internet uses Smart Contracts on Bitcoin'"
       :hashtags="gaiaAsset.artist"
     >
-    <b-icon width="20" height="20" class="text-white" :icon="icon"/>
+    <b-icon width="20" height="20" class="text-black" :icon="icon"/>
   </ShareNetwork>
 </div>
 </template>

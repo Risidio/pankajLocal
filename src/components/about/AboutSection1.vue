@@ -2,7 +2,7 @@
 <section id="about-number-1" v-if="content">
   <b-container class="text-center">
     <b-row style="height: 92vh" align-h="center">
-      <b-col class="text-white mx-md-5 mx-sm-3" md="6" sm="6" align-self="center">
+      <b-col class="text-black mx-md-5 mx-sm-3" md="6" sm="6" align-self="center">
         <img class="mb-5" width="300px;" :src="rainbowOne" alt="site logo" />
         <prismic-items :prismicItems="content.section1rtf1"></prismic-items>
       </b-col>
