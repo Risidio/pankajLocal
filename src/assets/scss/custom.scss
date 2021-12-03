@@ -382,6 +382,21 @@ select {
   border: none;
 }
 
+.NFTbackgroundColour{
+  background: rgba(129, 129, 129, 0.12);
+  border-radius: 30px;
+}
+
+.nftGeneralView{
+  width: 27rem;
+  height: 27rem;
+  border-radius: 15px;
+  object-fit: cover;
+  // padding: 1vw;
+  // z-index: 1;
+  margin-bottom: 1rem;
+  }
+
 .nftGalleryView{
   width: 27rem;
   height: 27rem;
