@@ -386,12 +386,13 @@ select {
 .NFTbackgroundColour{
   background: rgba(129, 129, 129, 0.12);
   border-radius: 30px;
+  margin: 2rem;
 }
 
 .nftGeneralView{
   width: 27rem;
   height: 27rem;
-  border-radius: 15px;
+  border-radius: 10px;
   object-fit: cover;
   // padding: 1vw;
   // z-index: 1;
