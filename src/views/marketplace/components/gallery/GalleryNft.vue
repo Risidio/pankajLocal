@@ -2,9 +2,11 @@
   <b-link class="galleryNFTContainer" :to="assetUrl" v-if="item && item.contractAsset && item.attributes">
     <MediaItemGeneral :classes="'nftGalleryView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
     <div class="nftGalleryViewText itemHover">
-      <h4>{{item.contractAsset.nftIndex}} {{item.name}}</h4>
-      <p class="text-warning">by {{item.artist}}</p>
-      <p>{{salesButtonLabel}}</p>
+      <h4 style="overlow:clip; font-weight: 500">{{!item.name ? "NFT" : item.name}}</h4>
+      <p class="galleryNftDetails">By:
+        {{!item.artist ? "An Anonymous User!" : item.artist}}
+        <span>{{item.contractAsset.saleData.buyNowOrStartingPrice === 0 ? "Not on Sale" : item.contractAsset.saleData.buyNowOrStartingPrice + " STX"}} </span>
+        </p>
     </div>
   </b-link>
   <!-- <div class="">
@@ -129,12 +131,28 @@ export default {
 }
 .itemHover{
     position: absolute;
-    // width: 15vw;
-    margin-top: -13.5rem;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.845);
+    margin-top: -10.5rem;
+    // border-radius: 5px;
     display: none;
     padding: 1.5rem;
-    // margin-left: 1rem;
+    background: rgba(255, 255, 255, 0.447);
+    height: 8rem;
+    width: 23.7rem;
+    z-index: 10;
+    margin-left: 2.6rem;
+  backdrop-filter: blur(1rem);
+}
+
+.galleryNftDetails{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: auto;
+  text-overflow: clip;
+  // height: 20px;
+  font-size: 50%;
+  font-weight: 500;
+  margin-right: 10px;
 }
 </style>

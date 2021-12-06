@@ -445,20 +445,11 @@ select {
 .nftGalleryView{
   width: 27rem;
   height: 27rem;
-  border-radius: 40px;
+  border-radius: 25px;
   object-fit: cover;
   padding: 1vw;
   z-index: 1;
   margin: 1rem;
-  }
-  .nftGalleryViewText{
-    position: absolute;
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.838);
-    height: 12rem;
-    width: 25rem;
-    z-index: 10;
-    margin-left: 2.2rem;
   }
 .item-image {
   height: auto;
