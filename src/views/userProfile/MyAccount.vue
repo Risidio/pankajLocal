@@ -46,14 +46,15 @@
           </div>
         </b-nav>
       </div>
-      <div v-if="tab === 'NFT'" >
+      <div v-if="tab === 'NFT' && loopRun" >
         <MyPageableItems :loopRun="loopRun"/>
+        <router-link to="/gallery"><span style="color: #5FBDC1; text-align: center;">Want More ? See The Gallery</span></router-link>
       </div>
       <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div class="addNewContainer">
           <router-link to="/create">
             <p style="font-size: 70px; font-weight: 300; color: grey;">&plus;</p>
-            <p style="font-weight: 500;"> Add new</p>
+            <p style="font-weight: 500;"> Add new NFT</p>
             <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
           </router-link>
           <div>
@@ -68,9 +69,9 @@
             <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
           </div>
         </div>
+
       </div>
       <div v-else-if="tab === 'Fav'">
-
       </div>
       <div v-else>
         <div class="noNFT">
