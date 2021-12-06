@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!loading">
+  <div class="" v-if="!loading">
     <!-- <h1 class="pointer mb-4 border-bottom" @click="showMinted = !showMinted"><b-icon font-scale="0.6" v-if="showMinted" icon="chevron-down"/><b-icon font-scale="0.6" v-else icon="chevron-right"/> {{tokenCount}} Minted NFTs</h1>
     <div class="mb-4" v-if="showMinted && loopRun"> -->
-      <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0"/>
-      <div id="my-table" class="row" v-if="resultSet && resultSet.length > 0">
-        <div class="" v-for="(asset, index) of resultSet" :key="index" >
-          <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey"/>
+      <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0" />
+      <div id="my-table" class="row" style="justify-content: space-between" v-if="resultSet && resultSet.length > 0">
+        <div v-for="(asset, index) of resultSet" :key="index">
+          <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey" class=""/>
         </div>
       </div>
       <div class="d-flex justify-content-start my-3 mx-4" v-else>
