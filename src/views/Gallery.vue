@@ -5,9 +5,9 @@
                 <div class="galleryCollections">
                     <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div class="collectionsMenu">
-                        <a href="#">Collection 1</a>
-                        <a href="#">Collection 2</a>
-                        <a href="#">Collection 3</a>
+                        <!-- <a href="#">Collection 1</a>
+                        <a href="#">Collection 3</a> -->
+                        <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
                     </div>
                 </div>
                 <hr class="hr"/>
@@ -80,10 +80,12 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import GalleryNft from '@/views/marketplace/components/gallery/GalleryNft'
+import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
 export default {
   name: 'Gallery',
   components: {
-    GalleryNft
+    GalleryNft,
+    CollectionSidebar
   },
   data () {
     return {
@@ -97,6 +99,17 @@ export default {
     this.findAssets()
   },
   methods: {
+    update (data) {
+      if (data.opcode === 'show-uploads') {
+        this.showUploads = true
+      } else if (data.opcode === 'show-collection') {
+        this.showUploads = false
+        this.loopRun = data.loopRun
+        if (this.$route.path !== '/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey) {
+          this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
+        }
+      }
+    },
     showCollections () {
       const collection = document.getElementsByClassName('collectionsMenu')[0]
       const arrow = document.getElementsByClassName('arrow1')[0]

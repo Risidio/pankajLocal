@@ -1,21 +1,21 @@
 <template>
-<div class="text-small">
+<div class="text-small pt-5">
   <div class="mb-5" v-if="isMyNfts()">
-    <h3 class="border-bottom mb-4">My Wallet</h3>
+    <h3 class="mb-4">My Wallet</h3>
     <div class="ml-5 my-3">
       <h4 class="pointer" @click="showNftWallet()">all my nfts</h4>
     </div>
   </div>
   <div class="mb-5">
-    <h3 class="border-bottom pointer mb-4" @click="showColls = !showColls"><b-icon font-scale="0.8" v-if="showColls" icon="chevron-down"/> <b-icon font-scale="0.8" v-else icon="chevron-right"/> #1 Collections</h3>
-    <div class="" v-if="showColls">
-      <div class="ml-5 my-3" v-for="(loopRun, index) in allLoopRuns" :key="index">
-        <p :class="isSelected(loopRun.currentRunKey)" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)">{{loopRun.currentRun}}</p>
+    <!-- <h3 class="pointer mb-4" @click="showColls = !showColls"><b-icon font-scale="0.8" v-if="showColls" icon="chevron-down"/> <b-icon font-scale="0.8" v-else icon="chevron-right"/> #1 Collections</h3> -->
+    <div v-if="showColls">
+      <div v-for="(loopRun, index) in allLoopRuns" :key="index">
+        <p style="font-weight:400" :class="isSelected(loopRun.currentRunKey)" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)">{{loopRun.currentRun}}</p>
       </div>
     </div>
   </div>
   <div v-if="canUpload()">
-    <h3 class="border-bottom mb-4">Uploads</h3>
+    <h3 class="mb-4">Uploads</h3>
     <div class="ml-5 my-3">
       <h4 class="pointer" @click="showUploads()">all uploads</h4>
     </div>
@@ -75,7 +75,7 @@ export default {
       return this.$store.getters[APP_CONSTANTS.KEY_ASSET_IMAGE_URL](item)
     },
     isSelected (runKey) {
-      return (this.$route.path.indexOf('/' + runKey) > -1) ? 'text-warning' : ''
+      return (this.$route.path.indexOf('/' + runKey) > -1) ? 'text-info' : ''
     },
     fetchFullRegistry () {
       const $self = this

@@ -97,13 +97,13 @@ const routes: Array<RouteConfig> = [
     components: { default: Gallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
   },
-  {
-    path: '/nft-marketplace',
-    alias: '/nft-market',
-    name: 'nft-marketplace',
-    components: { default: NftMarketplace, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Risidio Marketplace' }
-  },
+  // {
+  //   path: '/nft-marketplace',
+  //   alias: '/nft-market',
+  //   name: 'nft-marketplace',
+  //   components: { default: NftMarketplace, header: MainNavbar, footer: MainFooter },
+  //   meta: { title: 'Risidio Marketplace' }
+  // },
   // {
   //   path: '/punk-minter/:maker/:collection',
   //   name: 'punk-minter',
