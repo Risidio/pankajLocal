@@ -29,7 +29,7 @@
           </div>
           <div class="profileBtns">
             <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
-            <router-link  to="/"><button class="button">Disconnect</button></router-link >
+            <router-link  to="/"><button class="button" @click="logout">Logout</button></router-link >
             <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
             <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
           </div>
@@ -190,6 +190,18 @@ export default {
     }
   },
   methods: {
+    logout () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-logout' })
+      this.$store.dispatch('rpayAuthStore/startLogout').then(() => {
+        if (this.$route.name !== 'home') {
+          this.$router.push('/')
+        }
+        // sessionStorage.clear()
+      }).catch((err) => {
+        console.log(err)
+        this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+      })
+    },
     fetchLoopRun () {
       let currentRunKey = this.$route.params.collection
       if (!currentRunKey) {
