@@ -153,7 +153,6 @@
 
 <script>
 // import GalleryNft from '@/components/marketplace/GalleryNft'
-import MySingleNft from '@/components/singleNFTMinting/MySingleNft'
 import MyWalletNfts from '@/views/marketplace/components/gallery/MyWalletNfts'
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
@@ -164,7 +163,6 @@ const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 export default {
   name: 'MyAccount',
   components: {
-    // MySingleNft,
     // MyWalletNfts
     // MySingleItem
     MyPageableItems
