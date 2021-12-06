@@ -458,10 +458,20 @@ select {
   align-items: center;
 }
 .item-image-preview {
-  height: auto;
-  width: 100%;
-  border: 0pt solid $danger;
+  width: 260px;
+  height: 230px;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+  object-fit: cover;
+  margin: auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
   align-items: center;
+  &:hover{
+    transition: all smooth 2s;
+    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+    transform: scale(1.01)
+  }
 }
 .nFTCoverImg{
   height: auto;

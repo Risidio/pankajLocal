@@ -39,16 +39,16 @@
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
-            <b-nav-item class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item class="galleryNavItem" @click="tabChange('Item')">Your Items</b-nav-item>
-            <b-nav-item class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
-            <b-nav-item class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item>
+            <b-nav-item id="NFT" class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
+            <b-nav-item id="Item" class="galleryNavItem" @click="tabChange('Item')">Your Items</b-nav-item>
+            <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
+            <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item>
           </div>
         </b-nav>
       </div>
       <div v-if="tab === 'NFT' && loopRun" >
         <MyPageableItems :loopRun="loopRun"/>
-        <router-link to="/gallery"><span style="color: #5FBDC1; text-align: center;">Want More ? See The Gallery</span></router-link>
+        <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center;"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
       </div>
       <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div class="addNewContainer">
@@ -262,6 +262,11 @@ export default {
     },
     tabChange (tab) {
       this.tab = tab
+      document.getElementById('NFT').classList.remove('active')
+      document.getElementById('Item').classList.remove('active')
+      document.getElementById('Sale').classList.remove('active')
+      document.getElementById('Fav').classList.remove('active')
+      document.getElementById(tab).classList.add('active')
       console.log(this.tab)
     },
     closeModal () {
@@ -399,7 +404,7 @@ export default {
   margin: 0 10px;
 }
 
-.galleryNavItem:hover{
+.galleryNavItem:hover, .galleryNavItem.active{
     border-bottom: 2px solid #50B1B5;
 }
 }
