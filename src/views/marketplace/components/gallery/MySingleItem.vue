@@ -1,6 +1,6 @@
 <template>
-<div class="" v-if="asset">
-  <b-card bg-variant="black" class="galleryItem">
+<div class="galleryinfoContainer" v-if="asset">
+  <b-card bg-variant="black" style="margin: 0 20px 20px 20px;" class="galleryItem">
     <div class="px-2">
       <div class="text-left">
 

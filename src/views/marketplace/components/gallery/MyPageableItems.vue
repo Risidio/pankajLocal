@@ -4,7 +4,7 @@
     <div class="mb-4" v-if="showMinted && loopRun"> -->
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0"/>
       <div id="my-table" class="row" v-if="resultSet && resultSet.length > 0">
-        <div class="" v-for="(asset, index) of resultSet" :key="index">
+        <div class="" v-for="(asset, index) of resultSet" :key="index" >
           <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey"/>
         </div>
       </div>
