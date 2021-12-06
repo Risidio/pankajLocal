@@ -39,25 +39,33 @@
           </b-col>
         </div>
 
-        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Your NFT'">
-            <div  v-for="(item, index) in gaiaAssets" :key="index" class="homeNFTView" >
-               Items
-            </div>
-        </div>
-
+          <div class="galleryContainer"  v-if="tab === 'Your NFT'">
+              <MyPageableItems class="galleryContainer"  :loopRun="loopRun"/>
+              <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
+                <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+                  <div class="yourItems">
+                    <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
+                    <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                    <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                  </div>
+                </div>
+              </div>
+          </div>
             <button class="button"><router-link to="/gallery">See More Collectables</router-link></button>
     </div>
-    </section>
+  </section>
 </template>
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
+import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import utils from '@/services/utils'
 export default {
   name: 'Gallery',
   components: {
-    MediaItemGeneral
+    MediaItemGeneral,
+    MyPageableItems
   },
   data () {
     return {
