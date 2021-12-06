@@ -40,7 +40,7 @@
         </div>
 
           <div class="galleryContainer"  v-if="tab === 'Your NFT'">
-              <MyPageableItems class="galleryContainer"  :loopRun="loopRun"/>
+              <MyPageableItems class="galleryContainer row" style="justify-content: space-between"  :loopRun="loopRun"/>
               <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
                 <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
                   <div class="yourItems">
