@@ -46,14 +46,15 @@
           </div>
         </b-nav>
       </div>
-      <div v-if="tab === 'NFT'">
+      <div v-if="tab === 'NFT' && loopRun" >
         <MyPageableItems :loopRun="loopRun"/>
+        <router-link to="/gallery"><span style="color: #5FBDC1; text-align: center;">Want More ? See The Gallery</span></router-link>
       </div>
       <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div class="addNewContainer">
           <router-link to="/create">
             <p style="font-size: 70px; font-weight: 300; color: grey;">&plus;</p>
-            <p style="font-weight: 500;"> Add new</p>
+            <p style="font-weight: 500;"> Add new NFT</p>
             <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
           </router-link>
           <div>
@@ -64,13 +65,13 @@
         <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
           <div class="yourItems">
             <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-            <p style="font-size: 1.3em; font-weight: 500;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-            <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+            <p style="font-size: 1.3em; font-weight: 500;"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
+            <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
           </div>
         </div>
+
       </div>
       <div v-else-if="tab === 'Fav'">
-
       </div>
       <div v-else>
         <div class="noNFT">

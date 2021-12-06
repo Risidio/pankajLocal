@@ -409,9 +409,11 @@ select {
 .galleryinfoContainer{
   display: grid;
   display: -ms-grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  -ms-grid-columns:  repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 40px;
+  grid-template-columns: repeat(auto-fit, 320px);
+  -ms-grid-columns:  repeat(auto-fit, 320px);
+  justify-content: space-between;
+  row-gap: 40px;
+  // grid-gap: 20px 50px;
 }
 .galleryItem{
   display: flex;
@@ -420,6 +422,7 @@ select {
   // margin-bottom: 40px;
   padding: 10px;
   background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
+  transition: all smooth 2s ease-in-out;
 }
 .itemImg{
   display: block;
@@ -430,11 +433,11 @@ select {
   margin: auto;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
   border-radius: 5px;
-  transition: all smooth 2s ease-in-out, transform 2s;
+  transition: all smooth 2s ease-in-out;
   &:hover{
     transition: all smooth 2s;
     box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
-    transform: scale(1.1)
+    transform: scale(1.01)
   }
 }
 
