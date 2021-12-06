@@ -1,12 +1,12 @@
 <template>
-<div v-if="loopRun && loopRun.status !== 'disabled'">
-  <b-container :key="componentKey" fluid id="my-nft-tabs" class="px-5 mt-5">
+<div class="pt-5" v-if="loopRun && loopRun.status !== 'disabled'">
+  <b-container :key="componentKey" fluid id="my-nft-tabs" class="">
     <b-row id="video-column">
-      <b-col md="3" sm="12">
-        <h1 class="border-bottom mb-5">All Collections</h1>
+      <b-col md="2" sm="12">
+        <h1 class="mb-5">All Collections</h1>
         <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
       </b-col>
-      <b-col md="9" sm="12">
+      <b-col md="10" sm="12">
         <div v-if="!showSearch">
           <h1 class="mb-4 border-bottom">{{loopRun.currentRun}}</h1>
           <b-row class="mb-4" align-v="stretch" style="min-height: 150px;" v-if="showCollectionData">

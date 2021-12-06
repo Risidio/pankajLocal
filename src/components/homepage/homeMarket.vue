@@ -12,13 +12,13 @@
     <div class="homeMarketItems">
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Discover'">
-            <div  v-for="(item, index) in gaiaAssets" :key="index" class="homeNFTView" >
+            <div v-for="(item, index) in gaiaAssets" :key="index" class="homeNFTView" >
                 <div class="NFTbackgroundColour">
-                  <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/> -->
+                    <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes.artworkFile"/>
-                  <!-- <img :src="item.attributes.artworkFile" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/> -->
                   <p style="font-size: 1em;"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
                   <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                </b-link>
                 </div>
             </div>
         </div>
@@ -121,6 +121,11 @@ export default {
         $self.loopRuns = this.allLoopRuns
         $self.loaded = true
       })
+    },
+    assetUrl (item) {
+      if (item.contractAsset) {
+        return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
+      }
     }
   },
   computed: {
@@ -128,31 +133,6 @@ export default {
       const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
       return (assets) ? assets.reverse() : []
     }
-    // videoOptions () {
-    //   let file = this.item.attributes.artworkFile
-    //   if (!file) {
-    //     file = this.item.attributes.artworkClip
-    //   }
-    //   if (!file) return {}
-    //   const videoOptions = {
-    //     emitOnHover: true,
-    //     playOnHover: false,
-    //     bigPlayer: true,
-    //     assetHash: this.item.assetHash,
-    //     autoplay: false,
-    //     muted: false,
-    //     controls: true,
-    //     showMeta: false,
-    //     dimensions: 'max-width: 100%; max-height: auto;',
-    //     aspectRatio: '1:1',
-    //     poster: (this.item.attributes.coverImage) ? this.item.attributes.coverImage.fileUrl : null,
-    //     sources: [
-    //       { src: this.item.attributes.artworkFile.fileUrl, type: this.item.attributes.artworkFile.type }
-    //     ],
-    //     fluid: false
-    //   }
-    //   return videoOptions
-    // }
   }
 }
 
@@ -161,8 +141,9 @@ export default {
 <style lang="scss" scoped>
 p{padding:0; margin:0;}
 .homeMarket{
-  width: 100%;
+  width: 90%;
   min-height: 80vh;
+  margin: auto;
   margin-bottom: 10vh;
 }
 .galleryNav{
@@ -198,9 +179,9 @@ p{padding:0; margin:0;}
 }
 .homeNFTView{
   display: flex;
-  margin: 4rem;
+  // margin: 4rem;
   border-radius: 25px;
-  padding: 4rem;
+  // padding: 4rem;
   margin: auto;
 }
 .homeNFTView > *{
