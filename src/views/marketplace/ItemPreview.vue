@@ -18,6 +18,9 @@
           <h2 v-if="item.name" style="margin: 20px 0 0 0;">{{item.name}}</h2>
           <h6 v-if="item.artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{item.artist}}</span></h6>
         </div>
+        <div v-if="!item.contractAsset">
+          <b-button class="mintButton" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></b-button>
+        </div>
         <!-- <div class="text-left text-small mt-3">
           <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
         </div> -->
@@ -75,7 +78,9 @@ export default {
       assetHash: null,
       pending: null,
       item: null,
-      message: 'No item available...'
+      message: 'No item available...',
+      contractNameNext: process.env.VUE_APP_STACKS_CONTRACT_NAME_NEXT,
+      showRpay: false
     }
   },
   mounted () {
@@ -119,6 +124,11 @@ export default {
       } else {
         return (null)
       }
+    },
+    startMinting: function () {
+      this.$store.commit(APP_CONSTANTS.SET_RPAY_FLOW, { flow: 'minting-flow' })
+      this.$store.commit('rpayStore/setDisplayCard', 100)
+      this.$bvModal.show('minting-modal')
     },
     fetchItem () {
       if (this.$route.name === 'nft-preview') {
@@ -325,7 +335,7 @@ export default {
   min-width: 175px;
   min-height: 100px;
   right: 0;
-  top: 200px;
+  top: 175px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   span{
@@ -383,7 +393,10 @@ export default {
 }
 .mintButton{
   display: block;
-  width: 140px;
-  margin: auto;
+  padding: 20px 90px;
+  margin: 20px auto;
+  background: #50B1B5;
+  border: none;
+  border-radius: 100px;
 }
 </style>

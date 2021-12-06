@@ -40,14 +40,14 @@
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
             <b-nav-item id="NFT" class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Item" class="galleryNavItem" @click="tabChange('Item')">Your Items</b-nav-item>
+            <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items</b-nav-item>
             <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
             <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item>
           </div>
         </b-nav>
       </div>
       <div v-if="tab === 'NFT' && loopRun" >
-        <MyPageableItems :loopRun="loopRun"/>
+        <MyPageableItems class="galleryContainer row" style="justify-content: space-between" :loopRun="loopRun"/>
         <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center;"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
       </div>
       <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
@@ -62,14 +62,22 @@
             <p style="font-weight: 300;">create your own collection of artworks </p>
           </div>
         </div>
-        <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
-          <div class="yourItems">
-            <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-            <p style="font-size: 1.3em; font-weight: 500;"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
-            <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
+        <div v-for="(item, index) in gaiaAssets" :key="index"  >
+          <div v-if="!item.contractAsset" class="galleryItem">
+            <div class="yourItems">
+              <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
+              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
+            </div>
+          </div>
+          <div v-else class="galleryItem isNFT">
+            <div class="yourItems">
+              <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
+              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
+            </div>
           </div>
         </div>
-
       </div>
       <div v-else-if="tab === 'Fav'">
       </div>
@@ -171,11 +179,11 @@ export default {
       profileInfo: {},
       tab: 'Item',
       pageSize: 20,
-      loopRun: null
+      loopRun: null,
+      filteredAssets: []
     }
   },
   mounted () {
-    this.findAssets()
     let currentRunKey = this.$route.params.collection
     if (!currentRunKey) {
       this.showWalletNfts = true
@@ -193,6 +201,7 @@ export default {
       ga.contractAsset = Object.assign({}, myContractAssets[i])
       this.myNfts.push(ga)
     }
+    this.findAssets()
     this.loaded = true
   },
   watch: {
