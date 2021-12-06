@@ -40,6 +40,7 @@ const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
+const DefaultCollectionMint = () => import('@/views/marketplace/DefaultCollectionMint.vue')
 const UpdateItem = () => import('@/views/marketplace/UpdateItem.vue')
 
 // Application Admin Routes
@@ -132,10 +133,16 @@ const routes: Array<RouteConfig> = [
     components: { default: About, header: MainNavbar, footer: MainFooter },
     meta: { title: 'About - Risidio' }
   },
+  // {
+  //   path: '/create',
+  //   name: 'create',
+  //   components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
+  //   meta: { title: 'Upload your NFT' }
+  // },
   {
     path: '/create',
     name: 'create',
-    components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
+    components: { default: DefaultCollectionMint, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Upload your NFT' }
   },
   {
