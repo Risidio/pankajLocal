@@ -20,18 +20,14 @@
       </b-col>
       <b-col md="9" sm="12" v-else>
         <h1 class="mb-4 border-bottom">Collections</h1>
-        <b-row class="h-auto">
-          <b-col class="mt-5 w-100"  v-for="(loopRun, index) in loopRuns" :key="index">
-            <div>
+        <b-row>
+          <b-col class="m-5  NFTbackgroundColour nftGeneralView"  v-for="(loopRun, index) in loopRuns" :key="index">
               <b-link :to="collectionUrl(loopRun)">
-                <img style="width: 100%; height: 100%;" :src="getImageUrl(loopRun)"  v-b-tooltip.hover="{ variant: 'light' }" :title="'Collection\n' + loopRun.currentRun"/>
-                  <div class=""><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
+                <img  class="itemImg" :src="getImageUrl(loopRun)"/>
+                  <div><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
               </b-link>
-            </div>
-                <div class="py-3 border">
-              <div class="text-small"><b-link class="text-warning" :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey"><span class="text-warning" v-b-tooltip.hover="{ variant: 'warning' }" :title="'View collection in marketplace.'">{{loopRun.tokenCount}} / {{loopRun.versionLimit}}</span></b-link></div>
-              <div class="text-small">by: <b-link class="text-warning" :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey"><span class="text-warning" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Mint new pieces in this collection.'">{{loopRun.makerName}}</span></b-link></div>
-                </div>
+              <div class="text-small"><b-link class="text-warning" :to="'/nft-marketplace/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey"><span class="text-warning" v-b-tooltip.hover="{ variant: 'secondary' }" :title="'View collection in marketplace.'">{{loopRun.tokenCount}} / {{loopRun.versionLimit}}</span></b-link></div>
+              <div class="text-small">by: <b-link class="text-warning" :to="'/nft-marketplace/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey"><span class="text-warning" v-b-tooltip.hover="{ variant: 'secondary' }" :title="'Mint new pieces in this collection.'">{{loopRun.makerName}}</span></b-link></div>
           </b-col>
         </b-row>
       </b-col>
