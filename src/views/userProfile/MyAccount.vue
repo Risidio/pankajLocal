@@ -49,16 +49,27 @@
       <div v-if="tab === 'NFT'">
         <MyPageableItems :loopRun="loopRun"/>
       </div>
-      <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
+      <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
+        <div class="addNewContainer">
+          <router-link to="/create">
+            <p style="font-size: 70px; font-weight: 300; color: grey;">&plus;</p>
+            <p style="font-weight: 500;"> Add new</p>
+            <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
+          </router-link>
+          <div>
+            <p style="font-weight: 500;">Create a collection</p>
+            <p style="font-weight: 300;">create your own collection of artworks </p>
+          </div>
+        </div>
         <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
           <div class="yourItems">
             <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-            <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+            <p style="font-size: 1.3em; font-weight: 500;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
             <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
           </div>
         </div>
       </div>
-      <div v-if="tab === 'Fav'">
+      <div v-else-if="tab === 'Fav'">
 
       </div>
       <div v-else>
@@ -382,6 +393,27 @@ export default {
 .yourItems{
   display: block;
   margin: 25px auto;
+}
+.addNewContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  p{
+    padding: 0;
+    margin: 0;
+  }
+  &>*{
+    padding: 30px;
+    border-radius: 26px;
+    background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
+  }
+  &>*:nth-child(1){
+    flex: 1 1 65%;
+  }
+  &>*:nth-child(2){
+    flex: 1 1 35%;
+  }
 }
 .profileContainer{
   display: flex;
