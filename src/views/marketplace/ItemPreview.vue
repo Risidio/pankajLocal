@@ -1,23 +1,33 @@
 <template>
-<section class="" id="section-minting">
+<section class="itemPreviewSection" id="section-minting">
+  <div class="nFTInfo">
+    <p> <span>Last Update</span> <br/>
+    <span class="spanDate">{{moment(1)}}</span><br>
+     <span class="spanDate1">{{moment(2)}}</span><br>
+      <span class="spanDate">{{moment(3)}}</span></p>
+  </div>
   <b-container class="my-5 pt-5" v-if="!item || !loopRun">
     <h1>{{message}}</h1>
   </b-container>
-  <b-container class="my-3" v-else>
-    <b-row :key="componentKey" style="min-height: 40vh;" >
-      <b-col md="4" sm="12" align-self="start" class="text-center">
-        <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem().artworkFile"/>
-        <div class="text-left text-small mt-3">
-          <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
+  <div class="itemPreviewBody" v-else>
+      <div style="margin-bottom: 20px;"><router-link class="backBtn" to="/my-account"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+    <div :key="componentKey" class="itemPreviewContainer" >
+      <div class = "itemPreviewSubContainer">
+        <div class="itemPreviewNFT">
+          <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem().artworkFile"/>
+          <h2 v-if="item.name" style="margin: 20px 0 0 0;">{{item.name}}</h2>
+          <h6 v-if="item.artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{item.artist}}</span></h6>
         </div>
-      </b-col>
-      <b-col md="8" sm="12" align-self="start" class="mb-4 text-black">
+        <!-- <div class="text-left text-small mt-3">
+          <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
+        </div> -->
+      </div>
+      <div class="itemPreviewContainerDetails">
         <div>
           <div class="mb-2 d-flex justify-content-between">
             <h2 class="d-block border-bottom mb-5">{{mintedMessage}}</h2>
             <ItemActionMenu :item="item" :loopRun="loopRun"/>
           </div>
-          <h6 v-if="item.artist" class="text-small">By : {{item.artist}}</h6>
         </div>
         <p v-if="item.description" class="pt-4 text-small" v-html="preserveWhiteSpace(item.description)"></p>
         <MintInfo :item="item" :loopRun="loopRun"/>
@@ -28,9 +38,10 @@
         <div>
           <NftHistory class="mt-5" @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
         </div>
-      </b-col>
-    </b-row>
-  </b-container>
+
+      </div>
+    </div>
+  </div>
 </section>
 </template>
 
@@ -42,6 +53,7 @@ import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-h
 import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
 import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
 import MintingTools from '@/views/marketplace/components/toolkit/MintingTools'
+import moment from 'moment'
 
 export default {
   name: 'ItemPreview',
@@ -94,6 +106,20 @@ export default {
     }
   },
   methods: {
+    moment: function (val) {
+      const month = moment(this.item.updated).format('MMMM')
+      const day = moment(this.item.updated).format('Do')
+      const year = moment(this.item.updated).format('YYYY')
+      if (val === 1) {
+        return (month)
+      } else if (val === 2) {
+        return (day)
+      } else if (val === 3) {
+        return (year)
+      } else {
+        return (null)
+      }
+    },
     fetchItem () {
       if (this.$route.name === 'nft-preview') {
         const data = { contractId: this.contractId, nftIndex: Number(this.$route.params.nftIndex) }
@@ -186,7 +212,8 @@ export default {
         return this.loopRun.currentRun + ' #' + this.item.contractAsset.nftIndex
       }
       if (this.item.contractAsset) {
-        return '#' + this.item.contractAsset.nftIndex + ' ' + this.item.name
+        // return '#' + this.item.contractAsset.nftIndex + ' ' + this.item.name
+        return this.item.name
       }
       return this.item.name
     },
@@ -277,9 +304,86 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #minting-modal .modal-content {
   border: none !important;
   background-color: transparent !important;
+}
+.itemPreviewSection{
+  max-width: 1600px;
+  display: block;
+  margin: auto;
+  padding: 3%;
+  background-color: white;
+  height: 70vh;
+}
+.nFTInfo{
+  position: absolute;
+  background-color: #5154A1;
+  color: white;
+  padding: 10px 0 10px 30px;
+  min-width: 175px;
+  min-height: 100px;
+  right: 0;
+  top: 200px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  span{
+    color: white !important;
+    font-size: bolder;
+  }
+  .spanDate{
+    font-weight: 100;
+    font-size: 13px;
+  }
+  .spanDate1{
+    font-weight: 500;
+    font-size: 20px;
+  }
+}
+
+.itemPreviewSubContainer{
+  max-width: 500px;
+}
+.backBtn{
+  color: rgb(0, 0, 138);
+  font-weight: 700;
+}
+.assetArtist{
+  font-weight: 400;
+  font-size: 16px;
+}
+.assetName{
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+.itemPreviewBody{
+  margin-top: 100px;
+}
+.itemPreviewContainer{
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 60px; */
+}
+.itemPreviewContainer >*{
+  margin: 0 auto;
+  flex: 1 1 400px;
+}
+.itemPreviewContainerDetails{
+  max-width: 900px;
+}
+.itemPreviewNFT{
+  margin: auto;
+  max-width: 320px;
+  min-height: 400px;
+  padding: 30px;
+  background-color: #8181813f;
+  border-radius: 30px;
+}
+.mintButton{
+  display: block;
+  width: 140px;
+  margin: auto;
 }
 </style>
