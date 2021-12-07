@@ -5,9 +5,9 @@
                 <div class="galleryCollections">
                     <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div class="collectionsMenu">
-                        <!-- <a href="#">Collection 1</a>
-                        <a href="#">Collection 3</a> -->
-                        <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
+                        <div class="ml-5">
+                          <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
+                        </div>
                     </div>
                 </div>
                 <hr class="hr"/>
@@ -49,8 +49,8 @@
                 <hr/>
                     <div style="width: 100%" v-if="loaded">
                                 <!-- <h1 class="text-black">NFT Gallery</h1> -->
-                                <div style=" display: flex; width: 95%; margin:auto;" class="row mb-4">
-                                    <div style="display: flex;" v-for="(item, index) in gaiaAssets" :key="index">
+                                <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
+                                    <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in gaiaAssets" :key="index">
                                         <GalleryNft :item="item"/>
                                     </div>
                                 </div>
@@ -90,12 +90,14 @@ export default {
   data () {
     return {
       resultSet: [],
-      loaded: false,
-      placeHolderItems: []
+      loaded: true,
+      currentRunKey: 'launch_collection_t1'
+      // placeHolderItems: []
     }
   },
   mounted () {
-    this.generateData()
+    // this.generateData()
+    this.fetchCollections()
     this.findAssets()
   },
   methods: {
@@ -138,12 +140,27 @@ export default {
       for (let i = 0; i < 20; ++i) {
         this.placeHolderItems.push(array)
       }
+    },
+    fetchCollections () {
+      const data = {
+        runKey: (this.currentRunKey === null) ? 'launch_collection_t1' : this.currentRunKey
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractIdAndRunKey', data).then((result) => {
+        this.resultSet = result.gaiaAssets
+      })
+    },
+    setCurrentRunKey (result) {
+      this.currentRunKey = result
     }
   },
   computed: {
     gaiaAssets () {
       const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
       return (assets) ? assets.reverse() : []
+    },
+    selectCollection () {
+      const collections = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      return collections
     }
   }
 }
