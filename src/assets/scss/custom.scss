@@ -429,6 +429,9 @@ select {
 .galleryItem.isNFT{
   background: rgba(80, 177, 181, 0.12) 0% 0% no-repeat padding-box;
 }
+.galleryItem.onSale{
+  background: rgba(81, 84, 161, 0.23) 0% 0% no-repeat padding-box;
+}
 .itemImg{
   display: block;
   width: 270px;
@@ -501,6 +504,27 @@ select {
   text-align: center;
   border-radius: 0px;
   color: #fff;
+}
+.addNewContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  p{
+    padding: 0;
+    margin: 0;
+  }
+  &>*{
+    padding: 30px;
+    border-radius: 26px;
+    background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
+  }
+  &>*:nth-child(1){
+    flex: 1 1 65%;
+  }
+  &>*:nth-child(2){
+    flex: 1 1 35%;
+  }
 }
 .prismic-image {
   max-width: 550px;
