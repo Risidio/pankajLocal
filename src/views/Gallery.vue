@@ -6,7 +6,7 @@
                     <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div class="collectionsMenu">
                         <div class="ml-5">
-                          <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
+                          <CollectionSidebar :allowUploads="false" @update="update"/>
                         </div>
                     </div>
                 </div>
