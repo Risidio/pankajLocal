@@ -49,7 +49,7 @@
       <div v-if="tab === 'NFT' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun"/>
-          <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center;"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
+          <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
         </div>
 
       </div>
@@ -82,6 +82,15 @@
           </div>
         </div>
       </div>
+      <div v-else-if="gaiaNFTSaleItem.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
+        <div v-for="(item, index) in gaiaNFTSaleItem" :key="index" class="galleryItem onSale">
+            <div class="yourItems">
+              <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
+              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
+            </div>
+        </div>
+      </div>
       <div v-else-if="tab === 'Fav'">
       </div>
       <div v-else>
@@ -93,63 +102,6 @@
           </div>
         </div>
       </div>
-        <!-- <b-container class="filesContainer galleryNav" v-if="loaded">
-           <h1>My Library</h1>
-          <b-tabs justified content-class="filesSubContainer">
-            <b-tab :title="'NFTs (' + hasNfts + ')'" active>
-              <p class="filesSubSubContainer">NFTs you currently own - these may be files you
-                uploaded and minted and still own or NFTs you bought from other
-                users or that were transferred to you. They also include editions
-                of NFT files you minted.</p>
-              <b-row>
-                <b-col class="text-center" v-for="(myNft, index1) in myNfts" :key="index1" lg="3" md="4" sm="6" xs="12">
-                  <MySingleNft class="mb-2" :item="myNft" :token="myTokens[index1]"/>
-                </b-col>
-              </b-row>
-            </b-tab>
-            <b-tab :title="'Uploads'">
-              <p class="mt-4">Files you uploaded to your Gaia storage bucket.</p>
-              <p>If you minted them (to create NFTs) you may also have
-                sold or transferred the NFT to another wallet. </p>
-              <b-row>
-                <b-col v-for="(gaiaAsset, index) in gaiaAssets" :key="index" lg="3" md="6" sm="6" xs="12">
-                  <MySingleNft class="mb-2" :item="gaiaAsset"/>
-                </b-col>
-              </b-row>
-            </b-tab>
-            <b-tab :title="'Your NFTs in auction'">
-              <p class="mt-4">Files you uploaded to your Gaia storage bucket.</p>
-              <p>If you minted them (to create NFTs) you may also have
-                sold or transferred the NFT to another wallet. </p>
-              <b-row>
-                <b-col v-for="(gaiaAsset, index) in gaiaAssets" :key="index" lg="3" md="6" sm="6" xs="12">
-                  <div v-if="gaiaAsset.saleData.biddingEndTime !== 0">
-                  <MySingleNft class="mb-2" :item="gaiaAsset"/>
-                  </div>
-                </b-col>
-              </b-row>
-            </b-tab>
-            <b-tab :title="'NTFs On Sale'">
-              <p class="mt-4">Files you uploaded to your Gaia storage bucket.</p>
-              <p>If you minted them (to create NFTs) you may also have
-                sold or transferred the NFT to another wallet. </p>
-              <b-row>
-                <b-col v-for="(gaiaAsset, index) in gaiaAssets" :key="index" lg="3" md="6" sm="6" xs="12">
-                  <div v-if="gaiaAsset.saleData.saleType == 1">
-                    <MySingleNft class="mb-2" :item="gaiaAsset"/>
-                  </div>
-                </b-col>
-              </b-row>
-            </b-tab>
-          <router-link to="/" class="wantMore"><span>Want More? See The Gallery</span></router-link></b-tabs>
-        </b-container>
-        <div class="container" style="min-height: 85vh;" v-else>
-          <b-container class="mt-5">
-            <h1>No NFTs</h1>
-            <p>Upload a file and mint it to create your first NFT</p>
-          </b-container>
-        </div>-->
-
     </div>
   </div>
 </template>
@@ -341,6 +293,14 @@ export default {
       const gaiaAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEMS]
       return gaiaAssets
     },
+    filteredNFTGaia () {
+      const filteredGaia = this.gaiaAssets.filter(assets => assets.contractAsset !== null)
+      return filteredGaia
+    },
+    gaiaNFTSaleItem () {
+      const saleItem = this.filteredNFTGaia.filter(assets => assets.contractAsset.saleData.buyNowOrStartingPrice !== 0)
+      return saleItem
+    },
     hasNfts () {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
       return myContractAssets && myContractAssets.length
@@ -422,27 +382,7 @@ export default {
   display: block;
   margin: 25px auto;
 }
-.addNewContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
-  p{
-    padding: 0;
-    margin: 0;
-  }
-  &>*{
-    padding: 30px;
-    border-radius: 26px;
-    background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
-  }
-  &>*:nth-child(1){
-    flex: 1 1 65%;
-  }
-  &>*:nth-child(2){
-    flex: 1 1 35%;
-  }
-}
+
 .profileContainer{
   display: flex;
   justify-content: space-between;
