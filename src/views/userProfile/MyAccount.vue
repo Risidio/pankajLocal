@@ -42,7 +42,7 @@
             <b-nav-item id="NFT" class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
             <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items</b-nav-item>
             <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
-            <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item>
+            <!-- <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item> -->
           </div>
         </b-nav>
       </div>
@@ -91,8 +91,8 @@
             </div>
         </div>
       </div>
-      <div v-else-if="tab === 'Fav'">
-      </div>
+      <!-- <div v-else-if="tab === 'Fav'">
+      </div> -->
       <div v-else>
         <div class="noNFT">
         <h3> You do not own any Items yet</h3>
@@ -227,7 +227,7 @@ export default {
       document.getElementById('NFT').classList.remove('active')
       document.getElementById('Item').classList.remove('active')
       document.getElementById('Sale').classList.remove('active')
-      document.getElementById('Fav').classList.remove('active')
+      // document.getElementById('Fav').classList.remove('active')
       document.getElementById(tab).classList.add('active')
       console.log(this.tab)
     },
