@@ -1,16 +1,7 @@
 <template>
 <div v-if="asset">
-  <b-card class="galleryItem" style="margin: 40px 0; width: 320px;" >
-    <div class="px-2">
-      <div class="text-left">
-
-        <div class="text-small d-flex justify-content-between">
-          <div class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
-          <div class="text-right">{{created()}}</div>
-        </div>
-      </div>
-    </div>
-    <b-card-text class="">
+  <div class="galleryItem" >
+    <b-card-text style="margin: 20px auto;" class="">
       <b-link class="text-xsmall text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="">
             <img
@@ -18,8 +9,14 @@
               class="itemImg"
               :src="image" @error="imageError()"/>
         </div>
+            <div class="text-left">
+              <div   class="text-small d-flex justify-content-between">
+                <div  class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
+                <div  class="text-right">{{created()}}</div>
+              </div>
+            </div>
       </b-link>
-      <p style="font-size: 1.5em; font-weight:500; margin: 15px 0 0 0; padding: 0;" class="overflow-hidden text-bold">{{mintedMessage}}</p>
+      <p style="font-size: 1.5em; font-weight:500; margin: 15px 0 0 0; padding: 0;" class="overflow-hidden text-bold">{{this.asset.name}}</p>
       <p style="margin: 0; padding: 0;"> By: <span style="font-weight: 500">{{asset.artist}}</span></p>
     </b-card-text>
     <b-card-text>
@@ -49,7 +46,7 @@
         </div> -->
       </div>
     </b-card-text>
-  </b-card>
+  </div>
 </div>
 </template>
 

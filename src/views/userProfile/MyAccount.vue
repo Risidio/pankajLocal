@@ -46,9 +46,12 @@
           </div>
         </b-nav>
       </div>
-      <div v-if="tab === 'NFT' && loopRun" >
-        <MyPageableItems class="galleryContainer row" style="justify-content: space-between" :loopRun="loopRun"/>
-        <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center;"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
+      <div v-if="tab === 'NFT' && loopRun" class="">
+        <div>
+          <MyPageableItems :loopRun="loopRun"/>
+          <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center;"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
+        </div>
+
       </div>
       <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div class="addNewContainer">
