@@ -1,65 +1,95 @@
 <template>
-<div class="pt-5" v-if="loopRun && loopRun.status !== 'disabled'">
-  <b-container :key="componentKey" fluid id="my-nft-tabs" class="">
-    <b-row id="video-column">
-      <b-col md="2" sm="12">
-        <h1 class="mb-5">All Collections</h1>
-        <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
-      </b-col>
-      <b-col md="10" sm="12">
-        <div v-if="!showSearch">
-          <h1 class="mb-4 border-bottom">{{loopRun.currentRun}}</h1>
-          <b-row class="mb-4" align-v="stretch" style="min-height: 150px;" v-if="showCollectionData">
-            <b-col cols="3" class="">
-              <div class="d-flex justify-content-start">
-                <img width="100%" :src="getCollectionImageUrl(loopRun)" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Collection\n' + loopRun.currentRun"/>
-              </div>
-            </b-col>
-            <b-col cols="9" class="" align-self="end">
-                <div class="">
-                  <div v-if="loopRun.type === 'punks'"><b-link :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey">{{loopRun.versionLimit - loopRun.tokenCount}} still available</b-link></div>
-                  <div v-else>{{numbTokens}} artworks</div>
-                  <div>by: <span class="text-warning">{{loopRun.makerName}}</span></div>
+    <section class="mainGallery">
+        <div class="mainGalleryContainer">
+            <div class="mainGallerySidebar">
+                <div class="galleryCollections">
+                    <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                    <div class="collectionsMenu">
+                        <div class="ml-5">
+                          <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
+                        </div>
+                    </div>
                 </div>
-            </b-col>
-          </b-row>
-          <b-row class="">
-            <b-col>
-              <div class="mb-4 border-bottom d-flex justify-content-between">
-                <h1 class="">NFTs</h1>
-                <div><SearchBar :displayClass="'text-small d-flex justify-content-end'" @updateResults="updateResults" :mode="loopRun.type"/></div>
-              </div>
-            </b-col>
-          </b-row>
+                <hr class="hr"/>
+                <div class="galleryCategory">
+                <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                    <div class="galleryCategories">
+                        <a href="#">Category 1</a>
+                        <a href="#">Category 2</a>
+                        <a href="#">Category 3</a>
+                        <a href="#">Category 4</a>
+                        <a href="#">Category 5</a>
+                    </div>
+                </div>
+                <hr class="hr"/>
+            </div>
+            <div class="mainGalleryBody">
+                <div class="filter">
+                    <div>
+                        <p class="view">View</p>
+                        <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div class="galleryCategories">
+                            <a href="#">Category 1</a>
+                            <a href="#">Category 2</a>
+                            <a href="#">Category 3</a>
+                            <a href="#">Category 4</a>
+                            <a href="#">Category 5</a>
+                        </div>
+                        <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div class="galleryCategories">
+                            <a href="#">Category 1</a>
+                            <a href="#">Category 2</a>
+                            <a href="#">Category 3</a>
+                            <a href="#">Category 4</a>
+                            <a href="#">Category 5</a>
+                        </div>
+                    </div>
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                </div>
+                <hr/>
+                    <div style="width: 100%" v-if="!showSearch">
+                                <!-- <h1 class="text-black">NFT Gallery</h1> -->
+                    <div :key="searchKey" class="mb-4" v-if="loopRun && (loopRun.status === 'unrevealed' || loopRun.status === 'active' || loopRun.status === 'inactive')">
+                                <PageableGallery @tokenCount="tokenCount" :defQuery="defQuery" :loopRun="loopRun"/>
+                              </div>
+                              <div class="mb-4" v-else-if="loopRun && loopRun.status === 'unrevealed'">
+                                <p v-if="loopRun.type === 'punks'"><b-link :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey">{{loopRun.currentRun}} artwork available - mint here!</b-link></p>
+                              </div>
+                        </div>
+                      <div class="container" style="min-height: 85vh;" v-else>
+                            <b-container class="text-black mt-5">
+                                <h1>No Gallery NFTs</h1>
+                                <p>Our Gallery is coming online soon - please come back soon...</p>
+                            </b-container>
+                        </div>
+                <!-- <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
+                    <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
+                        <div>
+                            <img :src="item.coverImage" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/>
+                            <div class="itemHover">
+                                <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                                <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
         </div>
-        <div :key="searchKey" class="mb-4" v-if="loopRun && (loopRun.status === 'unrevealed' || loopRun.status === 'active' || loopRun.status === 'inactive')">
-          <PageableItems @tokenCount="tokenCount" :defQuery="defQuery" :loopRun="loopRun"/>
-        </div>
-        <div class="mb-4" v-else-if="loopRun && loopRun.status === 'unrevealed'">
-          <p v-if="loopRun.type === 'punks'"><b-link :to="'/punk-minter/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey">{{loopRun.currentRun}} artwork available - mint here!</b-link></p>
-        </div>
-      </b-col>
-    </b-row>
-  </b-container>
-</div>
-<b-container v-else>
-  Collection not found.
-  <span v-if="loopRun && loopRun.status === 'disabled'">This collection can't be shown at the present time.</span>
-</b-container>
+    </section>
 </template>
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import PageableItems from '@/views/marketplace/components/gallery/PageableItems'
-import SearchBar from '@/views/marketplace/components/gallery/SearchBar'
+import PageableGallery from '@/views/marketplace/components/gallery/PageableGallery'
+// import SearchBar from '@/views/marketplace/components/gallery/SearchBar'
 import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
 import Vue from 'vue'
 
 export default {
   name: 'NftCollection',
   components: {
-    PageableItems,
-    SearchBar,
+    PageableGallery,
+    // SearchBar,
     CollectionSidebar
   },
   watch: {
@@ -103,6 +133,12 @@ export default {
     }, this)
   },
   methods: {
+    showCollections () {
+      const collection = document.getElementsByClassName('collectionsMenu')[0]
+      const arrow = document.getElementsByClassName('arrow1')[0]
+      collection.classList.toggle('active')
+      arrow.classList.toggle('active')
+    },
     tokenCount (data) {
       this.numbTokens = data.numbTokens
     },
@@ -154,4 +190,116 @@ export default {
 
 <style lang="scss" scoped>
   *{color: black}
+  .mainGalleryContainer{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+.mainGalleryContainer .mainGallerySidebar{
+    flex: 1 1 15%;
+    min-width: 200px;
+}
+.mainGalleryContainer .mainGalleryBody{
+    flex: 1 1 85%;
+    padding: 1% 5%;
+}
+.filter{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    width: 100%;
+}
+.filter >*:nth-child(1){
+    flex: 1 1 500px;
+    display: flex;
+}
+.filter >*:nth-child(2){
+    flex: 1 1 500px;
+}
+.search{
+    margin: 20px 0 0 30px;
+    padding: 10px 10px 10px 50px;
+    border: 0;
+    border-left: solid 0.5px rgb(196, 196, 196);
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 300;
+}
+.mainGallerySidebar{
+    background: #F5F5F5;
+}
+.galleryCollections, .galleryCategory{
+  position: relative;
+  display: inline-block;
+  min-height: 50px;
+}
+.collectionsButton{
+  margin: 20px 0 0 20px;
+  background-color: transparent;
+  color: rgb(49, 49, 49);
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+}
+
+.view{
+    margin: 20px 0 0 0;
+    padding: 16px 0;
+}
+.collectionsMenu, .galleryCategories{
+  display: none;
+  background: transparent;
+  min-width: 160px;
+  z-index: 1;
+    a {
+    margin-left: 35px;
+    font-size: 15px;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background: transparent
+    }
+    a:hover{
+        font-weight: 500;
+        color: #5FBDC1;
+    }
+}
+.galleryCollections .collectionsMenu.active, .galleryCategory .galleryCategories.active{
+    display: block;
+}
+.arrow1, .arrow2{
+    margin-left: 80px;
+    width: 12px;
+    height: 12px;
+    transform: rotate(90deg)
+}
+.arrow1.active, .arrow2.active{
+    transform: rotate(180deg)
+}
+.galleryContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+.galleryItem{
+    flex: 1 1 250px;
+    margin: 50px auto 0 auto;
+    max-width: 250px;
+}
+.galleryItem:hover{
+    .itemHover{
+        display:block;
+    }
+}
+.itemHover{
+    position: absolute;
+    width: 250px;
+    margin-top: -100px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    display: none;
+    padding: 5px;
+}
 </style>
